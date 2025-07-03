@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { Search, FileText, Building, Users, Map, Settings, Leaf, TreePine, Recycle, Zap, Wind, Droplets } from 'lucide-react';
+import { Search, FileText, Building, Users, Map, Settings, Leaf, TreePine, Recycle, Zap, Wind, Droplets, ArrowLeft } from 'lucide-react';
 
 const ServicesSection = () => {
   const services = [
