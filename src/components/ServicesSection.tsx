@@ -1,48 +1,64 @@
 
 import React from 'react';
-import { Search, FileText, Building, Users, Map, Settings } from 'lucide-react';
+import { Search, FileText, Building, Users, Map, Settings, Leaf, TreePine, Recycle, Zap, Wind, Droplets } from 'lucide-react';
 
 const ServicesSection = () => {
   const services = [
     {
       icon: Search,
-      title: 'خدمة الاستعلام عن المخططات',
-      description: 'استعلم عن المخططات العمرانية المعتمدة وحالة المشاريع الجارية'
+      title: 'استعلام عن المخططات البيئية',
+      description: 'استعلم عن المخططات العمرانية المستدامة والمشاريع الخضراء المعتمدة',
+      color: 'bg-green-500',
+      accentColor: 'bg-green-100'
     },
     {
-      icon: FileText,
-      title: 'طلب تحديث المخططات',
-      description: 'قدم طلبك لتحديث أو تعديل المخططات العمرانية الحالية'
+      icon: TreePine,
+      title: 'تخطيط المساحات الخضراء',
+      description: 'خدمات تخطيط وتصميم الحدائق والمساحات الخضراء في المدن',
+      color: 'bg-emerald-500',
+      accentColor: 'bg-emerald-100'
     },
     {
-      icon: Building,
-      title: 'التقديم على مشروع عمراني',
-      description: 'اتبع الإجراءات الرسمية للتقديم على المشاريع العمرانية الجديدة'
+      icon: Zap,
+      title: 'استشارات الطاقة المتجددة',
+      description: 'الحصول على استشارات متخصصة في دمج أنظمة الطاقة المتجددة',
+      color: 'bg-green-600',
+      accentColor: 'bg-green-100'
     },
     {
-      icon: Users,
-      title: 'الاستشارات التخطيطية',
-      description: 'احصل على استشارات متخصصة من خبراء التخطيط العمراني'
+      icon: Recycle,
+      title: 'إدارة النفايات المستدامة',
+      description: 'خدمات تخطيط وتطوير أنظمة إدارة النفايات وإعادة التدوير',
+      color: 'bg-teal-500',
+      accentColor: 'bg-teal-100'
     },
     {
-      icon: Map,
-      title: 'خرائط ومعلومات جغرافية',
-      description: 'اطلع على الخرائط التفاعلية والمعلومات الجغرافية المحدثة'
+      icon: Wind,
+      title: 'تقييم الأثر البيئي',
+      description: 'تقييم شامل للأثر البيئي للمشاريع العمرانية والتنموية',
+      color: 'bg-green-700',
+      accentColor: 'bg-green-100'
     },
     {
-      icon: Settings,
-      title: 'الخدمات الرقمية',
-      description: 'استفد من منصتنا الرقمية لإنجاز معاملاتك إلكترونياً'
+      icon: Droplets,
+      title: 'إدارة الموارد المائية',
+      description: 'خدمات تخطيط وإدارة الموارد المائية والري المستدام',
+      color: 'bg-blue-500',
+      accentColor: 'bg-blue-100'
     }
   ];
 
   return (
-    <section id="services" className="py-16 bg-gray-50" dir="rtl">
+    <section id="services" className="py-20 bg-gradient-to-b from-white to-green-50" dir="rtl">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h3 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">خدماتنا</h3>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            نقدم مجموعة شاملة من الخدمات التخطيطية والاستشارية لخدمة المواطنين والمؤسسات
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center space-x-2 space-x-reverse bg-green-100 rounded-full px-6 py-2 mb-6">
+            <Leaf className="w-5 h-5 text-green-600" />
+            <span className="text-green-700 font-medium">خدماتنا البيئية</span>
+          </div>
+          <h3 className="text-4xl md:text-5xl font-bold text-green-800 mb-6">خدمات التخطيط المستدام</h3>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            نقدم مجموعة شاملة من الخدمات البيئية والاستشارية لبناء مدن مستدامة وصديقة للبيئة
           </p>
         </div>
 
@@ -50,25 +66,45 @@ const ServicesSection = () => {
           {services.map((service, index) => (
             <div 
               key={index}
-              className="bg-white p-6 rounded-xl shadow-lg hover-lift group cursor-pointer"
+              className="modern-card p-8 group cursor-pointer hover-lift"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 text-blue-600 rounded-xl mb-4 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
-                <service.icon size={24} />
+              <div className="flex items-center justify-between mb-6">
+                <div className={`inline-flex items-center justify-center w-16 h-16 ${service.color} rounded-2xl group-hover:scale-110 transition-all duration-300 shadow-lg`}>
+                  <service.icon size={28} className="text-white" />
+                </div>
+                <div className={`w-3 h-3 ${service.color} rounded-full animate-pulse`}></div>
               </div>
-              <h4 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-blue-900 transition-colors">
+              
+              <h4 className="text-xl font-bold text-gray-800 mb-4 group-hover:text-green-700 transition-colors">
                 {service.title}
               </h4>
-              <p className="text-gray-600 leading-relaxed">
+              
+              <p className="text-gray-600 leading-relaxed mb-6">
                 {service.description}
               </p>
-              <div className="mt-4 pt-4 border-t border-gray-100">
-                <span className="text-blue-600 font-medium group-hover:text-blue-800 transition-colors">
-                  ابدأ الآن ←
+              
+              <div className="flex items-center justify-between">
+                <span className="text-green-600 font-bold group-hover:text-green-700 transition-colors">
+                  ابدأ الآن
                 </span>
+                <div className={`p-2 ${service.accentColor} rounded-lg group-hover:scale-110 transition-transform`}>
+                  <ArrowLeft size={16} className="text-green-600 group-hover:-translate-x-1 transition-transform" />
+                </div>
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="text-center mt-16">
+          <div className="inline-flex items-center space-x-4 space-x-reverse">
+            <button className="bg-green-600 text-white px-8 py-4 rounded-full font-bold hover:bg-green-700 transition-all duration-300 hover:transform hover:scale-105 shadow-lg">
+              استكشف جميع الخدمات
+            </button>
+            <button className="border-2 border-green-600 text-green-600 px-8 py-4 rounded-full font-bold hover:bg-green-600 hover:text-white transition-all duration-300">
+              تواصل معنا
+            </button>
+          </div>
         </div>
       </div>
     </section>

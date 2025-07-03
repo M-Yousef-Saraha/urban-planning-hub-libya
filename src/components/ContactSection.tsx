@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Send, Phone, Mail, MapPin, Clock } from 'lucide-react';
+import { Send, Phone, Mail, MapPin, Clock, Leaf, TreePine } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const ContactSection = () => {
@@ -13,7 +13,6 @@ const ContactSection = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
     toast({
       title: "تم إرسال الرسالة بنجاح",
       description: "سيتم الرد عليك في أقرب وقت ممكن",
@@ -32,42 +31,62 @@ const ContactSection = () => {
     {
       icon: Phone,
       title: 'الهاتف',
-      details: ['+218 21 123 4567', '+218 21 765 4321']
+      details: ['+218 21 123 4567', '+218 21 765 4321'],
+      color: 'bg-green-500'
     },
     {
       icon: Mail,
       title: 'البريد الإلكتروني',
-      details: ['info@urbanplanning.ly', 'contact@urbanplanning.ly']
+      details: ['info@urbanplanning.ly', 'green@urbanplanning.ly'],
+      color: 'bg-emerald-500'
     },
     {
       icon: MapPin,
       title: 'العنوان',
-      details: ['شارع الجمهورية، طرابلس', 'ليبيا - صندوق بريد 12345']
+      details: ['شارع الجمهورية، طرابلس', 'ليبيا - صندوق بريد 12345'],
+      color: 'bg-green-600'
     },
     {
       icon: Clock,
       title: 'أوقات العمل',
-      details: ['السبت - الخميس: 8:00 - 16:00', 'الجمعة: مغلق']
+      details: ['السبت - الخميس: 8:00 - 16:00', 'الجمعة: مغلق'],
+      color: 'bg-teal-500'
     }
   ];
 
   return (
-    <section id="contact" className="py-16 bg-gray-50" dir="rtl">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h3 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">اتصل بنا</h3>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            نحن هنا للإجابة على استفساراتكم وتقديم المساعدة في جميع الأوقات
+    <section id="contact" className="py-20 bg-gradient-to-b from-green-50 to-white relative overflow-hidden" dir="rtl">
+      {/* Background Elements */}
+      <div className="absolute inset-0 opacity-5">
+        <TreePine className="absolute top-20 right-20 w-32 h-32 text-green-600" />
+        <Leaf className="absolute bottom-32 left-32 w-24 h-24 text-green-600" />
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center space-x-2 space-x-reverse bg-green-100 rounded-full px-6 py-2 mb-6">
+            <Leaf className="w-5 h-5 text-green-600" />
+            <span className="text-green-700 font-medium">تواصل معنا</span>
+          </div>
+          <h3 className="text-4xl md:text-5xl font-bold text-green-800 mb-6">اتصل بنا</h3>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            نحن هنا للإجابة على استفساراتكم حول مشاريعنا البيئية وتقديم المساعدة في تطوير المدن المستدامة
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div className="bg-white rounded-2xl shadow-lg p-8">
-            <h4 className="text-2xl font-bold text-gray-800 mb-6">أرسل لنا رسالة</h4>
+          <div className="modern-card p-10">
+            <div className="flex items-center space-x-3 space-x-reverse mb-8">
+              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                <Send className="w-6 h-6 text-green-600" />
+              </div>
+              <h4 className="text-2xl font-bold text-green-800">أرسل لنا رسالة</h4>
+            </div>
+            
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="name" className="block text-sm font-bold text-green-700 mb-3">
                   الاسم الكامل
                 </label>
                 <input
@@ -77,13 +96,13 @@ const ContactSection = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-4 border-2 border-green-100 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-green-50/50"
                   placeholder="أدخل اسمك الكامل"
                 />
               </div>
               
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="email" className="block text-sm font-bold text-green-700 mb-3">
                   البريد الإلكتروني
                 </label>
                 <input
@@ -93,14 +112,14 @@ const ContactSection = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-4 border-2 border-green-100 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-green-50/50"
                   placeholder="أدخل بريدك الإلكتروني"
                 />
               </div>
               
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                  الرسالة أو الشكوى
+                <label htmlFor="message" className="block text-sm font-bold text-green-700 mb-3">
+                  الرسالة أو الاستفسار
                 </label>
                 <textarea
                   id="message"
@@ -108,15 +127,15 @@ const ContactSection = () => {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  rows={5}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
+                  rows={6}
+                  className="w-full px-4 py-4 border-2 border-green-100 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 resize-none bg-green-50/50"
                   placeholder="اكتب رسالتك هنا..."
                 />
               </div>
               
               <button
                 type="submit"
-                className="w-full bg-blue-900 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-800 transition-all duration-300 flex items-center justify-center space-x-2 space-x-reverse group"
+                className="w-full bg-green-600 text-white px-6 py-4 rounded-xl font-bold text-lg hover:bg-green-700 transition-all duration-300 flex items-center justify-center space-x-3 space-x-reverse group shadow-lg hover:shadow-xl"
               >
                 <Send size={20} className="group-hover:translate-x-1 transition-transform" />
                 <span>إرسال الرسالة</span>
@@ -129,17 +148,17 @@ const ContactSection = () => {
             {contactInfo.map((info, index) => (
               <div 
                 key={index}
-                className="bg-white rounded-xl shadow-lg p-6 hover-lift"
+                className="modern-card p-8 hover-lift group"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="flex items-start space-x-4 space-x-reverse">
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex-shrink-0">
-                    <info.icon size={20} />
+                  <div className={`inline-flex items-center justify-center w-14 h-14 ${info.color} rounded-2xl flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                    <info.icon size={24} className="text-white" />
                   </div>
-                  <div>
-                    <h5 className="text-lg font-semibold text-gray-800 mb-2">{info.title}</h5>
+                  <div className="flex-1">
+                    <h5 className="text-xl font-bold text-green-800 mb-3">{info.title}</h5>
                     {info.details.map((detail, idx) => (
-                      <p key={idx} className="text-gray-600 mb-1">{detail}</p>
+                      <p key={idx} className="text-gray-600 mb-2 leading-relaxed">{detail}</p>
                     ))}
                   </div>
                 </div>
