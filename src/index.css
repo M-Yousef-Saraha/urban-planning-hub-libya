@@ -18,24 +18,24 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 142 76% 36%;
-    --primary-foreground: 142 76% 96%;
+    --primary: 142 45% 28%;
+    --primary-foreground: 142 45% 96%;
 
-    --secondary: 142 20% 96%;
-    --secondary-foreground: 142 76% 16%;
+    --secondary: 142 15% 94%;
+    --secondary-foreground: 142 45% 18%;
 
-    --muted: 142 20% 96%;
-    --muted-foreground: 142 16% 46%;
+    --muted: 142 15% 94%;
+    --muted-foreground: 142 12% 46%;
 
-    --accent: 142 20% 96%;
-    --accent-foreground: 142 76% 16%;
+    --accent: 142 15% 94%;
+    --accent-foreground: 142 45% 18%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 142 31% 91%;
-    --input: 142 31% 91%;
-    --ring: 142 76% 36%;
+    --border: 142 20% 88%;
+    --input: 142 20% 88%;
+    --ring: 142 45% 28%;
 
     --radius: 0.5rem;
 
@@ -56,8 +56,8 @@ All colors MUST be HSL.
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 142 76% 56%;
-    --primary-foreground: 142 76% 6%;
+    --primary: 142 45% 48%;
+    --primary-foreground: 142 45% 8%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
@@ -149,17 +149,17 @@ html {
   animation: float 3s ease-in-out infinite;
 }
 
-/* Green gradient backgrounds */
+/* Softer green gradient backgrounds */
 .gradient-green {
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+  background: linear-gradient(135deg, #16a085 0%, #148f76 50%, #0f6b5a 100%);
 }
 
 .gradient-green-light {
-  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+  background: linear-gradient(135deg, #e8f5f0 0%, #d1f2e8 100%);
 }
 
 .gradient-emerald {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: linear-gradient(135deg, #16a085 0%, #138a70 100%);
 }
 
 /* Glass effect */
@@ -194,12 +194,12 @@ html {
 
 /* Eco-friendly patterns */
 .leaf-pattern {
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2322c55e' fill-opacity='0.05'%3E%3Cpath d='M30 30c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20zm0 0c0 11.046 8.954 20 20 20s20-8.954 20-20-8.954-20-20-20-20 8.954-20 20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2316a085' fill-opacity='0.03'%3E%3Cpath d='M30 30c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20zm0 0c0 11.046 8.954 20 20 20s20-8.954 20-20-8.954-20-20-20-20 8.954-20 20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
 /* Enhanced typography */
 .text-gradient {
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  background: linear-gradient(135deg, #16a085 0%, #138a70 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
