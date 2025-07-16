@@ -16,12 +16,12 @@ const Header = () => {
 
   const navItems = [
     { name: 'الرئيسية', href: '#home' },
+    { name: 'المكتبة الرقمية', href: '/library' },
     { name: 'من نحن', href: '#about' },
     { name: 'فروع الهيئة', href: '#branches' },
     { name: 'الخدمات', href: '#services' },
     { name: 'المشاريع', href: '#projects' },
     { name: 'المخططات', href: '#plans' },
-    { name: 'المكتبة الرقمية', href: '#library' },
     { name: 'الوسائط', href: '#media' },
     { name: 'الاتصال', href: '#contact' },
   ];
