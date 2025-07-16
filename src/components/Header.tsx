@@ -21,7 +21,7 @@ const Header = () => {
     { name: 'الخدمات', href: '#services' },
     { name: 'المشاريع', href: '#projects' },
     { name: 'المخططات', href: '#plans' },
-    { name: 'المكتبة', href: '#library' },
+    { name: 'المكتبة الرقمية', href: '#library' },
     { name: 'الوسائط', href: '#media' },
     { name: 'الاتصال', href: '#contact' },
   ];

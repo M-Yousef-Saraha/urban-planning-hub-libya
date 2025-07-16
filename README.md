@@ -1,5 +1,46 @@
 # Welcome to your Lovable project
 
+## Library Document Request System
+
+This project now includes a comprehensive library system where users can:
+
+### Features
+- **Document Catalog**: Browse available documents with search and filtering
+- **Request System**: Users can request documents via a detailed form
+- **Email Integration**: Automatic email notifications for both users and administrators
+- **Categories**: Documents organized by type (guides, laws, standards, reports, maps, studies)
+- **Responsive Design**: Works seamlessly on all devices
+
+### How it Works
+1. Users browse the digital library section
+2. They can search and filter documents by category
+3. When they find a document they need, they click "طلب الوثيقة" (Request Document)
+4. A detailed form opens where they provide:
+   - Personal information (name, email, phone)
+   - Purpose of request
+   - Urgency level
+   - Additional notes
+5. Upon submission, the system:
+   - Sends a confirmation email to the user
+   - Notifies administrators about the new request
+   - Processes the request within 24 hours
+   - Emails the document to the user
+
+### Technical Implementation
+- **Frontend**: React with TypeScript
+- **Styling**: Tailwind CSS with RTL support
+- **Email Service**: Modular email service with HTML templates
+- **State Management**: React hooks for form handling
+- **Notifications**: Toast notifications for user feedback
+
+### Backend Integration
+To make this fully functional, you'll need to:
+1. Set up a backend API endpoint at `/api/send-document`
+2. Integrate with an email service (SendGrid, AWS SES, etc.)
+3. Store document requests in a database
+4. Implement document storage and retrieval system
+5. Add authentication for admin panel
+
 ## Project info
 
 **URL**: https://lovable.dev/projects/04fe7e34-1d2d-4b75-b73f-f0133e924f4c
