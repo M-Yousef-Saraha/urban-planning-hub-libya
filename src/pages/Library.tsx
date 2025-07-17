@@ -228,39 +228,39 @@ const Library = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-green-600 via-green-500 to-emerald-600 text-white" dir="rtl">
+      <section className="pt-32 pb-20 bg-gradient-to-br from-blue-600 via-blue-500 to-blue-700 text-white" dir="rtl">
         <div className="container mx-auto px-4 text-center">
           <div className="inline-flex items-center space-x-2 space-x-reverse bg-white/15 backdrop-blur-sm rounded-full px-6 py-3 mb-8">
-            <Book className="w-5 h-5 text-green-100" />
-            <span className="text-green-50 font-medium">المكتبة الرقمية</span>
+            <Book className="w-5 h-5 text-blue-100" />
+            <span className="text-blue-50 font-medium">المكتبة الرقمية</span>
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
             مكتبة الوثائق والمراجع
           </h1>
           
-          <p className="text-xl md:text-2xl mb-8 text-green-50 leading-relaxed max-w-3xl mx-auto">
-            اطلب الوثائق والمراجع التخصصية واحصل عليها مباشرة في بريدك الإلكتروني
+          <p className="text-xl md:text-2xl mb-8 text-blue-50 leading-relaxed max-w-3xl mx-auto">
+            اطلب الوثائق الحكومية والمراجع التخصصية واحصل عليها مباشرة في بريدك الإلكتروني
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
             <div className="glass-effect rounded-2xl p-6">
               <div className="text-3xl font-bold text-white mb-2">{documents.length}</div>
-              <div className="text-green-100 text-sm">وثيقة متاحة</div>
+              <div className="text-blue-100 text-sm">وثيقة متاحة</div>
             </div>
             <div className="glass-effect rounded-2xl p-6">
               <div className="text-3xl font-bold text-white mb-2">
                 {documents.reduce((sum, doc) => sum + doc.downloadCount, 0)}
               </div>
-              <div className="text-green-100 text-sm">طلب مكتمل</div>
+              <div className="text-blue-100 text-sm">طلب مكتمل</div>
             </div>
             <div className="glass-effect rounded-2xl p-6">
               <div className="text-3xl font-bold text-white mb-2">{categories.length - 1}</div>
-              <div className="text-green-100 text-sm">فئة متخصصة</div>
+              <div className="text-blue-100 text-sm">فئة متخصصة</div>
             </div>
             <div className="glass-effect rounded-2xl p-6">
               <div className="text-3xl font-bold text-white mb-2">24</div>
-              <div className="text-green-100 text-sm">ساعة متوسط الاستجابة</div>
+              <div className="text-blue-100 text-sm">ساعة متوسط الاستجابة</div>
             </div>
           </div>
         </div>
@@ -301,7 +301,7 @@ const Library = () => {
           {/* Results Count */}
           <div className="mb-8">
             <p className="text-gray-600 text-lg">
-              عرض <span className="font-bold text-green-600">{filteredDocuments.length}</span> من أصل <span className="font-bold">{documents.length}</span> وثيقة
+              عرض <span className="font-bold text-blue-600">{filteredDocuments.length}</span> من أصل <span className="font-bold">{documents.length}</span> وثيقة
             </p>
           </div>
 
@@ -314,17 +314,17 @@ const Library = () => {
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="flex items-start justify-between mb-4">
-                  <div className="p-3 bg-green-100 rounded-xl">
-                    <FileText className="w-6 h-6 text-green-600" />
+                  <div className="p-3 bg-blue-100 rounded-xl">
+                    <FileText className="w-6 h-6 text-blue-600" />
                   </div>
                   <div className="text-sm text-gray-500">
-                    <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">
+                    <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs font-medium">
                       {document.category}
                     </span>
                   </div>
                 </div>
 
-                <h4 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-green-700 transition-colors">
+                <h4 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-blue-700 transition-colors">
                   {document.title}
                 </h4>
 
@@ -357,7 +357,7 @@ const Library = () => {
                   </div>
                   <button
                     onClick={() => handleRequestDocument(document)}
-                    className="bg-green-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-green-700 transition-all duration-300 flex items-center space-x-2 space-x-reverse group-hover:scale-105"
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-all duration-300 flex items-center space-x-2 space-x-reverse group-hover:scale-105"
                   >
                     <Mail className="w-4 h-4" />
                     <span>طلب الوثيقة</span>
@@ -380,7 +380,7 @@ const Library = () => {
                   setSearchTerm('');
                   setSelectedCategory('all');
                 }}
-                className="bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition-all duration-300"
+                className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-all duration-300"
               >
                 إعادة تعيين البحث
               </button>
@@ -405,9 +405,9 @@ const Library = () => {
               </div>
 
               {selectedDocument && (
-                <div className="bg-green-50 p-4 rounded-xl mb-6">
-                  <h5 className="font-bold text-green-800 mb-2">الوثيقة المطلوبة:</h5>
-                  <p className="text-green-700">{selectedDocument.title}</p>
+                <div className="bg-blue-50 p-4 rounded-xl mb-6">
+                  <h5 className="font-bold text-blue-800 mb-2">الوثيقة المطلوبة:</h5>
+                  <p className="text-blue-700">{selectedDocument.title}</p>
                 </div>
               )}
 
@@ -423,7 +423,7 @@ const Library = () => {
                       required
                       value={requestForm.requesterName}
                       onChange={(e) => handleInputChange('requesterName', e.target.value)}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200"
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       placeholder="أدخل اسمك الكامل"
                     />
                   </div>
@@ -438,7 +438,7 @@ const Library = () => {
                       required
                       value={requestForm.requesterEmail}
                       onChange={(e) => handleInputChange('requesterEmail', e.target.value)}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200"
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       placeholder="أدخل بريدك الإلكتروني"
                     />
                   </div>
@@ -454,7 +454,7 @@ const Library = () => {
                       type="tel"
                       value={requestForm.requesterPhone}
                       onChange={(e) => handleInputChange('requesterPhone', e.target.value)}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200"
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       placeholder="أدخل رقم هاتفك"
                     />
                   </div>
@@ -466,7 +466,7 @@ const Library = () => {
                     <select
                       value={requestForm.urgency}
                       onChange={(e) => handleInputChange('urgency', e.target.value)}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200"
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                     >
                       <option value="low">منخفضة</option>
                       <option value="medium">متوسطة</option>
@@ -484,7 +484,7 @@ const Library = () => {
                     required
                     value={requestForm.purpose}
                     onChange={(e) => handleInputChange('purpose', e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                     placeholder="مثال: بحث أكاديمي، مشروع تخرج، استشارة مهنية"
                   />
                 </div>
@@ -498,7 +498,7 @@ const Library = () => {
                     value={requestForm.additionalNotes}
                     onChange={(e) => handleInputChange('additionalNotes', e.target.value)}
                     rows={4}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 resize-none"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 resize-none"
                     placeholder="أي معلومات إضافية تود إضافتها..."
                   />
                 </div>
@@ -506,7 +506,7 @@ const Library = () => {
                 <div className="flex space-x-4 space-x-reverse">
                   <button
                     type="submit"
-                    className="flex-1 bg-green-600 text-white px-6 py-4 rounded-xl font-bold hover:bg-green-700 transition-all duration-300 flex items-center justify-center space-x-2 space-x-reverse"
+                    className="flex-1 bg-blue-600 text-white px-6 py-4 rounded-xl font-bold hover:bg-blue-700 transition-all duration-300 flex items-center justify-center space-x-2 space-x-reverse"
                   >
                     <Mail className="w-5 h-5" />
                     <span>إرسال الطلب</span>

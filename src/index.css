@@ -149,17 +149,17 @@ html {
   animation: float 3s ease-in-out infinite;
 }
 
-/* Softer green gradient backgrounds */
-.gradient-green {
-  background: linear-gradient(135deg, #16a085 0%, #148f76 50%, #0f6b5a 100%);
+/* Professional blue gradient backgrounds */
+.gradient-blue {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
 }
 
-.gradient-green-light {
-  background: linear-gradient(135deg, #e8f5f0 0%, #d1f2e8 100%);
+.gradient-blue-light {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
 }
 
-.gradient-emerald {
-  background: linear-gradient(135deg, #16a085 0%, #138a70 100%);
+.gradient-blue-dark {
+  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
 }
 
 /* Glass effect */
@@ -192,14 +192,9 @@ html {
   @apply bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300;
 }
 
-/* Eco-friendly patterns */
-.leaf-pattern {
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2316a085' fill-opacity='0.03'%3E%3Cpath d='M30 30c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20zm0 0c0 11.046 8.954 20 20 20s20-8.954 20-20-8.954-20-20-20-20 8.954-20 20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-}
-
 /* Enhanced typography */
 .text-gradient {
-  background: linear-gradient(135deg, #16a085 0%, #138a70 100%);
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

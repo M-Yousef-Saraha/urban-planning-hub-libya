@@ -50,7 +50,7 @@ const Header = () => {
               <h1 className="text-xl md:text-2xl font-bold text-slate-800 leading-tight">
                 الهيئة الوطنية للتخطيط العمراني
               </h1>
-              <p className="text-sm text-sage-600 font-medium">نحو بيئة مستدامة</p>
+              <p className="text-sm text-blue-600 font-medium">تطوير عمراني متقدم</p>
             </div>
           </div>
 
@@ -60,13 +60,13 @@ const Header = () => {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 hover:text-sage-600 font-medium transition-all duration-200 relative group py-2"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-all duration-200 relative group py-2"
               >
                 {item.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-sage-500 transition-all duration-300 group-hover:w-full rounded-full"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full rounded-full"></span>
               </a>
             ))}
-            <button className="flex items-center space-x-2 space-x-reverse px-4 py-2 border-2 border-sage-500 text-sage-600 rounded-full hover:bg-sage-500 hover:text-white transition-all duration-300 font-medium">
+            <button className="flex items-center space-x-2 space-x-reverse px-4 py-2 border-2 border-blue-500 text-blue-600 rounded-full hover:bg-blue-500 hover:text-white transition-all duration-300 font-medium">
               <Globe size={16} />
               <span>English</span>
             </button>
@@ -74,32 +74,32 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 rounded-lg hover:bg-sage-50 transition-colors"
+            className="lg:hidden p-2 rounded-lg hover:bg-blue-50 transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? (
-              <X size={24} className="text-sage-600" />
+              <X size={24} className="text-blue-600" />
             ) : (
-              <Menu size={24} className="text-sage-600" />
+              <Menu size={24} className="text-blue-600" />
             )}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-sage-100 bg-white/95 backdrop-blur-md">
+          <div className="lg:hidden py-4 border-t border-blue-100 bg-white/95 backdrop-blur-md">
             <nav className="flex flex-col space-y-3">
               {navItems.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-700 hover:text-sage-600 font-medium py-3 px-2 rounded-lg hover:bg-sage-50 transition-all duration-200"
+                  className="text-gray-700 hover:text-blue-600 font-medium py-3 px-2 rounded-lg hover:bg-blue-50 transition-all duration-200"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
                 </a>
               ))}
-              <button className="flex items-center justify-center space-x-2 space-x-reverse px-4 py-3 border-2 border-sage-500 text-sage-600 rounded-full hover:bg-sage-500 hover:text-white transition-all duration-200 font-medium mt-4">
+              <button className="flex items-center justify-center space-x-2 space-x-reverse px-4 py-3 border-2 border-blue-500 text-blue-600 rounded-full hover:bg-blue-500 hover:text-white transition-all duration-200 font-medium mt-4">
                 <Globe size={16} />
                 <span>English</span>
               </button>
