@@ -86,9 +86,6 @@ const NewsSection = () => {
           </button>
         </div>
       </div>
-    )
-    )
-    }
     </section>
   );
 };
