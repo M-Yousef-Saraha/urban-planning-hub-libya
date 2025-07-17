@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, Leaf, TreePine, Recycle, Zap } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, Building, Map, FileText, Settings } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -21,21 +20,21 @@ const Footer = () => {
   ];
 
   const ecoInitiatives = [
-    { name: 'المدن الذكية', href: '#', icon: Zap },
-    { name: 'الطاقة المتجددة', href: '#', icon: TreePine },
-    { name: 'إعادة التدوير', href: '#', icon: Recycle },
-    { name: 'البيئة المستدامة', href: '#', icon: Leaf }
+    { name: 'التخطيط العمراني', href: '#', icon: Building },
+    { name: 'الخرائط والمساحة', href: '#', icon: Map },
+    { name: 'التراخيص', href: '#', icon: FileText },
+    { name: 'الإشراف والمتابعة', href: '#', icon: Settings }
   ];
 
   return (
-    <footer className="bg-gradient-to-b from-sage-800 to-sage-700 text-white relative overflow-hidden" dir="rtl">
+    <footer className="bg-gradient-to-b from-blue-800 to-blue-700 text-white relative overflow-hidden" dir="rtl">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 right-20 animate-float">
-          <TreePine className="w-20 h-20 text-sage-300" />
+          <Building className="w-20 h-20 text-blue-300" />
         </div>
         <div className="absolute bottom-20 left-32 animate-float" style={{ animationDelay: '1s' }}>
-          <Leaf className="w-16 h-16 text-sage-300" />
+          <Map className="w-16 h-16 text-blue-300" />
         </div>
       </div>
 
@@ -51,31 +50,31 @@ const Footer = () => {
               />
               <div>
                 <h3 className="text-2xl font-bold">الهيئة الوطنية للتخطيط العمراني</h3>
-                <p className="text-sage-200 font-medium">نحو بيئة مستدامة</p>
+                <p className="text-blue-200 font-medium">تطوير عمراني متقدم</p>
               </div>
             </div>
             
-            <p className="text-sage-100 mb-8 leading-relaxed text-lg">
-              نسعى لبناء مستقبل عمراني أخضر ومستدام من خلال تطوير مخططات صديقة للبيئة 
-              تحافظ على التوازن الطبيعي وتخدم الأجيال القادمة.
+            <p className="text-blue-100 mb-8 leading-relaxed text-lg">
+              نعمل على تطوير وتنظيم المدن الليبية وفقاً لأحدث المعايير العالمية في التخطيط العمراني 
+              لخدمة المواطنين وتحقيق التنمية المستدامة.
             </p>
             
             {/* Contact Info */}
             <div className="space-y-4">
-              <div className="flex items-center space-x-4 space-x-reverse text-sage-200">
-                <div className="w-10 h-10 bg-sage-600 rounded-lg flex items-center justify-center">
+              <div className="flex items-center space-x-4 space-x-reverse text-blue-200">
+                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
                   <Phone size={18} />
                 </div>
                 <span className="text-lg">+218 21 123 4567</span>
               </div>
-              <div className="flex items-center space-x-4 space-x-reverse text-sage-200">
-                <div className="w-10 h-10 bg-sage-600 rounded-lg flex items-center justify-center">
+              <div className="flex items-center space-x-4 space-x-reverse text-blue-200">
+                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
                   <Mail size={18} />
                 </div>
-                <span className="text-lg">green@urbanplanning.ly</span>
+                <span className="text-lg">info@urbanplanning.ly</span>
               </div>
-              <div className="flex items-center space-x-4 space-x-reverse text-sage-200">
-                <div className="w-10 h-10 bg-sage-600 rounded-lg flex items-center justify-center">
+              <div className="flex items-center space-x-4 space-x-reverse text-blue-200">
+                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
                   <MapPin size={18} />
                 </div>
                 <span className="text-lg">شارع الجمهورية، طرابلس، ليبيا</span>
@@ -83,21 +82,21 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Eco Initiatives */}
+          {/* Services */}
           <div>
             <h4 className="text-xl font-bold mb-6 flex items-center space-x-2 space-x-reverse">
-              <TreePine className="w-6 h-6 text-sage-400" />
-              <span>مبادراتنا البيئية</span>
+              <Settings className="w-6 h-6 text-blue-400" />
+              <span>خدماتنا</span>
             </h4>
             <ul className="space-y-3">
-              {ecoInitiatives.map((initiative) => (
-                <li key={initiative.name}>
+              {ecoInitiatives.map((service) => (
+                <li key={service.name}>
                   <a 
-                    href={initiative.href}
-                    className="flex items-center space-x-3 space-x-reverse text-sage-200 hover:text-white transition-colors duration-200 group"
+                    href={service.href}
+                    className="flex items-center space-x-3 space-x-reverse text-blue-200 hover:text-white transition-colors duration-200 group"
                   >
-                    <initiative.icon size={16} className="group-hover:scale-110 transition-transform" />
-                    <span>{initiative.name}</span>
+                    <service.icon size={16} className="group-hover:scale-110 transition-transform" />
+                    <span>{service.name}</span>
                   </a>
                 </li>
               ))}
@@ -126,7 +125,7 @@ const Footer = () => {
                 <a
                   key={social.label}
                   href={social.href}
-                  className="w-12 h-12 bg-sage-600 rounded-xl flex items-center justify-center hover:bg-sage-500 transition-all duration-300 group hover:scale-110"
+                  className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center hover:bg-blue-500 transition-all duration-300 group hover:scale-110"
                   aria-label={social.label}
                 >
                   <social.icon size={20} className="group-hover:scale-110 transition-transform" />
@@ -137,14 +136,14 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-sage-600 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sage-200 text-sm mb-4 md:mb-0">
+        <div className="border-t border-blue-600 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-blue-200 text-sm mb-4 md:mb-0">
             &copy; {currentYear} الهيئة الوطنية للتخطيط العمراني. جميع الحقوق محفوظة.
           </p>
-          <div className="flex space-x-6 space-x-reverse text-sm text-sage-200">
+          <div className="flex space-x-6 space-x-reverse text-sm text-blue-200">
             <a href="#" className="hover:text-white transition-colors">سياسة الخصوصية</a>
             <a href="#" className="hover:text-white transition-colors">شروط الاستخدام</a>
-            <a href="#" className="hover:text-white transition-colors">الاستدامة البيئية</a>
+            <a href="#" className="hover:text-white transition-colors">خدمات المواطنين</a>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Send, Phone, Mail, MapPin, Clock, Leaf, TreePine } from 'lucide-react';
+import { Send, Phone, Mail, MapPin, Clock, Building } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const ContactSection = () => {
@@ -55,22 +55,22 @@ const ContactSection = () => {
   ];
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-b from-green-50 to-white relative overflow-hidden" dir="rtl">
+    <section id="contact" className="py-20 bg-gradient-to-b from-blue-50 to-white relative overflow-hidden" dir="rtl">
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-5">
-        <TreePine className="absolute top-20 right-20 w-32 h-32 text-green-600" />
-        <Leaf className="absolute bottom-32 left-32 w-24 h-24 text-green-600" />
+        <Building className="absolute top-20 right-20 w-32 h-32 text-blue-600" />
+        <Building className="absolute bottom-32 left-32 w-24 h-24 text-blue-600" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center space-x-2 space-x-reverse bg-green-100 rounded-full px-6 py-2 mb-6">
-            <Leaf className="w-5 h-5 text-green-600" />
-            <span className="text-green-700 font-medium">تواصل معنا</span>
+          <div className="inline-flex items-center space-x-2 space-x-reverse bg-blue-100 rounded-full px-6 py-2 mb-6">
+            <Building className="w-5 h-5 text-blue-600" />
+            <span className="text-blue-700 font-medium">تواصل معنا</span>
           </div>
-          <h3 className="text-4xl md:text-5xl font-bold text-green-800 mb-6">اتصل بنا</h3>
+          <h3 className="text-4xl md:text-5xl font-bold text-blue-800 mb-6">اتصل بنا</h3>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            نحن هنا للإجابة على استفساراتكم حول مشاريعنا البيئية وتقديم المساعدة في تطوير المدن المستدامة
+            نحن هنا للإجابة على استفساراتكم حول خدماتنا وتقديم المساعدة في مجال التخطيط العمراني
           </p>
         </div>
 
@@ -78,15 +78,15 @@ const ContactSection = () => {
           {/* Contact Form */}
           <div className="modern-card p-10">
             <div className="flex items-center space-x-3 space-x-reverse mb-8">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                <Send className="w-6 h-6 text-green-600" />
+              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                <Send className="w-6 h-6 text-blue-600" />
               </div>
-              <h4 className="text-2xl font-bold text-green-800">أرسل لنا رسالة</h4>
+              <h4 className="text-2xl font-bold text-blue-800">أرسل لنا رسالة</h4>
             </div>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-bold text-green-700 mb-3">
+                <label htmlFor="name" className="block text-sm font-bold text-blue-700 mb-3">
                   الاسم الكامل
                 </label>
                 <input
@@ -96,13 +96,13 @@ const ContactSection = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-4 border-2 border-green-100 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-green-50/50"
+                  className="w-full px-4 py-4 border-2 border-blue-100 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-blue-50/50"
                   placeholder="أدخل اسمك الكامل"
                 />
               </div>
               
               <div>
-                <label htmlFor="email" className="block text-sm font-bold text-green-700 mb-3">
+                <label htmlFor="email" className="block text-sm font-bold text-blue-700 mb-3">
                   البريد الإلكتروني
                 </label>
                 <input
@@ -112,13 +112,13 @@ const ContactSection = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-4 border-2 border-green-100 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-green-50/50"
+                  className="w-full px-4 py-4 border-2 border-blue-100 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-blue-50/50"
                   placeholder="أدخل بريدك الإلكتروني"
                 />
               </div>
               
               <div>
-                <label htmlFor="message" className="block text-sm font-bold text-green-700 mb-3">
+                <label htmlFor="message" className="block text-sm font-bold text-blue-700 mb-3">
                   الرسالة أو الاستفسار
                 </label>
                 <textarea
@@ -128,14 +128,14 @@ const ContactSection = () => {
                   onChange={handleChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-4 border-2 border-green-100 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 resize-none bg-green-50/50"
+                  className="w-full px-4 py-4 border-2 border-blue-100 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 resize-none bg-blue-50/50"
                   placeholder="اكتب رسالتك هنا..."
                 />
               </div>
               
               <button
                 type="submit"
-                className="w-full bg-green-600 text-white px-6 py-4 rounded-xl font-bold text-lg hover:bg-green-700 transition-all duration-300 flex items-center justify-center space-x-3 space-x-reverse group shadow-lg hover:shadow-xl"
+                className="w-full bg-blue-600 text-white px-6 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-all duration-300 flex items-center justify-center space-x-3 space-x-reverse group shadow-lg hover:shadow-xl"
               >
                 <Send size={20} className="group-hover:translate-x-1 transition-transform" />
                 <span>إرسال الرسالة</span>
