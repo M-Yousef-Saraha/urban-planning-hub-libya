@@ -76,7 +76,6 @@ const ServicesSection = () => {
               </div>
               
               <h4 className="text-xl font-bold text-gray-800 mb-4 group-hover:text-green-700 transition-colors">
-              <h4 className="text-xl font-bold text-gray-800 mb-4 group-hover:text-blue-700 transition-colors">
                 {service.title}
               </h4>
               
@@ -107,9 +106,6 @@ const ServicesSection = () => {
           </div>
         </div>
       </div>
-    )
-    )
-    }
     </section>
   );
 };
