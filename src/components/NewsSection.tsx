@@ -53,7 +53,6 @@ const NewsSection = () => {
             >
               <div className="p-8">
                 <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center text-green-600 text-sm font-medium">
                   <div className="flex items-center text-blue-600 text-sm font-medium">
                     <Calendar size={16} className="ml-2" />
                     <span>{new Date(item.date).toLocaleDateString('ar-SA')}</span>
@@ -86,9 +85,6 @@ const NewsSection = () => {
           </button>
         </div>
       </div>
-    )
-    )
-    }
     </section>
   );
 };
