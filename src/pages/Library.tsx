@@ -1,529 +1,375 @@
-import React, { useState } from 'react';
-import { Book, FileText, Download, Mail, Search, Filter, Calendar, User, Phone, MessageSquare } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import { emailService, DocumentRequestData } from '@/lib/emailService';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { 
+  Search, 
+  FileText, 
+  Download, 
+  Calendar,
+  Building,
+  Filter,
+  User,
+  Send,
+  AlertCircle
+} from 'lucide-react';
+import { documentsAPI, requestsAPI, Document, API_BASE_URL } from '@/lib/api';
+import { normalizeDocuments, normalizeCategories } from '@/lib/normalize';
+import { toast } from 'sonner';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-interface Document {
-  id: string;
-  title: string;
-  category: string;
-  description: string;
-  type: string;
-  size: string;
-  dateAdded: string;
-  downloadCount: number;
-  tags: string[];
-}
-
-interface DocumentRequest {
-  documentId: string;
-  documentTitle: string;
-  requesterName: string;
-  requesterEmail: string;
-  requesterPhone: string;
-  purpose: string;
-  urgency: 'low' | 'medium' | 'high';
-  additionalNotes: string;
-}
-
 const Library = () => {
+  const { user, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  const [documents, setDocuments] = useState<Document[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [showRequestForm, setShowRequestForm] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
-  const [requestForm, setRequestForm] = useState<DocumentRequest>({
-    documentId: '',
-    documentTitle: '',
-    requesterName: '',
-    requesterEmail: '',
-    requesterPhone: '',
+  const [isRequestDialogOpen, setIsRequestDialogOpen] = useState(false);
+  const [requestForm, setRequestForm] = useState({
     purpose: '',
-    urgency: 'medium',
-    additionalNotes: ''
+    urgency: 'MEDIUM' as 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT',
+    notes: ''
   });
-  const { toast } = useToast();
+  const [isSubmittingRequest, setIsSubmittingRequest] = useState(false);
 
-  const documents: Document[] = [
-    {
-      id: '1',
-      title: 'دليل التخطيط العمراني المستدام',
-      category: 'أدلة',
-      description: 'دليل شامل للتخطيط العمراني المستدام والممارسات البيئية الصديقة',
-      type: 'PDF',
-      size: '2.5 MB',
-      dateAdded: '2024-01-15',
-      downloadCount: 245,
-      tags: ['تخطيط', 'استدامة', 'بيئة']
-    },
-    {
-      id: '2',
-      title: 'قوانين البناء والتشييد',
-      category: 'قوانين',
-      description: 'مجموعة كاملة من قوانين البناء والتشييد المعمول بها في ليبيا',
-      type: 'PDF',
-      size: '1.8 MB',
-      dateAdded: '2024-01-10',
-      downloadCount: 189,
-      tags: ['قوانين', 'بناء', 'تشييد']
-    },
-    {
-      id: '3',
-      title: 'معايير التصميم الحضري',
-      category: 'معايير',
-      description: 'معايير وإرشادات التصميم الحضري للمدن الليبية',
-      type: 'PDF',
-      size: '3.2 MB',
-      dateAdded: '2024-01-08',
-      downloadCount: 156,
-      tags: ['تصميم', 'حضري', 'معايير']
-    },
-    {
-      id: '4',
-      title: 'تقرير حالة البيئة العمرانية 2024',
-      category: 'تقارير',
-      description: 'تقرير سنوي شامل عن حالة البيئة العمرانية في ليبيا',
-      type: 'PDF',
-      size: '4.1 MB',
-      dateAdded: '2024-01-05',
-      downloadCount: 98,
-      tags: ['تقرير', 'بيئة', '2024']
-    },
-    {
-      id: '5',
-      title: 'خرائط المخططات العمرانية - طرابلس',
-      category: 'خرائط',
-      description: 'مجموعة خرائط تفصيلية للمخططات العمرانية لمدينة طرابلس',
-      type: 'PDF',
-      size: '8.7 MB',
-      dateAdded: '2024-01-03',
-      downloadCount: 312,
-      tags: ['خرائط', 'طرابلس', 'مخططات']
-    },
-    {
-      id: '6',
-      title: 'دراسة الأثر البيئي للمشاريع العمرانية',
-      category: 'دراسات',
-      description: 'دراسة متخصصة حول تقييم الأثر البيئي للمشاريع العمرانية',
-      type: 'PDF',
-      size: '2.9 MB',
-      dateAdded: '2024-01-01',
-      downloadCount: 134,
-      tags: ['دراسة', 'بيئة', 'تقييم']
-    },
-    {
-      id: '7',
-      title: 'دليل إدارة المشاريع العمرانية',
-      category: 'أدلة',
-      description: 'دليل متكامل لإدارة وتنفيذ المشاريع العمرانية بكفاءة عالية',
-      type: 'PDF',
-      size: '3.7 MB',
-      dateAdded: '2023-12-28',
-      downloadCount: 167,
-      tags: ['إدارة', 'مشاريع', 'تنفيذ']
-    },
-    {
-      id: '8',
-      title: 'معايير الأمان في المباني',
-      category: 'معايير',
-      description: 'معايير السلامة والأمان الواجب توفرها في المباني السكنية والتجارية',
-      type: 'PDF',
-      size: '2.1 MB',
-      dateAdded: '2023-12-25',
-      downloadCount: 203,
-      tags: ['أمان', 'سلامة', 'مباني']
-    },
-    {
-      id: '9',
-      title: 'خرائط المخططات العمرانية - بنغازي',
-      category: 'خرائط',
-      description: 'مجموعة خرائط تفصيلية للمخططات العمرانية لمدينة بنغازي',
-      type: 'PDF',
-      size: '7.3 MB',
-      dateAdded: '2023-12-20',
-      downloadCount: 278,
-      tags: ['خرائط', 'بنغازي', 'مخططات']
-    },
-    {
-      id: '10',
-      title: 'تقرير التنمية المستدامة 2023',
-      category: 'تقارير',
-      description: 'تقرير شامل عن مشاريع التنمية المستدامة المنفذة خلال عام 2023',
-      type: 'PDF',
-      size: '5.2 MB',
-      dateAdded: '2023-12-15',
-      downloadCount: 145,
-      tags: ['تنمية', 'مستدامة', '2023']
+  useEffect(() => {
+    fetchDocuments();
+    fetchCategories();
+  }, []);
+
+  const fetchDocuments = async () => {
+    try {
+      setIsLoading(true);
+      const response = await documentsAPI.getAll({
+        category: selectedCategory || undefined,
+        search: searchTerm || undefined
+      });
+  setDocuments(normalizeDocuments(response));
+    } catch (error) {
+      toast.error('فشل في تحميل الوثائق');
+    } finally {
+      setIsLoading(false);
     }
-  ];
+  };
 
-  const categories = ['all', 'أدلة', 'قوانين', 'معايير', 'تقارير', 'خرائط', 'دراسات'];
+  const fetchCategories = async () => {
+    try {
+      const response = await documentsAPI.getCategories();
+  setCategories(normalizeCategories(response));
+    } catch (error) {
+      console.error('Failed to fetch categories:', error);
+    }
+  };
 
-  const filteredDocuments = documents.filter(doc => {
-    const matchesSearch = doc.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         doc.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         doc.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesCategory = selectedCategory === 'all' || doc.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  useEffect(() => {
+    const delayedSearch = setTimeout(() => {
+      fetchDocuments();
+    }, 500);
+
+    return () => clearTimeout(delayedSearch);
+  }, [searchTerm, selectedCategory]);
 
   const handleRequestDocument = (document: Document) => {
+    if (!isAuthenticated) {
+      toast.error('يجب تسجيل الدخول أولاً لطلب الوثائق');
+      navigate('/login');
+      return;
+    }
+    
     setSelectedDocument(document);
-    setRequestForm({
-      ...requestForm,
-      documentId: document.id,
-      documentTitle: document.title
-    });
-    setShowRequestForm(true);
+    setIsRequestDialogOpen(true);
   };
 
-  const handleSubmitRequest = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    try {
-      // Send document request
-      const success = await emailService.sendDocumentRequest(requestForm as DocumentRequestData);
-      
-      if (success) {
-        toast({
-          title: "تم إرسال الطلب بنجاح",
-          description: `سيتم إرسال الوثيقة "${requestForm.documentTitle}" إلى بريدك الإلكتروني خلال 24 ساعة.`,
-        });
+  const handleSubmitRequest = async () => {
+    if (!selectedDocument || !requestForm.purpose.trim()) {
+      toast.error('يرجى ملء جميع الحقول المطلوبة');
+      return;
+    }
 
-        // Reset form and close modal
-        setRequestForm({
-          documentId: '',
-          documentTitle: '',
-          requesterName: '',
-          requesterEmail: '',
-          requesterPhone: '',
-          purpose: '',
-          urgency: 'medium',
-          additionalNotes: ''
-        });
-        setShowRequestForm(false);
-        setSelectedDocument(null);
-      } else {
-        throw new Error('Failed to send request');
-      }
-    } catch (error) {
-      toast({
-        title: "خطأ في إرسال الطلب",
-        description: "حدث خطأ أثناء إرسال طلبك. يرجى المحاولة مرة أخرى.",
-        variant: "destructive"
+    try {
+      setIsSubmittingRequest(true);
+      const response = await requestsAPI.create({
+        documentId: selectedDocument.id,
+        purpose: requestForm.purpose,
+        urgency: requestForm.urgency,
+        notes: requestForm.notes || undefined
       });
+
+      if (response.success) {
+        toast.success('تم إرسال طلب الوثيقة بنجاح');
+        setIsRequestDialogOpen(false);
+        setRequestForm({ purpose: '', urgency: 'MEDIUM', notes: '' });
+        setSelectedDocument(null);
+      }
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.error || 'فشل في إرسال الطلب';
+      toast.error(errorMessage);
+    } finally {
+      setIsSubmittingRequest(false);
     }
   };
 
-  const handleInputChange = (field: keyof DocumentRequest, value: string) => {
-    setRequestForm(prev => ({
-      ...prev,
-      [field]: value
-    }));
+  const getCategoryLabel = (category: string) => {
+    const categoryLabels: Record<string, string> = {
+      'GUIDES': 'أدلة',
+      'LAWS': 'قوانين',
+      'STANDARDS': 'معايير',
+      'REPORTS': 'تقارير',
+      'MAPS': 'خرائط',
+      'STUDIES': 'دراسات'
+    };
+    return categoryLabels[category] || category;
+  };
+
+  const getUrgencyLabel = (urgency: string) => {
+    const urgencyLabels: Record<string, string> = {
+      'LOW': 'منخفضة',
+      'MEDIUM': 'متوسطة',
+      'HIGH': 'عالية',
+      'URGENT': 'عاجلة'
+    };
+    return urgencyLabels[urgency] || urgency;
+  };
+
+  const formatFileSize = (bytes: number) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-green-50">
+    <div className="min-h-screen bg-gray-50" dir="rtl">
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-blue-600 via-blue-500 to-blue-700 text-white" dir="rtl">
+      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
         <div className="container mx-auto px-4 text-center">
-          <div className="inline-flex items-center space-x-2 space-x-reverse bg-white/15 backdrop-blur-sm rounded-full px-6 py-3 mb-8">
-            <Book className="w-5 h-5 text-blue-100" />
-            <span className="text-blue-50 font-medium">المكتبة الرقمية</span>
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-6">
+            <FileText className="w-8 h-8" />
           </div>
-          
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            مكتبة الوثائق والمراجع
-          </h1>
-          
-          <p className="text-xl md:text-2xl mb-8 text-blue-50 leading-relaxed max-w-3xl mx-auto">
-            اطلب الوثائق الحكومية والمراجع التخصصية واحصل عليها مباشرة في بريدك الإلكتروني
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">مكتبة الوثائق</h1>
+          <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+            تصفح واطلب الوثائق والمستندات الرسمية من الهيئة الوطنية للتخطيط العمراني
           </p>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
-            <div className="glass-effect rounded-2xl p-6">
-              <div className="text-3xl font-bold text-white mb-2">{documents.length}</div>
-              <div className="text-blue-100 text-sm">وثيقة متاحة</div>
-            </div>
-            <div className="glass-effect rounded-2xl p-6">
-              <div className="text-3xl font-bold text-white mb-2">
-                {documents.reduce((sum, doc) => sum + doc.downloadCount, 0)}
-              </div>
-              <div className="text-blue-100 text-sm">طلب مكتمل</div>
-            </div>
-            <div className="glass-effect rounded-2xl p-6">
-              <div className="text-3xl font-bold text-white mb-2">{categories.length - 1}</div>
-              <div className="text-blue-100 text-sm">فئة متخصصة</div>
-            </div>
-            <div className="glass-effect rounded-2xl p-6">
-              <div className="text-3xl font-bold text-white mb-2">24</div>
-              <div className="text-blue-100 text-sm">ساعة متوسط الاستجابة</div>
-            </div>
-          </div>
         </div>
-      </section>
+      </div>
 
-      {/* Main Library Section */}
-      <section className="py-20" dir="rtl">
-        <div className="container mx-auto px-4">
-          {/* Search and Filter */}
-          <div className="mb-12 bg-white rounded-2xl shadow-lg p-8">
-            <div className="grid md:grid-cols-2 gap-6">
+      {/* Search and Filter Section */}
+      <div className="container mx-auto px-4 py-8">
+        <Card className="mb-8">
+          <CardContent className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Search */}
               <div className="relative">
-                <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  type="text"
+                <Search className="absolute right-3 top-3 h-4 w-4 text-gray-400" />
+                <Input
                   placeholder="البحث في الوثائق..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pr-12 pl-4 py-4 border-2 border-green-100 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200"
+                  className="pr-10"
                 />
               </div>
-              <div className="relative">
-                <Filter className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full pr-12 pl-4 py-4 border-2 border-green-100 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 appearance-none bg-white"
-                >
-                  <option value="all">جميع الفئات</option>
-                  {categories.slice(1).map(category => (
-                    <option key={category} value={category}>{category}</option>
+
+              {/* Category Filter */}
+              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                <SelectTrigger>
+                  <SelectValue placeholder="جميع الفئات" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="">جميع الفئات</SelectItem>
+                  {categories.map((category) => (
+                    <SelectItem key={category} value={category}>
+                      {getCategoryLabel(category)}
+                    </SelectItem>
                   ))}
-                </select>
-              </div>
-            </div>
-          </div>
+                </SelectContent>
+              </Select>
 
-          {/* Results Count */}
-          <div className="mb-8">
-            <p className="text-gray-600 text-lg">
-              عرض <span className="font-bold text-blue-600">{filteredDocuments.length}</span> من أصل <span className="font-bold">{documents.length}</span> وثيقة
-            </p>
-          </div>
-
-          {/* Documents Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            {filteredDocuments.map((document, index) => (
-              <div 
-                key={document.id}
-                className="modern-card p-6 hover-lift group"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="p-3 bg-blue-100 rounded-xl">
-                    <FileText className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs font-medium">
-                      {document.category}
-                    </span>
-                  </div>
-                </div>
-
-                <h4 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-blue-700 transition-colors">
-                  {document.title}
-                </h4>
-
-                <p className="text-gray-600 mb-4 leading-relaxed line-clamp-3">
-                  {document.description}
-                </p>
-
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {document.tags.map(tag => (
-                    <span key={tag} className="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="flex items-center justify-between text-sm text-gray-500 mb-6">
-                  <div className="flex items-center space-x-2 space-x-reverse">
-                    <Calendar className="w-4 h-4" />
-                    <span>{new Date(document.dateAdded).toLocaleDateString('ar-SA')}</span>
-                  </div>
-                  <div className="flex items-center space-x-2 space-x-reverse">
-                    <Download className="w-4 h-4" />
-                    <span>{document.downloadCount}</span>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="text-sm text-gray-500">
-                    <span className="font-medium">{document.type}</span> • <span>{document.size}</span>
-                  </div>
-                  <button
-                    onClick={() => handleRequestDocument(document)}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-all duration-300 flex items-center space-x-2 space-x-reverse group-hover:scale-105"
-                  >
-                    <Mail className="w-4 h-4" />
-                    <span>طلب الوثيقة</span>
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* No Results */}
-          {filteredDocuments.length === 0 && (
-            <div className="text-center py-16">
-              <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Search className="w-12 h-12 text-gray-400" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">لم يتم العثور على نتائج</h3>
-              <p className="text-gray-600 mb-8">جرب تغيير كلمات البحث أو الفئة المحددة</p>
-              <button
+              {/* Clear Filters */}
+              <Button
+                variant="outline"
                 onClick={() => {
                   setSearchTerm('');
-                  setSelectedCategory('all');
+                  setSelectedCategory('');
                 }}
-                className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-all duration-300"
+                className="flex items-center gap-2"
               >
-                إعادة تعيين البحث
-              </button>
+                <Filter className="w-4 h-4" />
+                مسح الفلاتر
+              </Button>
             </div>
-          )}
-        </div>
-      </section>
+          </CardContent>
+        </Card>
 
-      {/* Request Form Modal */}
-      {showRequestForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-8">
-              <div className="flex items-center justify-between mb-6">
-                <h4 className="text-2xl font-bold text-gray-800">طلب وثيقة</h4>
-                <button
-                  onClick={() => setShowRequestForm(false)}
-                  className="text-gray-500 hover:text-gray-700 text-2xl"
-                >
-                  ×
-                </button>
-              </div>
+        {/* Documents Grid */}
+        {isLoading ? (
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">جاري تحميل الوثائق...</p>
+          </div>
+        ) : documents.length === 0 ? (
+          <div className="text-center py-12">
+            <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-xl font-medium text-gray-800 mb-2">لا توجد وثائق</h3>
+            <p className="text-gray-600">لم يتم العثور على وثائق تطابق معايير البحث</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {documents.map((document) => (
+              <Card key={document.id} className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <CardTitle className="text-lg mb-2 leading-tight">
+                        {document.title}
+                      </CardTitle>
+                      <Badge variant="secondary" className="mb-2">
+                        {getCategoryLabel(document.category)}
+                      </Badge>
+                    </div>
+                    <FileText className="w-6 h-6 text-blue-600 flex-shrink-0" />
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  {document.description && (
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                      {document.description}
+                    </p>
+                  )}
+                  
+                  <div className="space-y-2 text-xs text-gray-500 mb-4">
+                    <div className="flex items-center gap-2">
+                      <Calendar className="w-3 h-3" />
+                      <span>{new Date(document.createdAt).toLocaleDateString('ar-SA')}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Download className="w-3 h-3" />
+                      <span>{formatFileSize(document.fileSize)}</span>
+                    </div>
+                  </div>
 
-              {selectedDocument && (
-                <div className="bg-blue-50 p-4 rounded-xl mb-6">
-                  <h5 className="font-bold text-blue-800 mb-2">الوثيقة المطلوبة:</h5>
-                  <p className="text-blue-700">{selectedDocument.title}</p>
+                  <div className="flex gap-2">
+                    <Button
+                      size="sm"
+                      onClick={() => handleRequestDocument(document)}
+                      className="flex-1"
+                    >
+                      <Send className="w-3 h-3 ml-1" />
+                      طلب الوثيقة
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => window.open(`${API_BASE_URL}/api/files/${document.fileName}`, '_blank')}
+                    >
+                      <Download className="w-3 h-3 ml-1" />
+                      تنزيل
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
+
+        {/* Request Dialog */}
+        <Dialog open={isRequestDialogOpen} onOpenChange={setIsRequestDialogOpen}>
+          <DialogContent className="sm:max-w-md" dir="rtl">
+            <DialogHeader>
+              <DialogTitle>طلب وثيقة</DialogTitle>
+              <DialogDescription>
+                {selectedDocument?.title}
+              </DialogDescription>
+            </DialogHeader>
+            
+            <div className="space-y-4">
+              {!isAuthenticated && (
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm text-yellow-800 font-medium">
+                      يجب تسجيل الدخول أولاً
+                    </p>
+                    <p className="text-sm text-yellow-700 mt-1">
+                      يرجى تسجيل الدخول أو إنشاء حساب جديد لطلب الوثائق
+                    </p>
+                  </div>
                 </div>
               )}
 
-              <form onSubmit={handleSubmitRequest} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-bold text-gray-700 mb-2">
-                      <User className="w-4 h-4 inline ml-2" />
-                      الاسم الكامل *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={requestForm.requesterName}
-                      onChange={(e) => handleInputChange('requesterName', e.target.value)}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                      placeholder="أدخل اسمك الكامل"
-                    />
-                  </div>
+              <div className="space-y-2">
+                <Label htmlFor="purpose">الغرض من الطلب *</Label>
+                <Textarea
+                  id="purpose"
+                  placeholder="اشرح سبب حاجتك لهذه الوثيقة..."
+                  value={requestForm.purpose}
+                  onChange={(e) => setRequestForm(prev => ({ ...prev, purpose: e.target.value }))}
+                  rows={3}
+                />
+              </div>
 
-                  <div>
-                    <label className="block text-sm font-bold text-gray-700 mb-2">
-                      <Mail className="w-4 h-4 inline ml-2" />
-                      البريد الإلكتروني *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={requestForm.requesterEmail}
-                      onChange={(e) => handleInputChange('requesterEmail', e.target.value)}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                      placeholder="أدخل بريدك الإلكتروني"
-                    />
-                  </div>
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="urgency">مستوى الأولوية</Label>
+                <Select
+                  value={requestForm.urgency}
+                  onValueChange={(value: any) => setRequestForm(prev => ({ ...prev, urgency: value }))}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="LOW">منخفضة</SelectItem>
+                    <SelectItem value="MEDIUM">متوسطة</SelectItem>
+                    <SelectItem value="HIGH">عالية</SelectItem>
+                    <SelectItem value="URGENT">عاجلة</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-bold text-gray-700 mb-2">
-                      <Phone className="w-4 h-4 inline ml-2" />
-                      رقم الهاتف
-                    </label>
-                    <input
-                      type="tel"
-                      value={requestForm.requesterPhone}
-                      onChange={(e) => handleInputChange('requesterPhone', e.target.value)}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                      placeholder="أدخل رقم هاتفك"
-                    />
-                  </div>
+              <div className="space-y-2">
+                <Label htmlFor="notes">ملاحظات إضافية</Label>
+                <Textarea
+                  id="notes"
+                  placeholder="أي معلومات إضافية..."
+                  value={requestForm.notes}
+                  onChange={(e) => setRequestForm(prev => ({ ...prev, notes: e.target.value }))}
+                  rows={2}
+                />
+              </div>
 
-                  <div>
-                    <label className="block text-sm font-bold text-gray-700 mb-2">
-                      درجة الأولوية
-                    </label>
-                    <select
-                      value={requestForm.urgency}
-                      onChange={(e) => handleInputChange('urgency', e.target.value)}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                    >
-                      <option value="low">منخفضة</option>
-                      <option value="medium">متوسطة</option>
-                      <option value="high">عالية</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">
-                    الغرض من الطلب *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={requestForm.purpose}
-                    onChange={(e) => handleInputChange('purpose', e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                    placeholder="مثال: بحث أكاديمي، مشروع تخرج، استشارة مهنية"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">
-                    <MessageSquare className="w-4 h-4 inline ml-2" />
-                    ملاحظات إضافية
-                  </label>
-                  <textarea
-                    value={requestForm.additionalNotes}
-                    onChange={(e) => handleInputChange('additionalNotes', e.target.value)}
-                    rows={4}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 resize-none"
-                    placeholder="أي معلومات إضافية تود إضافتها..."
-                  />
-                </div>
-
-                <div className="flex space-x-4 space-x-reverse">
-                  <button
-                    type="submit"
-                    className="flex-1 bg-blue-600 text-white px-6 py-4 rounded-xl font-bold hover:bg-blue-700 transition-all duration-300 flex items-center justify-center space-x-2 space-x-reverse"
-                  >
-                    <Mail className="w-5 h-5" />
-                    <span>إرسال الطلب</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setShowRequestForm(false)}
-                    className="px-6 py-4 border-2 border-gray-300 text-gray-700 rounded-xl font-bold hover:bg-gray-50 transition-all duration-300"
-                  >
-                    إلغاء
-                  </button>
-                </div>
-              </form>
+              <div className="flex gap-2 pt-4">
+                <Button
+                  onClick={handleSubmitRequest}
+                  disabled={!isAuthenticated || isSubmittingRequest || !requestForm.purpose.trim()}
+                  className="flex-1"
+                >
+                  {isSubmittingRequest ? 'جاري الإرسال...' : 'إرسال الطلب'}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setIsRequestDialogOpen(false)}
+                  disabled={isSubmittingRequest}
+                >
+                  إلغاء
+                </Button>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </DialogContent>
+        </Dialog>
+      </div>
 
       <Footer />
     </div>
@@ -531,3 +377,4 @@ const Library = () => {
 };
 
 export default Library;
+

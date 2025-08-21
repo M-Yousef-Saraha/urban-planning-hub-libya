@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  phone     String?
+  password  String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  requests  DocumentRequest[]
+
+  @@map("users")
+}
+
+model Document {
+  id          String            @id @default(cuid())
+  title       String
+  description String?
+  category    DocumentCategory
+  filePath    String
+  fileName    String
+  fileSize    Int
+  mimeType    String
+  isActive    Boolean           @default(true)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  requests    DocumentRequest[]
+
+  @@map("documents")
+}
+
+model DocumentRequest {
+  id         String        @id @default(cuid())
+  userId     String
+  documentId String
+  purpose    String
+  urgency    UrgencyLevel
+  notes      String?
+  status     RequestStatus @default(PENDING)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  user       User          @relation(fields: [userId], references: [id])
+  document   Document      @relation(fields: [documentId], references: [id])
+
+  @@map("document_requests")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum DocumentCategory {
+  GUIDES
+  LAWS
+  STANDARDS
+  REPORTS
+  MAPS
+  STUDIES
+}
+
+enum UrgencyLevel {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
