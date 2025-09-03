@@ -40,9 +40,9 @@ async function main() {
       ]
     });
   }
-  console.log('Database seeded');
+  // Database seeded successfully
 }
 
 main()
-  .catch(e => console.error(e))
+  .catch(e => { throw new Error('Database seed failed: ' + e.message); })
   .finally(async () => await prisma.$disconnect());

@@ -57,7 +57,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           }
         }
       } catch (error) {
-        console.error('Error loading user:', error);
+        // User loading failed - token may be expired
         logout();
       } finally {
         setIsLoading(false);

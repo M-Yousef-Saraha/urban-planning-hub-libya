@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import logger from '../utils/logger';
 
 interface CustomError extends Error {
   statusCode?: number;
@@ -15,7 +16,7 @@ export const errorHandler = (
   error.message = err.message;
 
   // Log error
-  console.error(err);
+  logger.error('Unhandled error:', err);
 
   // Prisma errors
   if (err.code === 'P2002') {

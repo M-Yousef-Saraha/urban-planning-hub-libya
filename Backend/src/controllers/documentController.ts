@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import prisma from '../utils/prisma';
+import logger from '../utils/logger';
 
 export const getDocuments = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -73,7 +74,7 @@ export const getDocuments = async (req: Request, res: Response): Promise<void> =
       },
     });
   } catch (error) {
-    console.error('Get documents error:', error);
+    logger.error('Get documents error:', error);
     res.status(500).json({
       success: false,
       error: 'Server error',
@@ -112,7 +113,7 @@ export const getDocument = async (req: Request, res: Response): Promise<void> =>
       data: document,
     });
   } catch (error) {
-    console.error('Get document error:', error);
+    logger.error('Get document by ID error:', error);
     res.status(500).json({
       success: false,
       error: 'Server error',
@@ -167,7 +168,7 @@ export const createDocument = async (req: Request, res: Response): Promise<void>
       data: document,
     });
   } catch (error) {
-    console.error('Create document error:', error);
+    logger.error('Create document error:', error);
     res.status(500).json({
       success: false,
       error: 'Server error',
@@ -235,7 +236,7 @@ export const updateDocument = async (req: Request, res: Response): Promise<void>
       data: document,
     });
   } catch (error) {
-    console.error('Update document error:', error);
+    logger.error('Update document error:', error);
     res.status(500).json({
       success: false,
       error: 'Server error',
@@ -269,7 +270,7 @@ export const deleteDocument = async (req: Request, res: Response): Promise<void>
       message: 'Document deleted successfully',
     });
   } catch (error) {
-    console.error('Delete document error:', error);
+    logger.error('Delete document error:', error);
     res.status(500).json({
       success: false,
       error: 'Server error',
@@ -293,7 +294,7 @@ export const getCategories = async (req: Request, res: Response): Promise<void> 
       data: categories,
     });
   } catch (error) {
-    console.error('Get categories error:', error);
+    logger.error('Get categories error:', error);
     res.status(500).json({
       success: false,
       error: 'Server error',

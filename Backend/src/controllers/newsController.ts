@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import fs from 'fs';
 import path from 'path';
+import logger from '../utils/logger';
 
 const dataDir = path.join(process.cwd(), 'data');
 if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
@@ -12,7 +13,7 @@ function readNews() {
     const raw = fs.readFileSync(newsFile, 'utf8');
     return JSON.parse(raw || '[]');
   } catch (e) {
-    console.error('Failed to read news file', e);
+    logger.error('Failed to read news file:', e);
     return [];
   }
 }
@@ -26,7 +27,7 @@ export const listNews = async (req: Request, res: Response): Promise<void> => {
     const items = readNews();
     res.json({ success: true, data: { news: items } });
   } catch (err) {
-    console.error(err);
+    logger.error('List news error:', err);
     res.status(500).json({ success: false, error: 'Server error' });
   }
 };
@@ -45,8 +46,8 @@ export const createNews = async (req: Request, res: Response): Promise<void> => 
     writeNews(items);
     res.status(201).json({ success: true, data: item });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, error: 'Server error' });
+    logger.error('Create news error:', err);
+    res.status(500).json({ success: false, error: 'Failed to create news' });
   }
 };
 
@@ -64,8 +65,8 @@ export const updateNews = async (req: Request, res: Response): Promise<void> => 
     writeNews(items);
     res.json({ success: true, data: items[idx] });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, error: 'Server error' });
+    logger.error('Update news error:', err);
+    res.status(500).json({ success: false, error: 'Failed to update news' });
   }
 };
 
@@ -82,7 +83,7 @@ export const deleteNews = async (req: Request, res: Response): Promise<void> => 
     writeNews(items);
     res.json({ success: true, data: removed });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, error: 'Server error' });
+    logger.error('Delete news error:', err);
+    res.status(500).json({ success: false, error: 'Failed to delete news' });
   }
 };

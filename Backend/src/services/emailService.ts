@@ -1,4 +1,5 @@
 import sgMail from '@sendgrid/mail';
+import logger from '../utils/logger';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
@@ -32,9 +33,9 @@ export class EmailService {
       };
 
       await sgMail.send(msg);
-      console.log(`Email sent successfully to ${data.to}`);
+      logger.info(`Email sent successfully to ${data.to}`);
     } catch (error) {
-      console.error('Error sending email:', error);
+      logger.error('Error sending email:', error);
       throw new Error('Failed to send email');
     }
   }

@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import config from './config';
 import rateLimit from 'express-rate-limit';
 import path from 'path';
+import logger, { morganStream } from './utils/logger';
 
 // Import routes
 import authRoutes from './routes/auth';
@@ -37,7 +38,7 @@ app.use(cors({
   origin: true, // Allow all origins for development
   credentials: true,
 }));
-app.use(morgan('combined'));
+app.use(morgan('combined', { stream: morganStream }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(limiter);
@@ -68,9 +69,9 @@ app.use(errorHandler);
 
 // Start server
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Server is running on port ${PORT}`);
-  console.log(`📚 Urban Planning Hub Libya API`);
-  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  logger.info(`🚀 Server is running on port ${PORT}`);
+  logger.info(`📚 Urban Planning Hub Libya API`);
+  logger.info(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
 });
 
 export default app;

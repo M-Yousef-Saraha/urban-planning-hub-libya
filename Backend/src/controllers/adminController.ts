@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import prisma from '../utils/prisma';
 import { emailService } from '../services/emailService';
+import logger from '../utils/logger';
 
 export const getAllRequests = async (req: Request, res: Response): Promise<Response | void> => {
   try {
@@ -78,7 +79,7 @@ export const getAllRequests = async (req: Request, res: Response): Promise<Respo
       },
     });
   } catch (error) {
-    console.error('Get all requests error:', error);
+    logger.error('Get all admin requests error:', error);
     res.status(500).json({
       success: false,
       error: 'Server error',
@@ -178,14 +179,14 @@ export const updateRequestStatus = async (req: Request, res: Response): Promise<
             data: { status: 'COMPLETED' },
           });
         } else {
-          console.error('Document file not found:', filePath);
+          logger.warn('Document file not found for email attachment:', filePath);
           res.status(404).json({
             success: false,
             error: 'Document file not found',
           });
         }
       } catch (emailError) {
-        console.error('Failed to send document via email:', emailError);
+        logger.error('Failed to send document via email:', emailError);
         res.status(500).json({
           success: false,
           error: 'Failed to send document via email',
@@ -199,7 +200,7 @@ export const updateRequestStatus = async (req: Request, res: Response): Promise<
       message: `Request ${status.toLowerCase()} successfully`,
     });
   } catch (error) {
-    console.error('Update request status error:', error);
+    logger.error('Update request status error:', error);
     res.status(500).json({
       success: false,
       error: 'Server error',
@@ -264,7 +265,7 @@ export const getRequestStats = async (req: Request, res: Response): Promise<Resp
       },
     });
   } catch (error) {
-    console.error('Get request stats error:', error);
+    logger.error('Get request stats error:', error);
     res.status(500).json({
       success: false,
       error: 'Server error',
@@ -334,7 +335,7 @@ export const getDocumentStats = async (req: Request, res: Response): Promise<Res
       },
     });
   } catch (error) {
-    console.error('Get document stats error:', error);
+    logger.error('Get document stats error:', error);
     res.status(500).json({
       success: false,
       error: 'Server error',
@@ -356,7 +357,7 @@ export const getDownloads = async (req: Request, res: Response): Promise<Respons
 
     res.json({ success: true, data: { downloads: recent.reverse() } });
   } catch (error) {
-    console.error('Get downloads error:', error);
+    logger.error('Get downloads error:', error);
     res.status(500).json({ success: false, error: 'Server error' });
   }
 };

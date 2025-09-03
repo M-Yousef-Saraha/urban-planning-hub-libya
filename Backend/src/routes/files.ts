@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import { authenticate, authorize } from '../middleware/auth';
 import prisma from '../utils/prisma';
+import logger from '../utils/logger';
 
 // Ensure logs directory exists
 const logsDir = path.join(process.cwd(), 'logs');
@@ -52,12 +53,12 @@ router.get('/:filename', async (req, res): Promise<void> => {
       };
       fs.appendFileSync(downloadsLog, JSON.stringify(logEntry) + '\n');
     } catch (err) {
-      console.error('Failed to log download:', err);
+      logger.warn('Failed to log download:', err);
     }
 
     fileStream.pipe(res);
   } catch (error) {
-    console.error('File serve error:', error);
+    logger.error('File serve error:', error);
     res.status(500).json({
       success: false,
       error: 'Server error',
@@ -87,7 +88,7 @@ router.delete('/:filename', authenticate, authorize('ADMIN'), (req, res): void =
       message: 'File deleted successfully',
     });
   } catch (error) {
-    console.error('File delete error:', error);
+    logger.error('File delete error:', error);
     res.status(500).json({
       success: false,
       error: 'Server error',

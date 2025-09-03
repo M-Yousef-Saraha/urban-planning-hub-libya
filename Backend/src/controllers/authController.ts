@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { validationResult } from 'express-validator';
 import prisma from '../utils/prisma';
+import logger from '../utils/logger';
 
 export const register = async (req: Request, res: Response): Promise<Response | void> => {
   try {
@@ -65,7 +66,7 @@ export const register = async (req: Request, res: Response): Promise<Response | 
       },
     });
   } catch (error) {
-    console.error('Registration error:', error);
+    logger.error('Registration error:', error);
     return res.status(500).json({
       success: false,
       error: 'Server error during registration',
@@ -128,7 +129,7 @@ export const login = async (req: Request, res: Response): Promise<Response | voi
       },
     });
   } catch (error) {
-    console.error('Login error:', error);
+    logger.error('Login error:', error);
     return res.status(500).json({
       success: false,
       error: 'Server error during login',
@@ -163,7 +164,7 @@ export const getMe = async (req: Request, res: Response): Promise<Response | voi
       data: user,
     });
   } catch (error) {
-    console.error('Get user error:', error);
+    logger.error('Get user profile error:', error);
     return res.status(500).json({
       success: false,
       error: 'Server error',
@@ -202,7 +203,7 @@ export const updateProfile = async (req: Request, res: Response): Promise<Respon
       data: user,
     });
   } catch (error) {
-    console.error('Update profile error:', error);
+    logger.error('Update profile error:', error);
     return res.status(500).json({
       success: false,
       error: 'Server error',

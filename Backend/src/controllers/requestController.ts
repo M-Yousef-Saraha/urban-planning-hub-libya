@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import prisma from '../utils/prisma';
 import { emailService } from '../services/emailService';
+import logger from '../utils/logger';
 
 export const createRequest = async (req: Request, res: Response): Promise<Response | void> => {
   try {
@@ -72,7 +73,7 @@ export const createRequest = async (req: Request, res: Response): Promise<Respon
         documentRequest.id
       );
     } catch (emailError) {
-      console.error('Failed to send confirmation email:', emailError);
+      logger.warn('Failed to send confirmation email:', emailError);
     }
 
     // Send notification email to admin
@@ -86,7 +87,7 @@ export const createRequest = async (req: Request, res: Response): Promise<Respon
         documentRequest.id
       );
     } catch (emailError) {
-      console.error('Failed to send admin notification:', emailError);
+      logger.warn('Failed to send admin notification:', emailError);
     }
 
     return res.status(201).json({
@@ -103,7 +104,7 @@ export const createRequest = async (req: Request, res: Response): Promise<Respon
       },
     });
   } catch (error) {
-    console.error('Create request error:', error);
+    logger.error('Create document request error:', error);
     return res.status(500).json({
       success: false,
       error: 'Server error',
@@ -170,7 +171,7 @@ export const getUserRequests = async (req: Request, res: Response): Promise<Resp
       },
     });
   } catch (error) {
-    console.error('Get user requests error:', error);
+    logger.error('Get user requests error:', error);
     return res.status(500).json({
       success: false,
       error: 'Server error',
@@ -220,7 +221,7 @@ export const getRequest = async (req: Request, res: Response): Promise<Response 
       data: request,
     });
   } catch (error) {
-    console.error('Get request error:', error);
+    logger.error('Get request by ID error:', error);
     return res.status(500).json({
       success: false,
       error: 'Server error',
@@ -254,7 +255,7 @@ export const cancelRequest = async (req: Request, res: Response): Promise<Respon
       message: 'Request cancelled successfully',
     });
   } catch (error) {
-    console.error('Cancel request error:', error);
+    logger.error('Cancel request error:', error);
     return res.status(500).json({
       success: false,
       error: 'Server error',
