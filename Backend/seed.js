@@ -1,12 +1,16 @@
 const { PrismaClient } = require('@prisma/client');
+const bcrypt = require('bcryptjs');
 const prisma = new PrismaClient();
 
 async function main() {
+  // Hash the password properly
+  const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD || 'TempAdmin2024!', 12);
+  
   await prisma.user.create({
     data: {
   name: 'Admin User',
   email: 'admin@urbanplanninghub.ly',
-  password: 'admin123', // Note: Passwords should be hashed in production
+  password: hashedPassword,
   role: 'ADMIN',
     },
   });
