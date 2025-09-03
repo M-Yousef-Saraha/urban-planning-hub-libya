@@ -1,8 +1,24 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-// API Base URL - prefer Vite env variable, fallback to localhost:3002
-export const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string) || 'http://localhost:3002';
+// API Base URL - use Replit domain in production, fallback to localhost:3001
+const getApiBaseUrl = () => {
+  // In production (Replit), use the domain with backend port
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL as string;
+  }
+  
+  // Check if we're in Replit environment
+  const domain = typeof window !== 'undefined' ? window.location.hostname : '';
+  if (domain.includes('replit.dev')) {
+    return `https://${domain.replace('-5000', '-3001')}`;
+  }
+  
+  // Local development fallback
+  return 'http://localhost:3001';
+};
+
+export const API_BASE_URL = getApiBaseUrl();
 
 // Create axios instance
 export const api = axios.create({
