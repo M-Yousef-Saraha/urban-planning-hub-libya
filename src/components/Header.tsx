@@ -28,7 +28,7 @@ const Header = () => {
 
   return (
     <header 
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 w-full z-[70] transition-all duration-300 ${
         isScrolled 
           ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-sage-100' 
           : 'bg-white/90 backdrop-blur-sm'
@@ -87,8 +87,8 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-blue-100 bg-white/95 backdrop-blur-md">
-            <nav className="flex flex-col space-y-3">
+          <div className="lg:hidden absolute top-full left-0 right-0 z-[71] py-4 border-t border-blue-100 bg-white/95 backdrop-blur-md shadow-lg">
+            <nav className="flex flex-col space-y-3 px-4">
               {navItems.map((item) => (
                 <a
                   key={item.name}
