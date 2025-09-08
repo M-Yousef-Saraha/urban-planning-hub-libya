@@ -50,7 +50,6 @@ const Header = () => {
               <h1 className="text-xl md:text-2xl font-bold text-slate-800 leading-tight">
                 الهيئة الوطنية للتخطيط العمراني
               </h1>
-              <p className="text-sm text-blue-600 font-medium">تطوير عمراني متقدم</p>
             </div>
           </div>
 
