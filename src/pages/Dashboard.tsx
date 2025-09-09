@@ -237,15 +237,15 @@ const Dashboard = () => {
                   <div className="md:col-span-4 grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="p-4 bg-white rounded-lg">
                       <div className="text-sm text-gray-600">إجمالي الطلبات</div>
-                      <div className="text-2xl font-bold">{adminStats?.totalRequests ?? '-'}</div>
+                      <div className="text-2xl font-bold" dir="ltr">{adminStats?.totalRequests ?? '-'}</div>
                     </div>
                     <div className="p-4 bg-white rounded-lg">
                       <div className="text-sm text-gray-600">الوثائق النشطة</div>
-                      <div className="text-2xl font-bold">{adminStats?.activeDocuments ?? '-'}</div>
+                      <div className="text-2xl font-bold" dir="ltr">{adminStats?.activeDocuments ?? '-'}</div>
                     </div>
                     <div className="p-4 bg-white rounded-lg">
                       <div className="text-sm text-gray-600">التنزيلات الأخيرة</div>
-                      <div className="text-2xl font-bold">{recentDownloads.length}</div>
+                      <div className="text-2xl font-bold" dir="ltr">{recentDownloads.length}</div>
                     </div>
                   </div>
 
@@ -257,7 +257,7 @@ const Dashboard = () => {
                           <div key={i} className="flex justify-between items-center">
                             <div>
                               <div className="text-sm">{d.documentTitle || d.filename}</div>
-                              <div className="text-xs text-gray-500">{new Date(d.timestamp).toLocaleString('ar-SA')}</div>
+                              <div className="text-xs text-gray-500" dir="ltr">{new Date(d.timestamp).toLocaleString('en-GB')}</div>
                             </div>
                             <div className="text-xs text-gray-500">{d.remoteAddr}</div>
                           </div>
@@ -314,7 +314,7 @@ const Dashboard = () => {
                                   <div className="flex items-center gap-4 text-xs text-gray-500">
                                     <span className="flex items-center gap-1">
                                       <Calendar className="w-3 h-3" />
-                                      {new Date(request.createdAt).toLocaleDateString('ar-SA')}
+                                      <span dir="ltr">{new Date(request.createdAt).toLocaleDateString('en-GB')}</span>
                                     </span>
                                     <span>الأولوية: {getUrgencyBadge(request.urgency)}</span>
                                   </div>

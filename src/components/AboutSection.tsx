@@ -84,7 +84,7 @@ const AboutSection = () => {
                 <div className={`inline-flex items-center justify-center w-16 h-16 ${stat.color} rounded-full mb-6 group-hover:scale-110 transition-transform duration-300`}>
                   <stat.icon size={28} className="text-white" />
                 </div>
-                <div className="text-4xl font-bold text-green-800 mb-3">{stat.value}</div>
+                <div className="text-4xl font-bold text-green-800 mb-3" dir="ltr">{stat.value}</div>
                 <div className="text-gray-600 font-medium">{stat.label}</div>
               </div>
             ))}
