@@ -73,22 +73,6 @@ const AboutSection = () => {
             </button>
           </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-2 gap-6">
-            {stats.map((stat, index) => (
-              <div 
-                key={index}
-                className="modern-card p-8 text-center hover-lift group"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className={`inline-flex items-center justify-center w-16 h-16 ${stat.color} rounded-full mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  <stat.icon size={28} className="text-white" />
-                </div>
-                <div className="text-4xl font-bold text-green-800 mb-3" dir="ltr">{stat.value}</div>
-                <div className="text-gray-600 font-medium">{stat.label}</div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </section>
