@@ -37,19 +37,14 @@ const Header = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
-          {/* Logo and Title */}
-          <div className="flex items-center space-x-4 space-x-reverse">
+          {/* Logo */}
+          <div className="flex items-center">
             <div className="relative">
               <img 
-                src="/lovable-uploads/926954d9-d0f5-4d6a-9a97-ec24b5fdf369.png" 
-                alt="الهيئة الوطنية للتخطيط العمراني"
-                className="w-16 h-16 object-contain"
+                src="/new-logo.png" 
+                alt="شعار الهيئة"
+                className="h-14 w-auto object-contain"
               />
-            </div>
-            <div>
-              <h1 className="text-xl md:text-2xl font-bold text-slate-800 leading-tight">
-                الهيئة الوطنية للتخطيط العمراني
-              </h1>
             </div>
           </div>
 
