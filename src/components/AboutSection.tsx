@@ -44,9 +44,9 @@ const AboutSection = () => {
               <span className="text-blue-700 font-medium">من نحن</span>
             </div>
             
-            <h3 className="text-4xl md:text-5xl font-bold text-blue-800 mb-8 leading-tight">
-              الهيئة الوطنية
-              <span className="block text-gradient">للتخطيط العمراني</span>
+            <h3 className="text-4xl md:text-5xl font-bold text-blue-800 mb-10 leading-relaxed">
+              <div className="mb-2">الهيئة الوطنية</div>
+              <div className="text-gradient">للتخطيط العمراني</div>
             </h3>
             
             <p className="text-xl text-gray-700 leading-relaxed mb-8">

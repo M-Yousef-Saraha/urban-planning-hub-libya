@@ -31,11 +31,11 @@ const Hero = () => {
             <span className="text-blue-50 font-medium">التخطيط العمراني المتطور</span>
           </div>
 
-          <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight animate-fade-in-up">
-            الهيئة الوطنية
-            <span className="block bg-gradient-to-r from-blue-100 to-blue-200 bg-clip-text text-transparent">
+          <h2 className="text-5xl md:text-7xl font-bold mb-10 leading-tight animate-fade-in-up">
+            <div className="mb-2">الهيئة الوطنية</div>
+            <div className="bg-gradient-to-r from-blue-100 to-blue-200 bg-clip-text text-transparent">
               للتخطيط العمراني
-            </span>
+            </div>
           </h2>
           
           <p className="text-xl md:text-2xl mb-12 text-blue-50 leading-relaxed max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
