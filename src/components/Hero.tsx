@@ -58,19 +58,19 @@ const Hero = () => {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
             <div className="glass-effect rounded-2xl p-6 hover:bg-white/15 transition-all duration-300">
-              <div className="text-3xl font-bold text-white mb-2">200+</div>
+              <div className="text-3xl font-bold text-white mb-2" dir="ltr">200+</div>
               <div className="text-blue-100 text-sm">مشروع عمراني</div>
             </div>
             <div className="glass-effect rounded-2xl p-6 hover:bg-white/15 transition-all duration-300">
-              <div className="text-3xl font-bold text-white mb-2">50+</div>
+              <div className="text-3xl font-bold text-white mb-2" dir="ltr">50+</div>
               <div className="text-blue-100 text-sm">مخطط معتمد</div>
             </div>
             <div className="glass-effect rounded-2xl p-6 hover:bg-white/15 transition-all duration-300">
-              <div className="text-3xl font-bold text-white mb-2">25+</div>
+              <div className="text-3xl font-bold text-white mb-2" dir="ltr">25+</div>
               <div className="text-blue-100 text-sm">مدينة مخططة</div>
             </div>
             <div className="glass-effect rounded-2xl p-6 hover:bg-white/15 transition-all duration-300">
-              <div className="text-3xl font-bold text-white mb-2">15</div>
+              <div className="text-3xl font-bold text-white mb-2" dir="ltr">15</div>
               <div className="text-blue-100 text-sm">سنة خبرة</div>
             </div>
           </div>

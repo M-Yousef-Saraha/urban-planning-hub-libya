@@ -253,11 +253,11 @@ const Library = () => {
                   <div className="space-y-2 text-xs text-gray-500 mb-4">
                     <div className="flex items-center gap-2">
                       <Calendar className="w-3 h-3" />
-                      <span>{new Date(document.createdAt).toLocaleDateString('ar-SA')}</span>
+                      <span dir="ltr">{new Date(document.createdAt).toLocaleDateString('en-GB')}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Download className="w-3 h-3" />
-                      <span>{formatFileSize(document.fileSize)}</span>
+                      <span dir="ltr">{formatFileSize(document.fileSize)}</span>
                     </div>
                   </div>
 

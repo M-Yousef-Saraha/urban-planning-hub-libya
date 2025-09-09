@@ -77,7 +77,7 @@ const ProjectsSection = () => {
                   <div className="mb-4">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-sm font-medium text-gray-700">مستوى الإنجاز</span>
-                      <span className="text-sm font-medium text-blue-600">{project.progress}%</span>
+                      <span className="text-sm font-medium text-blue-600" dir="ltr">{project.progress}%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
                       <div 
@@ -96,7 +96,7 @@ const ProjectsSection = () => {
                       <span className="text-sm font-medium text-gray-700">تاريخ البدء</span>
                     </div>
                     <p className="text-lg font-semibold text-gray-800">
-                      {new Date(project.startDate).toLocaleDateString('ar-SA')}
+                      <span dir="ltr">{new Date(project.startDate).toLocaleDateString('en-GB')}</span>
                     </p>
                   </div>
                   
@@ -105,7 +105,7 @@ const ProjectsSection = () => {
                       <Users size={16} className="text-blue-600" />
                       <span className="text-sm font-medium text-gray-700">المستفيدون</span>
                     </div>
-                    <p className="text-lg font-semibold text-gray-800">{project.beneficiaries}</p>
+                    <p className="text-lg font-semibold text-gray-800" dir="ltr">{project.beneficiaries}</p>
                   </div>
                   
                   <div className="bg-gray-50 p-4 rounded-xl">

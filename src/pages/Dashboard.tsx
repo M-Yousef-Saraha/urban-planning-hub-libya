@@ -182,7 +182,7 @@ const Dashboard = () => {
                 <div>
                   <label className="text-sm font-medium text-gray-600">تاريخ الإنشاء</label>
                   <p className="text-gray-800">
-                    {new Date(user.createdAt).toLocaleDateString('ar-SA')}
+                    <span dir="ltr">{new Date(user.createdAt).toLocaleDateString('en-GB')}</span>
                   </p>
                 </div>
               </CardContent>

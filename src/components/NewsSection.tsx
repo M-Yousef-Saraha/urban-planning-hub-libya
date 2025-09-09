@@ -55,7 +55,7 @@ const NewsSection = () => {
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center text-blue-600 text-sm font-medium">
                     <Calendar size={16} className="ml-2" />
-                    <span>{new Date(item.date).toLocaleDateString('ar-SA')}</span>
+                    <span dir="ltr">{new Date(item.date).toLocaleDateString('en-GB')}</span>
                   </div>
                   <div className={`p-3 ${item.color} rounded-full group-hover:scale-110 transition-transform duration-300`}>
                     <item.icon size={20} className="text-white" />
