@@ -36,14 +36,14 @@ const Header = () => {
       dir="rtl"
     >
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center py-4">
+        <div className="flex justify-between items-center py-2">
           {/* Logo */}
           <div className="flex items-center">
             <div className="relative">
               <img 
-                src="/new-logo.png" 
+                src="/updated-logo.png" 
                 alt="شعار الهيئة"
-                className="h-20 w-auto object-contain"
+                className="h-12 w-auto object-contain"
               />
             </div>
           </div>
