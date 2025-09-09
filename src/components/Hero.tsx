@@ -31,7 +31,7 @@ const Hero = () => {
             <span className="text-blue-50 font-medium">التخطيط العمراني المتطور</span>
           </div>
 
-          <h2 className="text-5xl md:text-7xl font-bold mb-10 leading-tight animate-fade-in-up">
+          <h2 className="text-5xl md:text-7xl font-bold mb-10 leading-normal animate-fade-in-up">
             <div className="mb-2">الهيئة الوطنية</div>
             <div className="bg-gradient-to-r from-blue-100 to-blue-200 bg-clip-text text-transparent">
               للتخطيط العمراني
