@@ -43,7 +43,7 @@ const Header = () => {
               <img 
                 src="/new-logo.png" 
                 alt="شعار الهيئة"
-                className="h-14 w-auto object-contain"
+                className="h-20 w-auto object-contain"
               />
             </div>
           </div>
