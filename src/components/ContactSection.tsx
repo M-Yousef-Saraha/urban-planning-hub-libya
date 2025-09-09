@@ -158,7 +158,7 @@ const ContactSection = () => {
                   <div className="flex-1">
                     <h5 className="text-xl font-bold text-green-800 mb-3">{info.title}</h5>
                     {info.details.map((detail, idx) => (
-                      <p key={idx} className="text-gray-600 mb-2 leading-relaxed">{detail}</p>
+                      <p key={idx} className="text-gray-600 mb-2 leading-relaxed" dir={detail.startsWith('+') ? 'ltr' : 'rtl'}>{detail}</p>
                     ))}
                   </div>
                 </div>
