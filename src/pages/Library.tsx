@@ -233,7 +233,7 @@ const Library = () => {
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <CardTitle className="text-lg mb-2 leading-tight">
+                      <CardTitle className="text-lg mb-3 leading-normal">
                         {document.title}
                       </CardTitle>
                       <Badge variant="secondary" className="mb-2">

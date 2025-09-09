@@ -188,7 +188,7 @@ const LibrarySimple = () => {
               <div key={document.id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
-                    <h3 className="text-lg font-bold mb-2 leading-tight">
+                    <h3 className="text-lg font-bold mb-3 leading-normal">
                       {document.title}
                     </h3>
                     <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mb-2">

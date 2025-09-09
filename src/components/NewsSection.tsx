@@ -62,7 +62,7 @@ const NewsSection = () => {
                   </div>
                 </div>
                 
-                <h4 className="font-bold text-xl mb-4 text-gray-800 group-hover:text-blue-700 transition-colors leading-tight">
+                <h4 className="font-bold text-xl mb-5 text-gray-800 group-hover:text-blue-700 transition-colors leading-normal">
                   {item.title}
                 </h4>
                 
