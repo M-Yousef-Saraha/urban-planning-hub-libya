@@ -10,11 +10,13 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-import AdminDashboard from "./pages/AdminDashboard";
 import AdminLayout from "./pages/admin/AdminLayout";
+import DashboardOverview from "./pages/admin/DashboardOverview";
 import DocumentsAdmin from "./pages/admin/DocumentsAdmin";
 import MediaAdmin from "./pages/admin/MediaAdmin";
 import NewsAdmin from "./pages/admin/NewsAdmin";
+import RequestsManagement from "./pages/admin/RequestsManagement";
+import DownloadsView from "./pages/admin/DownloadsView";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,11 +36,12 @@ const App = () => (
               <Route path="/register" element={<Register />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/admin" element={<AdminLayout />}>
-                <Route index element={<AdminDashboard />} />
+                <Route index element={<DashboardOverview />} />
                 <Route path="documents" element={<DocumentsAdmin />} />
+                <Route path="requests" element={<RequestsManagement />} />
                 <Route path="media" element={<MediaAdmin />} />
                 <Route path="news" element={<NewsAdmin />} />
-                <Route path="downloads" element={<AdminDashboard />} />
+                <Route path="downloads" element={<DownloadsView />} />
               </Route>
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

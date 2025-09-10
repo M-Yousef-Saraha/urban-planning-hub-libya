@@ -16,10 +16,11 @@ const AdminLayout = () => {
             <h3 className="font-bold mb-4">لوحة الإدارة</h3>
             <nav className="flex flex-col space-y-2">
               <Link to="/admin" className="text-sm py-2 px-3 rounded hover:bg-gray-100">نظرة عامة</Link>
-              <Link to="/admin/documents" className="text-sm py-2 px-3 rounded hover:bg-gray-100">الوثائق</Link>
-              <Link to="/admin/media" className="text-sm py-2 px-3 rounded hover:bg-gray-100">الوسائط</Link>
-              <Link to="/admin/news" className="text-sm py-2 px-3 rounded hover:bg-gray-100">الأخبار</Link>
-              <Link to="/admin/downloads" className="text-sm py-2 px-3 rounded hover:bg-gray-100">التنزيلات</Link>
+              <Link to="/admin/requests" className="text-sm py-2 px-3 rounded hover:bg-gray-100">إدارة الطلبات</Link>
+              <Link to="/admin/documents" className="text-sm py-2 px-3 rounded hover:bg-gray-100">إدارة الوثائق</Link>
+              <Link to="/admin/downloads" className="text-sm py-2 px-3 rounded hover:bg-gray-100">سجل التنزيلات</Link>
+              <Link to="/admin/media" className="text-sm py-2 px-3 rounded hover:bg-gray-100">إدارة الوسائط</Link>
+              <Link to="/admin/news" className="text-sm py-2 px-3 rounded hover:bg-gray-100">إدارة الأخبار</Link>
               <Button variant="ghost" onClick={() => navigate('/dashboard')} className="mt-4 text-sm">العودة للوحة المستخدم</Button>
             </nav>
           </aside>
