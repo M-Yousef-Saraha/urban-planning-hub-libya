@@ -105,7 +105,7 @@ const DocumentRequestModal: React.FC<DocumentRequestModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md" dir="rtl">
+      <DialogContent className="sm:max-w-md z-[9998]" dir="rtl">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-xl">
             <FileText className="w-5 h-5 text-blue-600" />
@@ -176,7 +176,7 @@ const DocumentRequestModal: React.FC<DocumentRequestModalProps> = ({
                         <SelectValue placeholder="اختر الغرض من الطلب" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
+                    <SelectContent className="z-[9999]">
                       {purposeOptions.map((option) => (
                         <SelectItem key={option.value} value={option.value}>
                           {option.label}
