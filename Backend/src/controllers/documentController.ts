@@ -129,6 +129,7 @@ export const createDocument = async (req: Request, res: Response): Promise<void>
         success: false,
         errors: errors.array(),
       });
+      return;
     }
 
     if (!req.file) {
@@ -136,16 +137,48 @@ export const createDocument = async (req: Request, res: Response): Promise<void>
         success: false,
         error: 'No file uploaded',
       });
+      return;
     }
 
-    const { title, description, category } = req.body;
+    const { title, description, category, categoryId, locationId, tags, keywords } = req.body;
     const { filename, size, mimetype, path } = req.file as any;
+
+    // Parse arrays if they're JSON strings
+    let parsedTags = [];
+    let parsedKeywords = [];
+    
+    if (tags) {
+      try {
+        parsedTags = typeof tags === 'string' ? JSON.parse(tags) : tags;
+      } catch (e) {
+        parsedTags = [];
+      }
+    }
+    
+    if (keywords) {
+      try {
+        parsedKeywords = typeof keywords === 'string' ? JSON.parse(keywords) : keywords;
+      } catch (e) {
+        parsedKeywords = [];
+      }
+    }
+
+    // Determine which category system to use
+    let finalCategory = category;
+    if (categoryId && !category) {
+      // If hierarchical category is provided but legacy isn't, use a default legacy value
+      finalCategory = 'GUIDES'; // Default fallback
+    }
 
     const document = await prisma.document.create({
       data: {
         title,
         description,
-        category,
+        category: finalCategory,
+        categoryId: categoryId || null,
+        locationId: locationId || null,
+        tags: parsedTags,
+        keywords: parsedKeywords,
         fileName: filename,
         filePath: path,
         fileSize: size,
@@ -156,6 +189,10 @@ export const createDocument = async (req: Request, res: Response): Promise<void>
         title: true,
         description: true,
         category: true,
+        categoryId: true,
+        locationId: true,
+        tags: true,
+        keywords: true,
         fileName: true,
         fileSize: true,
         mimeType: true,
