@@ -17,6 +17,14 @@ import {
   bulkUpdateDocuments,
   getAnalytics,
 } from '../controllers/adminController';
+import {
+  approveRequest,
+  rejectRequest,
+  getRequestDetails,
+} from '../controllers/requestController';
+import {
+  generateDownloadLink,
+} from '../controllers/downloadController';
 import { authenticate, authorize } from '../middleware/auth';
 
 const router = express.Router();
@@ -53,6 +61,22 @@ const bulkUpdateValidation = [
     .withMessage('Action is required'),
 ];
 
+const approveRequestValidation = [
+  body('adminNotes')
+    .optional()
+    .trim()
+    .isLength({ max: 500 })
+    .withMessage('Admin notes must not exceed 500 characters'),
+];
+
+const rejectRequestValidation = [
+  body('adminNotes')
+    .notEmpty()
+    .trim()
+    .isLength({ min: 10, max: 500 })
+    .withMessage('Rejection reason is required and must be between 10-500 characters'),
+];
+
 // All routes require admin authentication
 router.use(authenticate);
 router.use(authorize('ADMIN'));
@@ -61,7 +85,11 @@ router.use(authorize('ADMIN'));
 
 // Request Management
 router.get('/requests', getAllRequests);
+router.get('/requests/:id', getRequestDetails);
 router.put('/requests/:id/status', updateRequestStatusValidation, updateRequestStatus);
+router.put('/requests/:id/approve', approveRequestValidation, approveRequest);
+router.put('/requests/:id/reject', rejectRequestValidation, rejectRequest);
+router.post('/requests/:id/download-link', generateDownloadLink);
 router.put('/requests/bulk', bulkUpdateValidation, bulkUpdateRequests);
 
 // User Management

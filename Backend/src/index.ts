@@ -18,6 +18,7 @@ import newsRoutes from './routes/news';
 import categoryRoutes from './routes/categories';
 import locationRoutes from './routes/locations';
 import seedRoutes from './routes/seed';
+import { secureDownload } from './controllers/downloadController';
 
 // Import middleware
 import { errorHandler } from './middleware/errorHandler';
@@ -68,6 +69,9 @@ app.use('/api/news', newsRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/locations', locationRoutes);
 app.use('/api/seed', seedRoutes);
+
+// Secure download endpoint (public, token-based authentication)
+app.get('/api/download/:token', secureDownload);
 
 // Error handling middleware
 app.use(notFound);
