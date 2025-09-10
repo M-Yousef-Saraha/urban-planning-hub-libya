@@ -47,6 +47,10 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Dynamic Header Height System - Prevents overlap issues */
+    --header-height: 64px; /* Default fallback */
+    --header-spacing: calc(var(--header-height) + 2rem); /* Header height + padding */
   }
 
   .dark {
@@ -198,4 +202,27 @@ html {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Layout System - Header Overlap Prevention */
+.page-container {
+  padding-top: var(--header-spacing);
+  padding-bottom: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.page-container-no-top {
+  padding-bottom: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Utility classes for consistent spacing */
+.header-safe-top {
+  margin-top: var(--header-height);
+}
+
+.header-safe-padding {
+  padding-top: var(--header-spacing);
 }

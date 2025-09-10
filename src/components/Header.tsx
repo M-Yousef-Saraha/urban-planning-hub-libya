@@ -1,10 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Globe } from 'lucide-react';
+import { useHeaderHeight } from '@/hooks/useHeaderHeight';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const headerRef = useHeaderHeight(); // Dynamic header height calculation
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +30,7 @@ const Header = () => {
 
   return (
     <header 
+      ref={headerRef}
       className={`fixed top-0 w-full z-[70] transition-all duration-300 ${
         isScrolled 
           ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-sage-100' 
