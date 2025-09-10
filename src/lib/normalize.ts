@@ -9,11 +9,26 @@ export function normalizeDocuments(response: any): Document[] {
   return [];
 }
 
-export function normalizeCategories(response: any): string[] {
+export function normalizeCategories(response: any): any[] {
   if (!response) return [];
-  if (Array.isArray(response)) return response as string[];
-  if (response.success && response.data && Array.isArray(response.data.categories)) return response.data.categories as string[];
-  if (response.data && Array.isArray(response.data.categories)) return response.data.categories as string[];
-  if (Array.isArray(response.categories)) return response.categories as string[];
+  
+  // Handle hierarchical categories
+  if (response.success && response.data) {
+    if (response.data.hierarchical && Array.isArray(response.data.hierarchical)) {
+      return response.data.hierarchical;
+    }
+    if (response.data.categories && Array.isArray(response.data.categories)) {
+      return response.data.categories;
+    }
+    if (response.data.legacy && Array.isArray(response.data.legacy)) {
+      return response.data.legacy;
+    }
+  }
+  
+  // Handle legacy format
+  if (Array.isArray(response)) return response;
+  if (response.data && Array.isArray(response.data.categories)) return response.data.categories;
+  if (Array.isArray(response.categories)) return response.categories;
+  
   return [];
 }

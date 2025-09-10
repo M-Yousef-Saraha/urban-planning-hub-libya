@@ -280,7 +280,31 @@ export const deleteDocument = async (req: Request, res: Response): Promise<void>
 
 export const getCategories = async (req: Request, res: Response): Promise<void> => {
   try {
-    const categories = [
+    // Get hierarchical categories from the database
+    const hierarchicalCategories = await prisma.category.findMany({
+      where: {
+        isActive: true,
+        parentId: null, // Root categories only
+      },
+      include: {
+        children: {
+          where: { isActive: true },
+          orderBy: { sortOrder: 'asc' },
+          include: {
+            _count: {
+              select: { documents: true }
+            }
+          }
+        },
+        _count: {
+          select: { documents: true }
+        }
+      },
+      orderBy: { sortOrder: 'asc' },
+    });
+
+    // Also provide legacy categories for backward compatibility
+    const legacyCategories = [
       { value: 'GUIDES', label: 'أدلة / Guides' },
       { value: 'LAWS', label: 'قوانين / Laws' },
       { value: 'STANDARDS', label: 'معايير / Standards' },
@@ -291,7 +315,12 @@ export const getCategories = async (req: Request, res: Response): Promise<void> 
 
     res.json({
       success: true,
-      data: categories,
+      data: {
+        legacy: legacyCategories,
+        hierarchical: hierarchicalCategories,
+        // Default to hierarchical if available, fallback to legacy
+        categories: hierarchicalCategories.length > 0 ? hierarchicalCategories : legacyCategories
+      },
     });
   } catch (error) {
     logger.error('Get categories error:', error);

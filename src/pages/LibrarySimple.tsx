@@ -16,7 +16,7 @@ const LibrarySimple = () => {
   const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [documents, setDocuments] = useState<Document[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
@@ -128,46 +128,132 @@ const LibrarySimple = () => {
 
       {/* Search and Filter Section */}
       <PageContainer>
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Search */}
+        {/* Enhanced Hierarchical Filters */}
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl shadow-lg p-6 mb-8 border border-blue-200">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z" />
+              </svg>
+            </div>
             <div>
+              <h2 className="text-xl font-bold text-gray-800">فلترة وتصنيف الوثائق</h2>
+              <p className="text-sm text-gray-600">استخدم الفلاتر للعثور على الوثائق المطلوبة بسهولة</p>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            {/* Enhanced Search */}
+            <div className="lg:col-span-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                البحث في الوثائق
+              </label>
               <input
                 type="text"
-                placeholder="البحث في الوثائق..."
+                placeholder="ابحث بالعنوان، الوصف، أو الكلمات المفتاحية..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-right bg-white shadow-sm transition-all hover:shadow-md"
               />
             </div>
 
-            {/* Category Filter */}
+            {/* Hierarchical Category Filter */}
             <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2 2z" />
+                </svg>
+                التصنيف
+              </label>
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-right bg-white shadow-sm transition-all hover:shadow-md"
               >
-                <option value="">جميع الفئات</option>
+                <option value="">جميع التصنيفات</option>
                 {categories.map((category) => (
-                  <option key={category} value={category}>
-                    {getCategoryLabel(category)}
-                  </option>
+                  <optgroup key={category.id || category.value} label={category.nameAr || category.label}>
+                    <option value={category.id || category.value}>
+                      {category.nameAr || category.label} ({category._count?.documents || 0})
+                    </option>
+                    {category.children?.map((subCategory: any) => (
+                      <option key={subCategory.id} value={subCategory.id} className="pr-4">
+                        ↳ {subCategory.nameAr || subCategory.name} ({subCategory._count?.documents || 0})
+                      </option>
+                    ))}
+                  </optgroup>
                 ))}
               </select>
             </div>
 
             {/* Clear Filters */}
-            <div>
+            <div className="flex flex-col">
+              <label className="block text-sm font-medium text-gray-700 mb-2 opacity-0">إجراءات</label>
               <button
                 onClick={() => {
                   setSearchTerm('');
                   setSelectedCategory('');
                 }}
-                className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
+                className="w-full px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 font-medium"
               >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
                 مسح الفلاتر
               </button>
+            </div>
+          </div>
+
+          {/* Selected Filters Display */}
+          {(searchTerm || selectedCategory) && (
+            <div className="mt-6 pt-4 border-t border-blue-200">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="text-sm font-medium text-gray-700">الفلاتر المطبقة:</span>
+                {searchTerm && (
+                  <span className="inline-flex items-center gap-2 px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    "{searchTerm}"
+                    <button
+                      onClick={() => setSearchTerm('')}
+                      className="text-green-600 hover:text-green-800"
+                    >
+                      ×
+                    </button>
+                  </span>
+                )}
+                {selectedCategory && (
+                  <span className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2 2z" />
+                    </svg>
+                    {getCategoryLabel(selectedCategory)}
+                    <button
+                      onClick={() => setSelectedCategory('')}
+                      className="text-blue-600 hover:text-blue-800"
+                    >
+                      ×
+                    </button>
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Results Summary */}
+          <div className="mt-4 pt-4 border-t border-blue-200 flex justify-between items-center text-sm">
+            <span className="text-gray-600">
+              {documents.length} وثيقة {searchTerm || selectedCategory ? 'مطابقة للفلاتر' : 'متاحة'}
+            </span>
+            <div className="flex items-center gap-2 text-blue-600">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              نظام التصنيف الهرمي نشط
             </div>
           </div>
         </div>
