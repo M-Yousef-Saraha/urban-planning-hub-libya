@@ -15,6 +15,9 @@ import requestRoutes from './routes/requests';
 import adminRoutes from './routes/admin';
 import fileRoutes from './routes/files';
 import newsRoutes from './routes/news';
+import categoryRoutes from './routes/categories';
+import locationRoutes from './routes/locations';
+import seedRoutes from './routes/seed';
 
 // Import middleware
 import { errorHandler } from './middleware/errorHandler';
@@ -62,6 +65,9 @@ app.use('/api/requests', requestRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/files', fileRoutes);
 app.use('/api/news', newsRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/locations', locationRoutes);
+app.use('/api/seed', seedRoutes);
 
 // Error handling middleware
 app.use(notFound);
