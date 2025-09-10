@@ -187,6 +187,26 @@ export const adminAPI = {
     return response.data;
   },
 
+  approveRequest: async (id: string, adminNotes?: string) => {
+    const response = await api.put(`/api/admin/requests/${id}/approve`, { adminNotes });
+    return response.data;
+  },
+
+  rejectRequest: async (id: string, adminNotes: string) => {
+    const response = await api.put(`/api/admin/requests/${id}/reject`, { adminNotes });
+    return response.data;
+  },
+
+  generateDownloadLink: async (id: string) => {
+    const response = await api.post(`/api/admin/requests/${id}/download-link`);
+    return response.data;
+  },
+
+  getRequestDetails: async (id: string) => {
+    const response = await api.get(`/api/admin/requests/${id}`);
+    return response.data;
+  },
+
   getRequestStats: async () => {
     const response = await api.get('/api/admin/stats/requests');
     return response.data;

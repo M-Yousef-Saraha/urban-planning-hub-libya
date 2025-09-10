@@ -14,7 +14,9 @@ import {
   XCircle, 
   AlertCircle,
   Eye,
-  Filter
+  Filter,
+  Download,
+  MessageSquare
 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -25,8 +27,13 @@ const RequestsManagement = () => {
   const [statusFilter, setStatusFilter] = useState<string>('');
   const [urgencyFilter, setUrgencyFilter] = useState<string>('');
   const [adminNotes, setAdminNotes] = useState('');
-  const [newStatus, setNewStatus] = useState('');
-  const [isUpdating, setIsUpdating] = useState(false);
+  const [rejectReason, setRejectReason] = useState('');
+  const [isApproving, setIsApproving] = useState(false);
+  const [isRejecting, setIsRejecting] = useState(false);
+  const [showApproveDialog, setShowApproveDialog] = useState(false);
+  const [showRejectDialog, setShowRejectDialog] = useState(false);
+  const [showDetailsDialog, setShowDetailsDialog] = useState(false);
+  const [downloadLink, setDownloadLink] = useState('');
 
   useEffect(() => {
     fetchRequests();
@@ -50,28 +57,65 @@ const RequestsManagement = () => {
     }
   };
 
-  const handleStatusUpdate = async () => {
-    if (!selectedRequest || !newStatus) return;
+  const handleApproveRequest = async () => {
+    if (!selectedRequest) return;
 
     try {
-      setIsUpdating(true);
-      const response = await adminAPI.updateRequestStatus(
+      setIsApproving(true);
+      const response = await adminAPI.approveRequest(
         selectedRequest.id, 
-        newStatus, 
         adminNotes || undefined
       );
 
       if (response.success) {
-        toast.success('تم تحديث حالة الطلب بنجاح');
-        setSelectedRequest(null);
+        toast.success('تم قبول الطلب وإنشاء رابط التحميل');
+        setDownloadLink(`${window.location.origin}/api/download/${response.data.downloadToken}`);
+        setShowApproveDialog(false);
         setAdminNotes('');
-        setNewStatus('');
         fetchRequests();
       }
     } catch (error) {
-      toast.error('فشل في تحديث حالة الطلب');
+      toast.error('فشل في قبول الطلب');
     } finally {
-      setIsUpdating(false);
+      setIsApproving(false);
+    }
+  };
+
+  const handleRejectRequest = async () => {
+    if (!selectedRequest || !rejectReason.trim()) {
+      toast.error('يجب إدخال سبب الرفض');
+      return;
+    }
+
+    try {
+      setIsRejecting(true);
+      const response = await adminAPI.rejectRequest(
+        selectedRequest.id, 
+        rejectReason.trim()
+      );
+
+      if (response.success) {
+        toast.success('تم رفض الطلب');
+        setShowRejectDialog(false);
+        setRejectReason('');
+        fetchRequests();
+      }
+    } catch (error) {
+      toast.error('فشل في رفض الطلب');
+    } finally {
+      setIsRejecting(false);
+    }
+  };
+
+  const generateDownloadLink = async (requestId: string) => {
+    try {
+      const response = await adminAPI.generateDownloadLink(requestId);
+      if (response.success) {
+        setDownloadLink(`${window.location.origin}${response.data.downloadUrl}`);
+        toast.success('تم إنشاء رابط التحميل');
+      }
+    } catch (error) {
+      toast.error('فشل في إنشاء رابط التحميل');
     }
   };
 
@@ -219,91 +263,60 @@ const RequestsManagement = () => {
                       <span dir="ltr">{new Date(request.createdAt).toLocaleDateString('en-GB')}</span>
                     </TableCell>
                     <TableCell>
-                      <Dialog>
-                        <DialogTrigger asChild>
+                      <div className="flex gap-2">
+                        {request.status === 'PENDING' && (
+                          <>
+                            <Button 
+                              variant="default" 
+                              size="sm"
+                              onClick={() => {
+                                setSelectedRequest(request);
+                                setAdminNotes('');
+                                setShowApproveDialog(true);
+                              }}
+                              className="bg-green-600 hover:bg-green-700"
+                            >
+                              <CheckCircle className="w-4 h-4 ml-1" />
+                              قبول
+                            </Button>
+                            <Button 
+                              variant="destructive" 
+                              size="sm"
+                              onClick={() => {
+                                setSelectedRequest(request);
+                                setRejectReason('');
+                                setShowRejectDialog(true);
+                              }}
+                            >
+                              <XCircle className="w-4 h-4 ml-1" />
+                              رفض
+                            </Button>
+                          </>
+                        )}
+                        
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => {
+                            setSelectedRequest(request);
+                            setShowDetailsDialog(true);
+                          }}
+                        >
+                          <Eye className="w-4 h-4 ml-1" />
+                          تفاصيل
+                        </Button>
+                        
+                        {request.status === 'APPROVED' && (
                           <Button 
-                            variant="outline" 
+                            variant="secondary" 
                             size="sm"
-                            onClick={() => {
-                              setSelectedRequest(request);
-                              setNewStatus(request.status);
-                              setAdminNotes(request.adminNotes || '');
-                            }}
+                            onClick={() => generateDownloadLink(request.id)}
                           >
-                            <Eye className="w-4 h-4 ml-1" />
-                            مراجعة
+                            <Download className="w-4 h-4 ml-1" />
+                            رابط التحميل
                           </Button>
-                        </DialogTrigger>
-                        <DialogContent className="max-w-2xl" dir="rtl">
-                          <DialogHeader>
-                            <DialogTitle>مراجعة الطلب</DialogTitle>
-                          </DialogHeader>
-                          {selectedRequest && (
-                            <div className="space-y-4">
-                              <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                  <label className="font-medium">الوثيقة:</label>
-                                  <p>{selectedRequest.document?.title}</p>
-                                </div>
-                                <div>
-                                  <label className="font-medium">المستخدم:</label>
-                                  <p>{selectedRequest.user?.name}</p>
-                                </div>
-                                <div>
-                                  <label className="font-medium">البريد:</label>
-                                  <p>{selectedRequest.user?.email}</p>
-                                </div>
-                                <div>
-                                  <label className="font-medium">الأولوية:</label>
-                                  <p>{getUrgencyBadge(selectedRequest.urgency)}</p>
-                                </div>
-                              </div>
-                              <div>
-                                <label className="font-medium">الغرض:</label>
-                                <p className="mt-1 p-2 bg-gray-50 rounded">{selectedRequest.purpose}</p>
-                              </div>
-                              {selectedRequest.notes && (
-                                <div>
-                                  <label className="font-medium">ملاحظات المستخدم:</label>
-                                  <p className="mt-1 p-2 bg-gray-50 rounded">{selectedRequest.notes}</p>
-                                </div>
-                              )}
-                              <div>
-                                <label className="font-medium">تحديث الحالة:</label>
-                                <Select value={newStatus} onValueChange={setNewStatus}>
-                                  <SelectTrigger className="mt-1">
-                                    <SelectValue />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    <SelectItem value="PENDING">قيد المراجعة</SelectItem>
-                                    <SelectItem value="APPROVED">موافق عليه</SelectItem>
-                                    <SelectItem value="REJECTED">مرفوض</SelectItem>
-                                    <SelectItem value="COMPLETED">مكتمل</SelectItem>
-                                  </SelectContent>
-                                </Select>
-                              </div>
-                              <div>
-                                <label className="font-medium">ملاحظات الإدارة:</label>
-                                <Textarea
-                                  value={adminNotes}
-                                  onChange={(e) => setAdminNotes(e.target.value)}
-                                  placeholder="أضف ملاحظات للمستخدم..."
-                                  className="mt-1"
-                                  rows={3}
-                                />
-                              </div>
-                              <div className="flex gap-2 justify-end">
-                                <Button
-                                  onClick={handleStatusUpdate}
-                                  disabled={isUpdating}
-                                >
-                                  {isUpdating ? 'جاري الحفظ...' : 'حفظ التحديثات'}
-                                </Button>
-                              </div>
-                            </div>
-                          )}
-                        </DialogContent>
-                      </Dialog>
+                        )}
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -312,6 +325,181 @@ const RequestsManagement = () => {
           )}
         </CardContent>
       </Card>
+
+      {/* Approve Dialog */}
+      <Dialog open={showApproveDialog} onOpenChange={setShowApproveDialog}>
+        <DialogContent className="max-w-md" dir="rtl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-green-600">
+              <CheckCircle className="w-5 h-5" />
+              قبول الطلب
+            </DialogTitle>
+          </DialogHeader>
+          {selectedRequest && (
+            <div className="space-y-4">
+              <div className="p-3 bg-green-50 rounded-lg">
+                <p className="font-medium">{selectedRequest.document?.title}</p>
+                <p className="text-sm text-gray-600">{selectedRequest.user?.name}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">ملاحظات إضافية (اختيارية):</label>
+                <Textarea
+                  value={adminNotes}
+                  onChange={(e) => setAdminNotes(e.target.value)}
+                  placeholder="أضف ملاحظات للمستخدم..."
+                  rows={3}
+                />
+              </div>
+              <div className="flex gap-2 justify-end">
+                <Button
+                  variant="outline"
+                  onClick={() => setShowApproveDialog(false)}
+                  disabled={isApproving}
+                >
+                  إلغاء
+                </Button>
+                <Button
+                  onClick={handleApproveRequest}
+                  disabled={isApproving}
+                  className="bg-green-600 hover:bg-green-700"
+                >
+                  {isApproving ? 'جاري الموافقة...' : 'قبول الطلب'}
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Reject Dialog */}
+      <Dialog open={showRejectDialog} onOpenChange={setShowRejectDialog}>
+        <DialogContent className="max-w-md" dir="rtl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-red-600">
+              <XCircle className="w-5 h-5" />
+              رفض الطلب
+            </DialogTitle>
+          </DialogHeader>
+          {selectedRequest && (
+            <div className="space-y-4">
+              <div className="p-3 bg-red-50 rounded-lg">
+                <p className="font-medium">{selectedRequest.document?.title}</p>
+                <p className="text-sm text-gray-600">{selectedRequest.user?.name}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">سبب الرفض <span className="text-red-500">*</span>:</label>
+                <Textarea
+                  value={rejectReason}
+                  onChange={(e) => setRejectReason(e.target.value)}
+                  placeholder="يرجى توضيح سبب رفض الطلب..."
+                  rows={4}
+                  className="border-red-200 focus:border-red-400"
+                />
+                <p className="text-xs text-gray-500 mt-1">الحد الأدنى 10 أحرف</p>
+              </div>
+              <div className="flex gap-2 justify-end">
+                <Button
+                  variant="outline"
+                  onClick={() => setShowRejectDialog(false)}
+                  disabled={isRejecting}
+                >
+                  إلغاء
+                </Button>
+                <Button
+                  variant="destructive"
+                  onClick={handleRejectRequest}
+                  disabled={isRejecting || rejectReason.trim().length < 10}
+                >
+                  {isRejecting ? 'جاري الرفض...' : 'رفض الطلب'}
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Details Dialog */}
+      <Dialog open={showDetailsDialog} onOpenChange={setShowDetailsDialog}>
+        <DialogContent className="max-w-2xl" dir="rtl">
+          <DialogHeader>
+            <DialogTitle>تفاصيل الطلب</DialogTitle>
+          </DialogHeader>
+          {selectedRequest && (
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="font-medium">الوثيقة:</label>
+                  <p>{selectedRequest.document?.title}</p>
+                </div>
+                <div>
+                  <label className="font-medium">المستخدم:</label>
+                  <p>{selectedRequest.user?.name}</p>
+                </div>
+                <div>
+                  <label className="font-medium">البريد:</label>
+                  <p>{selectedRequest.user?.email}</p>
+                </div>
+                <div>
+                  <label className="font-medium">الأولوية:</label>
+                  <p>{getUrgencyBadge(selectedRequest.urgency)}</p>
+                </div>
+                <div>
+                  <label className="font-medium">الحالة:</label>
+                  <p>{getStatusBadge(selectedRequest.status)}</p>
+                </div>
+                <div>
+                  <label className="font-medium">تاريخ الطلب:</label>
+                  <p dir="ltr">{new Date(selectedRequest.createdAt).toLocaleDateString('en-GB')}</p>
+                </div>
+              </div>
+              <div>
+                <label className="font-medium">الغرض:</label>
+                <p className="mt-1 p-2 bg-gray-50 rounded">{selectedRequest.purpose}</p>
+              </div>
+              {selectedRequest.notes && (
+                <div>
+                  <label className="font-medium">ملاحظات المستخدم:</label>
+                  <p className="mt-1 p-2 bg-gray-50 rounded">{selectedRequest.notes}</p>
+                </div>
+              )}
+              {selectedRequest.adminNotes && (
+                <div>
+                  <label className="font-medium">ملاحظات الإدارة:</label>
+                  <p className="mt-1 p-2 bg-blue-50 rounded">{selectedRequest.adminNotes}</p>
+                </div>
+              )}
+              {selectedRequest.processedAt && (
+                <div>
+                  <label className="font-medium">تاريخ المعالجة:</label>
+                  <p dir="ltr">{new Date(selectedRequest.processedAt).toLocaleDateString('en-GB')}</p>
+                </div>
+              )}
+              {downloadLink && (
+                <div className="p-4 bg-green-50 rounded-lg">
+                  <label className="font-medium text-green-800">رابط التحميل (صالح لمدة ساعتين):</label>
+                  <div className="flex items-center gap-2 mt-2">
+                    <input 
+                      type="text" 
+                      value={downloadLink} 
+                      readOnly 
+                      className="flex-1 p-2 text-sm bg-white border rounded"
+                    />
+                    <Button
+                      size="sm"
+                      onClick={() => {
+                        navigator.clipboard.writeText(downloadLink);
+                        toast.success('تم نسخ الرابط');
+                      }}
+                    >
+                      نسخ
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
