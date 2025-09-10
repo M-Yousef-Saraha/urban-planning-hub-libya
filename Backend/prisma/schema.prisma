@@ -51,17 +51,22 @@ model Document {
 }
 
 model DocumentRequest {
-  id         String        @id @default(cuid())
-  userId     String
-  documentId String
-  purpose    String
-  urgency    UrgencyLevel
-  notes      String?
-  status     RequestStatus @default(PENDING)
-  createdAt  DateTime      @default(now())
-  updatedAt  DateTime      @updatedAt
-  user       User          @relation(fields: [userId], references: [id])
-  document   Document      @relation(fields: [documentId], references: [id])
+  id           String        @id @default(cuid())
+  userId       String
+  documentId   String
+  purpose      String
+  urgency      UrgencyLevel
+  notes        String?
+  status       RequestStatus @default(PENDING)
+  adminNotes   String?       // Admin comments/rejection reasons
+  approvedBy   String?       // Admin user ID who processed request
+  processedAt  DateTime?     // When admin took action
+  expiresAt    DateTime?     // When approved download link expires (2 hours)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  user         User          @relation(fields: [userId], references: [id])
+  document     Document      @relation(fields: [documentId], references: [id])
+  downloadTokens DownloadToken[]
 
   @@map("document_requests")
 }
@@ -150,6 +155,19 @@ enum UrgencyLevel {
   MEDIUM
   HIGH
   URGENT
+}
+
+model DownloadToken {
+  id          String   @id @default(cuid())
+  requestId   String
+  token       String   @unique // Secure random token
+  expiresAt   DateTime // 2 hours from creation
+  downloadedAt DateTime? // When citizen downloaded (null until used)
+  ipAddress   String?  // Security logging
+  createdAt   DateTime @default(now())
+  request     DocumentRequest @relation(fields: [requestId], references: [id])
+
+  @@map("download_tokens")
 }
 
 enum RequestStatus {
