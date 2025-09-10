@@ -7,6 +7,8 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PageContainer from '@/components/layout/PageContainer';
 import DocumentRequestModal from '@/components/DocumentRequestModal';
+import DocumentDetailModal from '@/components/DocumentDetailModal';
+import { DocumentSkeletonGrid } from '@/components/DocumentSkeleton';
 import { toast } from 'sonner';
 import { Eye, Download } from 'lucide-react';
 
@@ -21,6 +23,7 @@ const LibrarySimple = () => {
   const [error, setError] = useState<string>('');
   const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
 
   useEffect(() => {
     fetchDocuments();
@@ -82,6 +85,11 @@ const LibrarySimple = () => {
   const handleRequestSuccess = () => {
     // Optionally refresh documents or update UI
     setSelectedDocument(null);
+  };
+
+  const handleViewDocument = (document: Document) => {
+    setSelectedDocument(document);
+    setIsDetailModalOpen(true);
   };
 
   const getCategoryLabel = (category: string) => {
@@ -176,9 +184,12 @@ const LibrarySimple = () => {
 
         {/* Documents Grid */}
         {isLoading ? (
-          <div className="text-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">جاري تحميل الوثائق...</p>
+          <div className="space-y-6">
+            <div className="text-center py-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-2"></div>
+              <p className="text-gray-600 text-sm">جاري تحميل الوثائق...</p>
+            </div>
+            <DocumentSkeletonGrid count={6} />
           </div>
         ) : documents.length === 0 ? (
           <div className="text-center py-12">
@@ -236,7 +247,7 @@ const LibrarySimple = () => {
                       طلب الوثيقة
                     </button>
                     <button
-                      onClick={() => setSelectedDocument(document)}
+                      onClick={() => handleViewDocument(document)}
                       className="px-4 py-2.5 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors flex items-center justify-center"
                       title="عرض التفاصيل"
                     >
@@ -259,6 +270,20 @@ const LibrarySimple = () => {
           setSelectedDocument(null);
         }}
         onSuccess={handleRequestSuccess}
+      />
+
+      {/* Document Detail Modal */}
+      <DocumentDetailModal
+        document={selectedDocument}
+        isOpen={isDetailModalOpen}
+        onClose={() => {
+          setIsDetailModalOpen(false);
+          setSelectedDocument(null);
+        }}
+        onRequestDocument={(doc) => {
+          setIsDetailModalOpen(false);
+          handleRequestDocument(doc);
+        }}
       />
 
       <Footer />
