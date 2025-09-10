@@ -59,6 +59,7 @@ const DocumentRequestModal: React.FC<DocumentRequestModalProps> = ({
       name: '',
       email: '',
     },
+    mode: 'onChange',
   });
 
   const onSubmit = async (data: DocumentRequestForm) => {
@@ -92,11 +93,12 @@ const DocumentRequestModal: React.FC<DocumentRequestModalProps> = ({
   };
 
   const purposeOptions = [
-    { value: 'RESEARCH', label: 'بحث أكاديمي' },
-    { value: 'BUSINESS', label: 'أغراض تجارية' },
-    { value: 'PERSONAL', label: 'استخدام شخصي' },
-    { value: 'LEGAL', label: 'أغراض قانونية' },
-    { value: 'GOVERNMENTAL', label: 'أغراض حكومية' },
+    { value: 'STUDENT_RESEARCH', label: 'طالب - مشروع بحثي' },
+    { value: 'GENERAL_INQUIRY', label: 'استفسار عام' },
+    { value: 'WORK_PROJECT', label: 'مشروع عمل' },
+    { value: 'PERSONAL_USE', label: 'استخدام شخصي' },
+    { value: 'LEGAL_MATTER', label: 'مسألة قانونية' },
+    { value: 'BUSINESS_PURPOSE', label: 'أغراض تجارية' },
     { value: 'OTHER', label: 'أخرى' },
   ];
 
@@ -135,12 +137,11 @@ const DocumentRequestModal: React.FC<DocumentRequestModalProps> = ({
               <FormField
                 control={form.control}
                 name="name"
-                rules={{ required: 'الاسم مطلوب' }}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>الاسم الكامل</FormLabel>
                     <FormControl>
-                      <Input placeholder="أدخل اسمك الكامل" {...field} />
+                      <Input placeholder="أدخل اسمك الكامل" {...field} required />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -150,18 +151,11 @@ const DocumentRequestModal: React.FC<DocumentRequestModalProps> = ({
               <FormField
                 control={form.control}
                 name="email"
-                rules={{ 
-                  required: 'البريد الإلكتروني مطلوب',
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: 'يرجى إدخال بريد إلكتروني صحيح'
-                  }
-                }}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>البريد الإلكتروني</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="أدخل بريدك الإلكتروني" {...field} />
+                      <Input type="email" placeholder="أدخل بريدك الإلكتروني" {...field} required />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -173,11 +167,10 @@ const DocumentRequestModal: React.FC<DocumentRequestModalProps> = ({
             <FormField
               control={form.control}
               name="purpose"
-              rules={{ required: 'الغرض من الطلب مطلوب' }}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>الغرض من طلب الوثيقة</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="اختر الغرض من الطلب" />
