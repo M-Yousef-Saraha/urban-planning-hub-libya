@@ -34,6 +34,7 @@ export const authenticate = async (
         success: false,
         error: 'No token provided, authorization denied',
       });
+      return;
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayload;
@@ -48,6 +49,7 @@ export const authenticate = async (
         success: false,
         error: 'Token is not valid',
       });
+      return;
     }
 
     req.user = user as any;
@@ -67,6 +69,7 @@ export const authorize = (...roles: string[]) => {
         success: false,
         error: 'Not authenticated',
       });
+      return;
     }
 
     if (!roles.includes(req.user.role)) {
@@ -74,6 +77,7 @@ export const authorize = (...roles: string[]) => {
         success: false,
         error: 'Not authorized to access this resource',
       });
+      return;
     }
 
     next();
