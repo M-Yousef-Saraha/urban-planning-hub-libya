@@ -32,18 +32,12 @@ export const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const token = Cookies.get('authToken');
-    console.log('API Request interceptor - Token from cookies:', token ? 'Token found' : 'No token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
-      console.log('API Request interceptor - Authorization header set');
-    } else {
-      console.log('API Request interceptor - No token available');
     }
-    console.log('API Request interceptor - Final headers:', config.headers);
     return config;
   },
   (error) => {
-    console.error('API Request interceptor error:', error);
     return Promise.reject(error);
   }
 );
