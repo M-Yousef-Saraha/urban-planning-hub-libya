@@ -196,6 +196,61 @@ export const adminAPI = {
     const response = await api.get('/api/admin/stats/documents');
     return response.data;
   },
+
+  // User Management
+  getAllUsers: async (params?: { page?: number; limit?: number; role?: string; search?: string }) => {
+    const response = await api.get('/api/admin/users', { params });
+    return response.data;
+  },
+
+  updateUserRole: async (id: string, role: string) => {
+    const response = await api.put(`/api/admin/users/${id}/role`, { role });
+    return response.data;
+  },
+
+  toggleUserStatus: async (id: string) => {
+    const response = await api.put(`/api/admin/users/${id}/toggle-status`);
+    return response.data;
+  },
+
+  // System Settings
+  getSystemSettings: async () => {
+    const response = await api.get('/api/admin/settings');
+    return response.data;
+  },
+
+  updateSystemSettings: async (settings: any) => {
+    const response = await api.put('/api/admin/settings', settings);
+    return response.data;
+  },
+
+  // Media Management
+  getMediaFiles: async () => {
+    const response = await api.get('/api/admin/media');
+    return response.data;
+  },
+
+  deleteMediaFile: async (filename: string) => {
+    const response = await api.delete(`/api/admin/media/${filename}`);
+    return response.data;
+  },
+
+  // Bulk Operations
+  bulkUpdateRequests: async (data: { requestIds: string[]; action: string; status?: string; adminNotes?: string }) => {
+    const response = await api.put('/api/admin/requests/bulk', data);
+    return response.data;
+  },
+
+  bulkUpdateDocuments: async (data: { documentIds: string[]; action: string; isActive?: boolean; category?: string }) => {
+    const response = await api.put('/api/admin/documents/bulk', data);
+    return response.data;
+  },
+
+  // Analytics
+  getAnalytics: async (period?: string) => {
+    const response = await api.get('/api/admin/analytics', { params: { period } });
+    return response.data;
+  },
 };
 
 // Health check
