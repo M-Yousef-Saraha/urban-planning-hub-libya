@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { documentsAPI, requestsAPI, Document } from '@/lib/api';
+import { documentsAPI, Document } from '@/lib/api';
 import { normalizeDocuments, normalizeCategories } from '@/lib/normalize';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PageContainer from '@/components/layout/PageContainer';
+import DocumentRequestModal from '@/components/DocumentRequestModal';
+import { toast } from 'sonner';
+import { Eye, Download } from 'lucide-react';
 
 const LibrarySimple = () => {
   const { user, isAuthenticated } = useAuth();
@@ -16,6 +19,8 @@ const LibrarySimple = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [error, setError] = useState<string>('');
+  const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
+  const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
 
   useEffect(() => {
     fetchDocuments();
@@ -58,31 +63,25 @@ const LibrarySimple = () => {
     return () => clearTimeout(delayedSearch);
   }, [searchTerm, selectedCategory]);
 
-  const handleRequestDocument = async (document: Document) => {
+  const handleRequestDocument = (document: Document) => {
     if (!isAuthenticated) {
-      alert('يجب تسجيل الدخول أولاً لطلب الوثائق');
-      navigate('/login');
+      toast.error('تسجيل الدخول مطلوب', {
+        description: 'يجب تسجيل الدخول أولاً لطلب الوثائق',
+        action: {
+          label: 'تسجيل الدخول',
+          onClick: () => navigate('/login'),
+        },
+      });
       return;
     }
     
-    const purpose = prompt('ما هو الغرض من طلب هذه الوثيقة؟');
-    if (!purpose) return;
+    setSelectedDocument(document);
+    setIsRequestModalOpen(true);
+  };
 
-    try {
-      const response = await requestsAPI.create({
-        documentId: document.id,
-        purpose: purpose,
-        urgency: 'MEDIUM',
-        notes: ''
-      });
-
-      if (response.success) {
-        alert('تم إرسال طلب الوثيقة بنجاح');
-      }
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.error || 'فشل في إرسال الطلب';
-      alert(errorMessage);
-    }
+  const handleRequestSuccess = () => {
+    // Optionally refresh documents or update UI
+    setSelectedDocument(null);
   };
 
   const getCategoryLabel = (category: string) => {
@@ -167,8 +166,11 @@ const LibrarySimple = () => {
 
         {/* Error Message */}
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-            {error}
+          <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg mb-4 flex items-center gap-2">
+            <div className="w-4 h-4 border-2 border-red-600 rounded-full flex items-center justify-center">
+              <div className="w-2 h-2 bg-red-600 rounded-full"></div>
+            </div>
+            <span>{error}</span>
           </div>
         )}
 
@@ -186,44 +188,78 @@ const LibrarySimple = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {documents.map((document) => (
-              <div key={document.id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold mb-3 leading-normal">
-                      {document.title}
-                    </h3>
-                    <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mb-2">
-                      {getCategoryLabel(document.category)}
-                    </span>
+              <div key={document.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-200 border border-gray-100">
+                {/* Document Header */}
+                <div className="p-6 pb-4">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex-1">
+                      <h3 className="text-lg font-bold mb-2 leading-normal text-gray-900">
+                        {document.title}
+                      </h3>
+                      <span className="inline-block bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full font-medium">
+                        {getCategoryLabel(document.category)}
+                      </span>
+                    </div>
                   </div>
-                </div>
-                
-                {document.description && (
-                  <p className="text-gray-600 text-sm mb-4">
-                    {document.description}
-                  </p>
-                )}
-                
-                <div className="space-y-2 text-xs text-gray-500 mb-4">
-                  <div>
-                    تاريخ الإنشاء: {new Date(document.createdAt).toLocaleDateString('ar-SA')}
-                  </div>
-                  <div>
-                    حجم الملف: {formatFileSize(document.fileSize)}
+                  
+                  {document.description && (
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                      {document.description}
+                    </p>
+                  )}
+                  
+                  {/* Document Metadata */}
+                  <div className="space-y-2 text-xs text-gray-500 mb-4">
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded bg-gray-200 flex items-center justify-center">
+                        <span className="text-[10px] font-medium">📅</span>
+                      </div>
+                      تاريخ الإنشاء: {new Date(document.createdAt).toLocaleDateString('ar-SA')}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded bg-gray-200 flex items-center justify-center">
+                        <span className="text-[10px] font-medium">📊</span>
+                      </div>
+                      حجم الملف: {formatFileSize(document.fileSize)}
+                    </div>
                   </div>
                 </div>
 
-                <button
-                  onClick={() => handleRequestDocument(document)}
-                  className="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
-                >
-                  طلب الوثيقة
-                </button>
+                {/* Action Buttons */}
+                <div className="px-6 pb-6">
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleRequestDocument(document)}
+                      className="flex-1 bg-blue-600 text-white px-4 py-2.5 rounded-md hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 font-medium"
+                    >
+                      <Download className="w-4 h-4" />
+                      طلب الوثيقة
+                    </button>
+                    <button
+                      onClick={() => setSelectedDocument(document)}
+                      className="px-4 py-2.5 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors flex items-center justify-center"
+                      title="عرض التفاصيل"
+                    >
+                      <Eye className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         )}
       </PageContainer>
+
+      {/* Document Request Modal */}
+      <DocumentRequestModal
+        document={selectedDocument}
+        isOpen={isRequestModalOpen}
+        onClose={() => {
+          setIsRequestModalOpen(false);
+          setSelectedDocument(null);
+        }}
+        onSuccess={handleRequestSuccess}
+      />
 
       <Footer />
     </div>
