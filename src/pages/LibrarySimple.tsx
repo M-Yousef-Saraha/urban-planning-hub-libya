@@ -5,6 +5,7 @@ import { documentsAPI, requestsAPI, Document } from '@/lib/api';
 import { normalizeDocuments, normalizeCategories } from '@/lib/normalize';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PageContainer from '@/components/layout/PageContainer';
 
 const LibrarySimple = () => {
   const { user, isAuthenticated } = useAuth();
@@ -109,17 +110,17 @@ const LibrarySimple = () => {
       <Header />
       
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
-        <div className="container mx-auto px-4 text-center">
+      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white header-safe-padding py-16">
+        <PageContainer className="text-center" withHeaderSpacing={false}>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">مكتبة الوثائق</h1>
           <p className="text-xl text-blue-100 max-w-2xl mx-auto">
             تصفح واطلب الوثائق والمستندات الرسمية من الهيئة الوطنية للتخطيط العمراني
           </p>
-        </div>
+        </PageContainer>
       </div>
 
       {/* Search and Filter Section */}
-      <div className="container mx-auto px-4 py-8">
+      <PageContainer>
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Search */}
@@ -222,7 +223,7 @@ const LibrarySimple = () => {
             ))}
           </div>
         )}
-      </div>
+      </PageContainer>
 
       <Footer />
     </div>

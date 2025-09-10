@@ -21,6 +21,7 @@ import { requestsAPI, DocumentRequest, API_BASE_URL } from '@/lib/api';
 import { api } from '@/lib/api';
 import { CardFooter } from '@/components/ui/card';
 import { toast } from 'sonner';
+import PageContainer from '@/components/layout/PageContainer';
 
 const Dashboard = () => {
   const { user, logout, isAuthenticated } = useAuth();
@@ -147,7 +148,7 @@ const Dashboard = () => {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-8">
+      <PageContainer>
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Sidebar */}
           <div className="lg:col-span-1">
@@ -392,7 +393,7 @@ const Dashboard = () => {
             </Tabs>
           </div>
         </div>
-      </div>
+      </PageContainer>
     </div>
   );
 };

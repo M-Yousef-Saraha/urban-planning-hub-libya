@@ -3,6 +3,7 @@ import { Link, Outlet, useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
+import PageContainer from '@/components/layout/PageContainer';
 
 const AdminLayout = () => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ const AdminLayout = () => {
   return (
     <div className="min-h-screen bg-gray-50" dir="rtl">
       <Header />
-      <div className="container mx-auto px-4 py-8">
+      <PageContainer className="min-h-screen">
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-6">
           <aside className="lg:col-span-1 bg-white p-4 rounded-lg shadow-sm">
             <h3 className="font-bold mb-4">لوحة الإدارة</h3>
@@ -32,7 +33,7 @@ const AdminLayout = () => {
             <Outlet />
           </main>
         </div>
-      </div>
+      </PageContainer>
       <Footer />
     </div>
   );
