@@ -393,10 +393,7 @@ export const getAllUsers = async (req: Request, res: Response): Promise<Response
           email: true,
           phone: true,
           role: true,
-          createdAt: true,
-          _count: {
-            requests: true
-          }
+          createdAt: true
         }
       }),
       prisma.user.count({ where })
@@ -471,11 +468,6 @@ export const toggleUserStatus = async (req: Request, res: Response): Promise<Res
     });
     return;
 
-    res.json({
-      success: true,
-      data: updatedUser,
-      message: `User ${updatedUser.isActive ? 'activated' : 'deactivated'} successfully`
-    });
   } catch (error) {
     logger.error('Toggle user status error:', error);
     res.status(500).json({ success: false, error: 'Server error' });
@@ -691,27 +683,12 @@ export const getAnalytics = async (req: Request, res: Response): Promise<Respons
         take: 10
       }),
       
-      // User activity
+      // User activity - simplified since we don't have count functionality
       prisma.user.findMany({
-        where: { 
-          requests: {
-            some: { createdAt: { gte: startDate } }
-          }
-        },
         select: {
           id: true,
           name: true,
           email: true,
-          _count: {
-            requests: {
-              where: { createdAt: { gte: startDate } }
-            }
-          }
-        },
-        orderBy: {
-          requests: {
-            _count: 'desc'
-          }
         },
         take: 10
       }),

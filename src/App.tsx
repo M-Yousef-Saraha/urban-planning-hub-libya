@@ -17,6 +17,10 @@ import MediaAdmin from "./pages/admin/MediaAdmin";
 import NewsAdmin from "./pages/admin/NewsAdmin";
 import RequestsManagement from "./pages/admin/RequestsManagement";
 import DownloadsView from "./pages/admin/DownloadsView";
+import UserManagement from "./pages/admin/UserManagement";
+import SystemSettings from "./pages/admin/SystemSettings";
+import MediaManagement from "./pages/admin/MediaManagement";
+import AnalyticsDashboard from "./pages/admin/AnalyticsDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,11 +41,14 @@ const App = () => (
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<DashboardOverview />} />
-                <Route path="documents" element={<DocumentsAdmin />} />
                 <Route path="requests" element={<RequestsManagement />} />
-                <Route path="media" element={<MediaAdmin />} />
-                <Route path="news" element={<NewsAdmin />} />
+                <Route path="documents" element={<DocumentsAdmin />} />
+                <Route path="users" element={<UserManagement />} />
                 <Route path="downloads" element={<DownloadsView />} />
+                <Route path="media" element={<MediaManagement />} />
+                <Route path="news" element={<NewsAdmin />} />
+                <Route path="settings" element={<SystemSettings />} />
+                <Route path="analytics" element={<AnalyticsDashboard />} />
               </Route>
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

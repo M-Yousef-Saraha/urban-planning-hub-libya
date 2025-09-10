@@ -18,9 +18,12 @@ const AdminLayout = () => {
               <Link to="/admin" className="text-sm py-2 px-3 rounded hover:bg-gray-100">نظرة عامة</Link>
               <Link to="/admin/requests" className="text-sm py-2 px-3 rounded hover:bg-gray-100">إدارة الطلبات</Link>
               <Link to="/admin/documents" className="text-sm py-2 px-3 rounded hover:bg-gray-100">إدارة الوثائق</Link>
+              <Link to="/admin/users" className="text-sm py-2 px-3 rounded hover:bg-gray-100">إدارة المستخدمين</Link>
               <Link to="/admin/downloads" className="text-sm py-2 px-3 rounded hover:bg-gray-100">سجل التنزيلات</Link>
               <Link to="/admin/media" className="text-sm py-2 px-3 rounded hover:bg-gray-100">إدارة الوسائط</Link>
               <Link to="/admin/news" className="text-sm py-2 px-3 rounded hover:bg-gray-100">إدارة الأخبار</Link>
+              <Link to="/admin/analytics" className="text-sm py-2 px-3 rounded hover:bg-gray-100">التحليلات والإحصائيات</Link>
+              <Link to="/admin/settings" className="text-sm py-2 px-3 rounded hover:bg-gray-100">إعدادات النظام</Link>
               <Button variant="ghost" onClick={() => navigate('/dashboard')} className="mt-4 text-sm">العودة للوحة المستخدم</Button>
             </nav>
           </aside>
