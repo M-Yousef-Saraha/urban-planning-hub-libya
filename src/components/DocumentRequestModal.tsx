@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { requestsAPI, Document } from '@/lib/api';
-import { useAuth } from '@/contexts/AuthContext';
 import {
   Dialog,
   DialogContent,
@@ -40,8 +39,9 @@ interface DocumentRequestModalProps {
 
 interface DocumentRequestForm {
   purpose: string;
-  urgency: 'LOW' | 'MEDIUM' | 'HIGH';
   notes: string;
+  name: string;
+  email: string;
 }
 
 const DocumentRequestModal: React.FC<DocumentRequestModalProps> = ({
@@ -50,14 +50,14 @@ const DocumentRequestModal: React.FC<DocumentRequestModalProps> = ({
   onClose,
   onSuccess,
 }) => {
-  const { user } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<DocumentRequestForm>({
     defaultValues: {
       purpose: '',
-      urgency: 'MEDIUM',
       notes: '',
+      name: '',
+      email: '',
     },
   });
 
@@ -69,7 +69,7 @@ const DocumentRequestModal: React.FC<DocumentRequestModalProps> = ({
       const response = await requestsAPI.create({
         documentId: document.id,
         purpose: data.purpose,
-        urgency: data.urgency,
+        urgency: 'MEDIUM', // Default urgency
         notes: data.notes,
       });
 
@@ -100,11 +100,6 @@ const DocumentRequestModal: React.FC<DocumentRequestModalProps> = ({
     { value: 'OTHER', label: 'أخرى' },
   ];
 
-  const urgencyOptions = [
-    { value: 'LOW', label: 'عادي', icon: Clock, color: 'text-green-600' },
-    { value: 'MEDIUM', label: 'متوسط', icon: Clock, color: 'text-yellow-600' },
-    { value: 'HIGH', label: 'عاجل', icon: Clock, color: 'text-red-600' },
-  ];
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -130,16 +125,48 @@ const DocumentRequestModal: React.FC<DocumentRequestModalProps> = ({
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            {/* User Information Display */}
-            <div className="bg-gray-50 p-4 rounded-lg">
+            {/* User Information Input */}
+            <div className="bg-gray-50 p-4 rounded-lg space-y-4">
               <h4 className="font-medium text-gray-800 mb-2 flex items-center gap-2">
                 <User className="w-4 h-4" />
                 معلومات مقدم الطلب
               </h4>
-              <div className="space-y-1 text-sm text-gray-600">
-                <p>الاسم: {user?.name}</p>
-                <p>البريد الإلكتروني: {user?.email}</p>
-              </div>
+              
+              <FormField
+                control={form.control}
+                name="name"
+                rules={{ required: 'الاسم مطلوب' }}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>الاسم الكامل</FormLabel>
+                    <FormControl>
+                      <Input placeholder="أدخل اسمك الكامل" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="email"
+                rules={{ 
+                  required: 'البريد الإلكتروني مطلوب',
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: 'يرجى إدخال بريد إلكتروني صحيح'
+                  }
+                }}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>البريد الإلكتروني</FormLabel>
+                    <FormControl>
+                      <Input type="email" placeholder="أدخل بريدك الإلكتروني" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
 
             {/* Purpose Field */}
@@ -169,37 +196,6 @@ const DocumentRequestModal: React.FC<DocumentRequestModalProps> = ({
               )}
             />
 
-            {/* Urgency Field */}
-            <FormField
-              control={form.control}
-              name="urgency"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>مستوى الأولوية</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="اختر مستوى الأولوية" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {urgencyOptions.map((option) => {
-                        const IconComponent = option.icon;
-                        return (
-                          <SelectItem key={option.value} value={option.value}>
-                            <div className="flex items-center gap-2">
-                              <IconComponent className={`w-4 h-4 ${option.color}`} />
-                              {option.label}
-                            </div>
-                          </SelectItem>
-                        );
-                      })}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
 
             {/* Notes Field */}
             <FormField

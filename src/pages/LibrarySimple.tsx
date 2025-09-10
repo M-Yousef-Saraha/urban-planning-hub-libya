@@ -67,17 +67,6 @@ const LibrarySimple = () => {
   }, [searchTerm, selectedCategory]);
 
   const handleRequestDocument = (document: Document) => {
-    if (!isAuthenticated) {
-      toast.error('تسجيل الدخول مطلوب', {
-        description: 'يجب تسجيل الدخول أولاً لطلب الوثائق',
-        action: {
-          label: 'تسجيل الدخول',
-          onClick: () => navigate('/login'),
-        },
-      });
-      return;
-    }
-    
     setSelectedDocument(document);
     setIsRequestModalOpen(true);
   };
