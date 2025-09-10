@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 import { adminAPI } from '@/lib/api';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -21,8 +23,11 @@ import {
 import { toast } from 'sonner';
 
 const RequestsManagement = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const [requests, setRequests] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [selectedRequest, setSelectedRequest] = useState<any>(null);
   const [statusFilter, setStatusFilter] = useState<string>('');
   const [urgencyFilter, setUrgencyFilter] = useState<string>('');
@@ -35,22 +40,44 @@ const RequestsManagement = () => {
   const [showDetailsDialog, setShowDetailsDialog] = useState(false);
   const [downloadLink, setDownloadLink] = useState('');
 
+  // Check admin access
   useEffect(() => {
+    if (!user || user.role !== 'ADMIN') {
+      navigate('/login');
+      return;
+    }
+  }, [user, navigate]);
+
+  useEffect(() => {
+    console.log('RequestsManagement component mounted');
     fetchRequests();
   }, [statusFilter, urgencyFilter]);
 
   const fetchRequests = async () => {
     try {
       setIsLoading(true);
+      setError(null);
       const filters: any = { page: 1, limit: 50 };
       if (statusFilter) filters.status = statusFilter;
       if (urgencyFilter) filters.urgency = urgencyFilter;
       
       const response = await adminAPI.getAllRequests(filters);
-      if (response.success) {
+      if (response?.success && response?.data) {
         setRequests(response.data.requests || []);
+      } else {
+        console.error('API response not successful:', response);
+        setError('خطأ في استجابة الخادم');
+        toast.error('خطأ في استجابة الخادم');
       }
-    } catch (error) {
+    } catch (error: any) {
+      console.error('fetchRequests error:', error);
+      if (error?.response?.status === 401) {
+        setError('يجب تسجيل الدخول كمدير للوصول إلى هذه الصفحة');
+        toast.error('غير مصرح لك بالوصول إلى هذه الصفحة');
+        navigate('/login');
+        return;
+      }
+      setError('فشل في تحميل الطلبات');
       toast.error('فشل في تحميل الطلبات');
     } finally {
       setIsLoading(false);
@@ -154,6 +181,24 @@ const RequestsManagement = () => {
       </span>
     );
   };
+
+  // Add error boundary fallback
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4" dir="rtl">
+        <div className="max-w-md w-full bg-white shadow rounded-lg p-6 text-center">
+          <h2 className="text-xl font-semibold mb-4 text-red-600">خطأ في تحميل الطلبات</h2>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <Button onClick={() => {
+            setError(null);
+            fetchRequests();
+          }}>
+            إعادة المحاولة
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
