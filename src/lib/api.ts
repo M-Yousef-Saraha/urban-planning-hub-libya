@@ -147,7 +147,7 @@ export const documentsAPI = {
   },
 
   getCategories: async () => {
-    const response = await api.get('/api/documents/categories');
+    const response = await api.get('/api/categories/filter');
     return response.data;
   },
 };

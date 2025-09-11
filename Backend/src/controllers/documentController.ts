@@ -315,56 +315,6 @@ export const deleteDocument = async (req: Request, res: Response): Promise<void>
   }
 };
 
-export const getCategories = async (req: Request, res: Response): Promise<void> => {
-  try {
-    // Get hierarchical categories from the database
-    const hierarchicalCategories = await prisma.category.findMany({
-      where: {
-        isActive: true,
-        parentId: null, // Root categories only
-      },
-      include: {
-        children: {
-          where: { isActive: true },
-          orderBy: { sortOrder: 'asc' },
-          include: {
-            _count: {
-              select: { documents: true }
-            }
-          }
-        },
-        _count: {
-          select: { documents: true }
-        }
-      },
-      orderBy: { sortOrder: 'asc' },
-    });
-
-    // Also provide legacy categories for backward compatibility
-    const legacyCategories = [
-      { value: 'GUIDES', label: 'أدلة / Guides' },
-      { value: 'LAWS', label: 'قوانين / Laws' },
-      { value: 'STANDARDS', label: 'معايير / Standards' },
-      { value: 'REPORTS', label: 'تقارير / Reports' },
-      { value: 'MAPS', label: 'خرائط / Maps' },
-      { value: 'STUDIES', label: 'دراسات / Studies' },
-    ];
-
-    res.json({
-      success: true,
-      data: {
-        legacy: legacyCategories,
-        hierarchical: hierarchicalCategories,
-        // Default to hierarchical if available, fallback to legacy
-        categories: hierarchicalCategories.length > 0 ? hierarchicalCategories : legacyCategories
-      },
-    });
-  } catch (error) {
-    logger.error('Get categories error:', error);
-    res.status(500).json({
-      success: false,
-      error: 'Server error',
-    });
-  }
-};
+// Category management moved to categoryController.ts
+// Use /api/categories endpoints instead
 

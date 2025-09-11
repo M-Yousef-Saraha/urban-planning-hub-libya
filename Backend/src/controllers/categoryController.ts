@@ -179,7 +179,7 @@ export const getCategoryBySlug = async (req: Request, res: Response): Promise<vo
   }
 };
 
-// Get categories with document counts for filters
+// Get categories with document counts for filters (consolidated)
 export const getCategoriesForFilter = async (req: Request, res: Response): Promise<void> => {
   try {
     const categories = await prisma.category.findMany({
@@ -223,11 +223,24 @@ export const getCategoriesForFilter = async (req: Request, res: Response): Promi
       }
     });
 
+    // Also provide legacy categories for backward compatibility
+    const legacyCategories = [
+      { value: 'GUIDES', label: 'أدلة / Guides' },
+      { value: 'LAWS', label: 'قوانين / Laws' },
+      { value: 'STANDARDS', label: 'معايير / Standards' },
+      { value: 'REPORTS', label: 'تقارير / Reports' },
+      { value: 'MAPS', label: 'خرائط / Maps' },
+      { value: 'STUDIES', label: 'دراسات / Studies' },
+    ];
+
     res.json({
       success: true,
       data: {
         flat: categories,
         hierarchical: rootCategories,
+        legacy: legacyCategories,
+        // Default to hierarchical if available, fallback to legacy
+        categories: rootCategories.length > 0 ? rootCategories : legacyCategories
       },
     });
   } catch (error) {

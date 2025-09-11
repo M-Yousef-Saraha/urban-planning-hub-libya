@@ -8,7 +8,6 @@ import {
   createDocument,
   updateDocument,
   deleteDocument,
-  getCategories,
 } from '../controllers/documentController';
 import { authenticate, authorize } from '../middleware/auth';
 
@@ -93,7 +92,6 @@ const updateDocumentValidation = [
 
 // Public routes
 router.get('/', getDocuments);
-router.get('/categories', getCategories);
 router.get('/:id', getDocument);
 
 // Admin only routes

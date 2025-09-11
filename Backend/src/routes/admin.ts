@@ -2,7 +2,8 @@ import express from 'express';
 import { body } from 'express-validator';
 import {
   getAllRequests,
-  updateRequestStatus,
+  approveRequest,
+  rejectRequest,
   getRequestStats,
   getDocumentStats,
   getDownloads,
@@ -18,8 +19,6 @@ import {
   getAnalytics,
 } from '../controllers/adminController';
 import {
-  approveRequest,
-  rejectRequest,
   getRequestDetails,
 } from '../controllers/requestController';
 import {
@@ -30,16 +29,6 @@ import { authenticate, authorize } from '../middleware/auth';
 const router = express.Router();
 
 // Validation rules
-const updateRequestStatusValidation = [
-  body('status')
-    .isIn(['PENDING', 'APPROVED', 'REJECTED', 'COMPLETED'])
-    .withMessage('Invalid status'),
-  body('adminNotes')
-    .optional()
-    .trim()
-    .isLength({ max: 1000 })
-    .withMessage('Admin notes must not exceed 1000 characters'),
-];
 
 const updateUserRoleValidation = [
   body('role')
@@ -86,7 +75,7 @@ router.use(authorize('ADMIN'));
 // Request Management
 router.get('/requests', getAllRequests);
 router.get('/requests/:id', getRequestDetails);
-router.put('/requests/:id/status', updateRequestStatusValidation, updateRequestStatus);
+// Status update functionality now handled by approve/reject endpoints
 router.put('/requests/:id/approve', approveRequestValidation, approveRequest);
 router.put('/requests/:id/reject', rejectRequestValidation, rejectRequest);
 router.post('/requests/:id/download-link', generateDownloadLink);

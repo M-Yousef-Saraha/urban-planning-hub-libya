@@ -87,121 +87,135 @@ export const getAllRequests = async (req: Request, res: Response): Promise<Respo
   }
 };
 
-export const updateRequestStatus = async (req: Request, res: Response): Promise<Response | void> => {
+// Consolidated admin request approval function
+export const approveRequest = async (req: Request, res: Response): Promise<Response | void> => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      res.status(400).json({
-        success: false,
-        errors: errors.array(),
-      });
-    }
-
     const { id } = req.params;
-    const { status, adminNotes } = req.body;
+    const { adminNotes } = req.body;
+    const adminId = req.user!.id;
 
-    const request = await prisma.documentRequest.findUnique({
-      where: { id },
+    // Check if request exists and is pending
+    const request = await prisma.documentRequest.findFirst({
+      where: { id, status: 'PENDING' },
       include: {
-        user: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-          },
-        },
-        document: {
-          select: {
-            id: true,
-            title: true,
-            fileName: true,
-            filePath: true,
-            mimeType: true,
-          },
-        },
+        user: { select: { name: true, email: true } },
+        document: { select: { title: true, filePath: true, fileName: true } },
       },
     });
 
     if (!request) {
-      res.status(404).json({
+      return res.status(404).json({
         success: false,
-        error: 'Request not found',
+        error: 'Request not found or already processed',
+      });
+    }
+
+    // Calculate expiry time (2 hours from now)
+    const expiresAt = new Date();
+    expiresAt.setHours(expiresAt.getHours() + 2);
+
+    // Update request status
+    const updatedRequest = await prisma.documentRequest.update({
+      where: { id },
+      data: {
+        status: 'APPROVED',
+        adminNotes: adminNotes || null,
+        approvedBy: adminId,
+        processedAt: new Date(),
+        expiresAt,
+      },
+      include: {
+        user: { select: { name: true, email: true } },
+        document: { select: { title: true, filePath: true, fileName: true } },
+      },
+    });
+
+    // Generate secure download token
+    const crypto = require('crypto');
+    const token = crypto.randomBytes(32).toString('hex');
+    await prisma.downloadToken.create({
+      data: {
+        requestId: id,
+        token,
+        expiresAt,
+      },
+    });
+
+    logger.info(`Request ${id} approved by admin ${adminId}`);
+
+    return res.json({
+      success: true,
+      data: {
+        request: updatedRequest,
+        downloadToken: token,
+        expiresAt,
+      },
+      message: 'Request approved successfully',
+    });
+  } catch (error) {
+    logger.error('Approve request error:', error);
+    return res.status(500).json({
+      success: false,
+      error: 'Server error',
+    });
+  }
+};
+
+// Consolidated admin request rejection function
+export const rejectRequest = async (req: Request, res: Response): Promise<Response | void> => {
+  try {
+    const { id } = req.params;
+    const { adminNotes } = req.body;
+    const adminId = req.user!.id;
+
+    if (!adminNotes || adminNotes.trim().length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: 'Rejection reason is required',
+      });
+    }
+
+    // Check if request exists and is pending
+    const request = await prisma.documentRequest.findFirst({
+      where: { id, status: 'PENDING' },
+      include: {
+        user: { select: { name: true, email: true } },
+        document: { select: { title: true } },
+      },
+    });
+
+    if (!request) {
+      return res.status(404).json({
+        success: false,
+        error: 'Request not found or already processed',
       });
     }
 
     // Update request status
     const updatedRequest = await prisma.documentRequest.update({
       where: { id },
-      data: { 
-        status,
-        notes: adminNotes || request.notes,
+      data: {
+        status: 'REJECTED',
+        adminNotes: adminNotes.trim(),
+        approvedBy: adminId,
+        processedAt: new Date(),
       },
       include: {
-        user: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-          },
-        },
-        document: {
-          select: {
-            id: true,
-            title: true,
-            fileName: true,
-            filePath: true,
-            mimeType: true,
-          },
-        },
+        user: { select: { name: true, email: true } },
+        document: { select: { title: true } },
       },
     });
 
-    // If approved, send document via email
-    if (status === 'APPROVED') {
-      try {
-        const filePath = path.join(process.cwd(), request.document.filePath);
-        
-        if (fs.existsSync(filePath)) {
-          const documentBuffer = fs.readFileSync(filePath);
-          
-          await emailService.sendDocumentDelivery(
-            request.user.email,
-            request.user.name,
-            request.document.title,
-            documentBuffer,
-            request.document.fileName,
-            request.document.mimeType
-          );
+    logger.info(`Request ${id} rejected by admin ${adminId}`);
 
-          // Update status to completed after successful email delivery
-          await prisma.documentRequest.update({
-            where: { id },
-            data: { status: 'COMPLETED' },
-          });
-        } else {
-          logger.warn('Document file not found for email attachment:', filePath);
-          res.status(404).json({
-            success: false,
-            error: 'Document file not found',
-          });
-        }
-      } catch (emailError) {
-        logger.error('Failed to send document via email:', emailError);
-        res.status(500).json({
-          success: false,
-          error: 'Failed to send document via email',
-        });
-      }
-    }
-
-    res.json({
+    return res.json({
       success: true,
       data: updatedRequest,
-      message: `Request ${status.toLowerCase()} successfully`,
+      message: 'Request rejected successfully',
     });
   } catch (error) {
-    logger.error('Update request status error:', error);
-    res.status(500).json({
+    logger.error('Reject request error:', error);
+    return res.status(500).json({
       success: false,
       error: 'Server error',
     });
