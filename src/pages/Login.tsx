@@ -109,16 +109,6 @@ const Login = () => {
                 </div>
               </div>
 
-              {/* Demo Accounts Info */}
-              <div className="bg-blue-50 p-3 rounded-lg text-sm">
-                <p className="font-medium text-blue-800 mb-1">حسابات تجريبية:</p>
-                <p className="text-blue-700">
-                  <strong>مدير:</strong> <span dir="ltr">admin@urbanplanninghub.ly / admin123</span>
-                </p>
-                <p className="text-blue-700">
-                  <strong>مستخدم:</strong> <span dir="ltr">ahmed@example.com / user123</span>
-                </p>
-              </div>
 
               {/* Submit Button */}
               <Button
@@ -130,16 +120,10 @@ const Login = () => {
               </Button>
             </form>
 
-            {/* Register Link */}
+            {/* Registration Notice */}
             <div className="mt-6 text-center">
               <p className="text-sm text-gray-600">
-                ليس لديك حساب؟{' '}
-                <Link
-                  to="/register"
-                  className="text-blue-600 hover:text-blue-700 font-medium"
-                >
-                  إنشاء حساب جديد
-                </Link>
+                ملاحظة: لإنشاء حساب جديد، يرجى التواصل مع إدارة النظام
               </p>
             </div>
 

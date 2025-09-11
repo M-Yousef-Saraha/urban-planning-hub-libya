@@ -1,7 +1,7 @@
 import express from 'express';
 import { body } from 'express-validator';
 import { register, login, getMe, updateProfile } from '../controllers/authController';
-import { authenticate } from '../middleware/auth';
+import { authenticate, authorize } from '../middleware/auth';
 
 const router = express.Router();
 
@@ -46,8 +46,11 @@ const updateProfileValidation = [
 ];
 
 // Routes
-router.post('/register', registerValidation, register);
+// Public registration disabled for security - admin-only user creation
+// router.post('/register', registerValidation, register);
 router.post('/login', loginValidation, login);
+
+// Move to admin routes - this doesn't belong in auth routes
 router.get('/me', authenticate, getMe);
 router.put('/profile', authenticate, updateProfileValidation, updateProfile);
 

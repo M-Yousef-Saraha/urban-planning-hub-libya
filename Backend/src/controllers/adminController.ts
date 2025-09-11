@@ -5,6 +5,7 @@ import path from 'path';
 import prisma from '../utils/prisma';
 import { emailService } from '../services/emailService';
 import logger from '../utils/logger';
+import bcrypt from 'bcryptjs';
 
 export const getAllRequests = async (req: Request, res: Response): Promise<Response | void> => {
   try {
@@ -218,6 +219,80 @@ export const rejectRequest = async (req: Request, res: Response): Promise<Respon
     return res.status(500).json({
       success: false,
       error: 'Server error',
+    });
+  }
+};
+
+// Secure admin-only user creation (does NOT return tokens)
+export const createUser = async (req: Request, res: Response): Promise<Response | void> => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        errors: errors.array(),
+      });
+    }
+
+    const { name, email, phone, password, role = 'USER' } = req.body;
+    const adminId = req.user!.id;
+
+    // Validate role assignment
+    if (!['USER', 'ADMIN'].includes(role)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid role specified',
+      });
+    }
+
+    // Check if user already exists
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (existingUser) {
+      return res.status(400).json({
+        success: false,
+        error: 'User already exists with this email',
+      });
+    }
+
+    // Hash password
+    const salt = await bcrypt.genSalt(12);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Create user (NO token generation)
+    const user = await prisma.user.create({
+      data: {
+        name,
+        email,
+        phone,
+        password: hashedPassword,
+        role,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phone: true,
+        role: true,
+        createdAt: true,
+      },
+    });
+
+    logger.info(`User ${user.email} created by admin ${adminId} with role ${role}`);
+
+    // Return user data WITHOUT token for security
+    return res.status(201).json({
+      success: true,
+      data: user,
+      message: 'User created successfully',
+    });
+  } catch (error) {
+    logger.error('Admin create user error:', error);
+    return res.status(500).json({
+      success: false,
+      error: 'Server error during user creation',
     });
   }
 };

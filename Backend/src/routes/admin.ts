@@ -17,6 +17,7 @@ import {
   bulkUpdateRequests,
   bulkUpdateDocuments,
   getAnalytics,
+  createUser,
 } from '../controllers/adminController';
 import {
   getRequestDetails,
@@ -32,6 +33,28 @@ const router = express.Router();
 
 const updateUserRoleValidation = [
   body('role')
+    .isIn(['USER', 'ADMIN'])
+    .withMessage('Invalid role'),
+];
+
+const createUserValidation = [
+  body('name')
+    .trim()
+    .isLength({ min: 2, max: 100 })
+    .withMessage('Name must be between 2 and 100 characters'),
+  body('email')
+    .isEmail()
+    .normalizeEmail()
+    .withMessage('Please provide a valid email'),
+  body('password')
+    .isLength({ min: 6 })
+    .withMessage('Password must be at least 6 characters long'),
+  body('phone')
+    .optional()
+    .isMobilePhone('any')
+    .withMessage('Please provide a valid phone number'),
+  body('role')
+    .optional()
     .isIn(['USER', 'ADMIN'])
     .withMessage('Invalid role'),
 ];
@@ -83,6 +106,7 @@ router.put('/requests/bulk', bulkUpdateValidation, bulkUpdateRequests);
 
 // User Management
 router.get('/users', getAllUsers);
+router.post('/users/create', createUserValidation, createUser);
 router.put('/users/:id/role', updateUserRoleValidation, updateUserRole);
 router.put('/users/:id/toggle-status', toggleUserStatus);
 
