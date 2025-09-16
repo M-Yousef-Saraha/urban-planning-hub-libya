@@ -33,13 +33,18 @@ This project now includes a comprehensive library system where users can:
 - **State Management**: React hooks for form handling
 - **Notifications**: Toast notifications for user feedback
 
-### Backend Integration
-To make this fully functional, you'll need to:
-1. Set up a backend API endpoint at `/api/send-document`
-2. Integrate with an email service (SendGrid, AWS SES, etc.)
-3. Store document requests in a database
-4. Implement document storage and retrieval system
-5. Add authentication for admin panel
+### Backend Integration (Laravel)
+This repository now contains the frontend only. The backend will be developed separately using Laravel.
+
+Local development expectations:
+- Configure your Laravel server to run at `http://localhost:8000` (default for `php artisan serve`).
+- Set the frontend API base URL via env: `VITE_API_BASE_URL=http://localhost:8000` (see `.env.example`).
+- The frontend issues requests to relative paths such as `/api/auth/login`, `/api/documents`, etc. Vite proxies these to the configured backend during development.
+
+When ready to integrate:
+1. Ensure Laravel exposes matching REST endpoints under `/api/*`.
+2. Handle CORS to allow `http://localhost:5000` during development.
+3. Implement authentication (JWT or Sanctum) and file endpoints to mirror the current frontend expectations.
 
 ## Project info
 
