@@ -1,4 +1,15 @@
 # Laravel Backend API Documentation
+## OpenAPI Specification
+
+An OpenAPI 3.1 spec is available at `public/openapi.yaml` and will be served by the frontend dev server.
+
+- Local dev URL (when running `npm run dev`):
+  - http://localhost:5000/openapi.yaml
+- Import this file into:
+  - Swagger UI/Editor (editor.swagger.io) for live docs
+  - Postman (File -> Import -> Link or File) to generate requests
+  - Laravel API tooling (e.g., Laravel OpenAPI generators) as a contract reference
+
 
 ## Overview
 This document outlines the complete API structure for the Urban Planning website backend. The system consists of two main parts:

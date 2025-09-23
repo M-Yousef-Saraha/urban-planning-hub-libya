@@ -16,6 +16,11 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
           secure: false,
         },
+        '/health': {
+          target,
+          changeOrigin: true,
+          secure: false,
+        },
       },
     },
     plugins: [

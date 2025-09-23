@@ -1,0 +1,43 @@
+{
+  "validation": {
+    "required": "This field is required",
+    "email": "Invalid email address",
+    "phone": "Invalid phone number",
+    "min_length": "Must be at least {{count}} characters",
+    "max_length": "Must not exceed {{count}} characters",
+    "invalid_format": "Invalid format"
+  },
+  "messages": {
+    "success": "Message sent successfully",
+    "success_description": "We will reply to you as soon as possible",
+    "error": "Failed to send message",
+    "error_description": "An error occurred, please try again"
+  },
+  "document_request": {
+    "title": "Document Request",
+    "description": "Please fill out the form below to request this document",
+    "personal_info": "Personal Information",
+    "request_details": "Request Details",
+    "fields": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "organization": "Organization (Optional)",
+      "purpose": "Purpose of Request",
+      "urgency": "Priority Level",
+      "notes": "Additional Notes"
+    },
+    "purpose_options": {
+      "research": "Academic Research",
+      "business": "Business Use",
+      "legal": "Legal Purposes",
+      "personal": "Personal Use",
+      "other": "Other"
+    },
+    "urgency_options": {
+      "low": "Normal",
+      "medium": "Medium",
+      "high": "Urgent"
+    }
+  }
+}

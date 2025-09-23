@@ -1,24 +1,25 @@
 
 import React from 'react';
 import Header from '@/components/Header';
-import Hero from '@/components/Hero';
 import NewsSection from '@/components/NewsSection';
-import AboutSection from '@/components/AboutSection';
-import ServicesSection from '@/components/ServicesSection';
-import ProjectsSection from '@/components/ProjectsSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+import LatestProjectSection from '@/components/LatestProjectSection';
+import HeroImageSection from '@/components/HeroImageSection';
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <Header />
-      <Hero />
-      <NewsSection />
-      <AboutSection />
-      <ServicesSection />
-      <ProjectsSection />
-      <ContactSection />
+      {/* Offset content to avoid overlap with fixed header */}
+      <main className="flex-1">
+        <HeroImageSection />
+        <LatestProjectSection />
+        <div className="container mx-auto px-4 space-y-20 py-16">
+          <NewsSection />
+          <ContactSection />
+        </div>
+      </main>
       <Footer />
     </div>
   );

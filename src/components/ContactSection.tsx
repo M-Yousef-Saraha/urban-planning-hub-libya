@@ -1,6 +1,8 @@
 
 import React, { useState } from 'react';
-import { Send, Phone, Mail, MapPin, Clock, Building } from 'lucide-react';
+import { Send, Phone, Mail, MapPin, Clock, Building, Globe } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/hooks/useLanguage';
 import { useToast } from '@/hooks/use-toast';
 
 const ContactSection = () => {
@@ -10,12 +12,14 @@ const ContactSection = () => {
     message: ''
   });
   const { toast } = useToast();
+  const { t } = useTranslation(['pages', 'forms']);
+  const { isRTL } = useLanguage();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
-      title: "تم إرسال الرسالة بنجاح",
-      description: "سيتم الرد عليك في أقرب وقت ممكن",
+      title: t('forms:messages.success'),
+      description: t('forms:messages.success_description'),
     });
     setFormData({ name: '', email: '', message: '' });
   };
@@ -29,46 +33,51 @@ const ContactSection = () => {
 
   const contactInfo = [
     {
+      icon: MapPin,
+      title: 'العنوان',
+      details: ['أبوسليم - طرابلس'],
+      color: 'bg-blue-600'
+    },
+    {
       icon: Phone,
       title: 'الهاتف',
-      details: ['+218 21 123 4567', '+218 21 765 4321'],
-      color: 'bg-green-500'
+      details: ['021-4896816'],
+      color: 'bg-blue-600'
     },
     {
       icon: Mail,
       title: 'البريد الإلكتروني',
-      details: ['info@urbanplanning.ly', 'green@urbanplanning.ly'],
-      color: 'bg-emerald-500'
+      details: ['info@upa.gov.ly'],
+      color: 'bg-blue-600'
     },
     {
-      icon: MapPin,
-      title: 'العنوان',
-      details: ['شارع الجمهورية، طرابلس', 'ليبيا - صندوق بريد 12345'],
-      color: 'bg-green-600'
+      icon: Globe,
+      title: 'الموقع الإلكتروني',
+      details: ['upa.gov.ly'],
+      color: 'bg-blue-600'
     },
     {
       icon: Clock,
-      title: 'أوقات العمل',
-      details: ['السبت - الخميس: 8:00 - 16:00', 'الجمعة: مغلق'],
-      color: 'bg-teal-500'
+      title: 'ساعات العمل',
+      details: ['الأحد إلى الخميس', 'من 8 صباحًا إلى 2 ظهرًا'],
+      color: 'bg-blue-600'
     }
   ];
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-b from-blue-50 to-white relative overflow-hidden" dir="rtl">
+  <section id="contact" className="py-24 bg-white relative overflow-hidden border-t border-gray-100" dir="rtl">
       {/* Background Elements */}
-      <div className="absolute inset-0 opacity-5">
-        <Building className="absolute top-20 right-20 w-32 h-32 text-blue-600" />
-        <Building className="absolute bottom-32 left-32 w-24 h-24 text-blue-600" />
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(59,130,246,0.06),transparent_70%)]" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center space-x-2 space-x-reverse bg-blue-100 rounded-full px-6 py-2 mb-6">
+          <div className="inline-flex items-center space-x-2 space-x-reverse bg-blue-50 rounded-full px-6 py-2 mb-6 ring-1 ring-blue-200">
             <Building className="w-5 h-5 text-blue-600" />
             <span className="text-blue-700 font-medium">تواصل معنا</span>
           </div>
-          <h3 className="text-4xl md:text-5xl font-bold text-blue-800 mb-6">اتصل بنا</h3>
+          <h3 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">اتصل بنا</h3>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             نحن هنا للإجابة على استفساراتكم حول خدماتنا وتقديم المساعدة في مجال التخطيط العمراني
           </p>
@@ -76,17 +85,17 @@ const ContactSection = () => {
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div className="modern-card p-10">
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-10">
             <div className="flex items-center space-x-3 space-x-reverse mb-8">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+              <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center ring-1 ring-blue-200">
                 <Send className="w-6 h-6 text-blue-600" />
               </div>
-              <h4 className="text-2xl font-bold text-blue-800">أرسل لنا رسالة</h4>
+              <h4 className="text-2xl font-bold text-gray-900">أرسل لنا رسالة</h4>
             </div>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-bold text-blue-700 mb-3">
+                <label htmlFor="name" className="block text-sm font-bold text-gray-700 mb-3">
                   الاسم الكامل
                 </label>
                 <input
@@ -96,13 +105,13 @@ const ContactSection = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-4 border-2 border-blue-100 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-blue-50/50"
+                  className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white"
                   placeholder="أدخل اسمك الكامل"
                 />
               </div>
               
               <div>
-                <label htmlFor="email" className="block text-sm font-bold text-blue-700 mb-3">
+                <label htmlFor="email" className="block text-sm font-bold text-gray-700 mb-3">
                   البريد الإلكتروني
                 </label>
                 <input
@@ -112,13 +121,13 @@ const ContactSection = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-4 border-2 border-blue-100 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-blue-50/50"
+                  className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white"
                   placeholder="أدخل بريدك الإلكتروني"
                 />
               </div>
               
               <div>
-                <label htmlFor="message" className="block text-sm font-bold text-blue-700 mb-3">
+                <label htmlFor="message" className="block text-sm font-bold text-gray-700 mb-3">
                   الرسالة أو الاستفسار
                 </label>
                 <textarea
@@ -128,7 +137,7 @@ const ContactSection = () => {
                   onChange={handleChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-4 border-2 border-blue-100 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 resize-none bg-blue-50/50"
+                  className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 resize-none bg-white"
                   placeholder="اكتب رسالتك هنا..."
                 />
               </div>
@@ -156,10 +165,36 @@ const ContactSection = () => {
                     <info.icon size={24} className="text-white" />
                   </div>
                   <div className="flex-1">
-                    <h5 className="text-xl font-bold text-green-800 mb-3">{info.title}</h5>
-                    {info.details.map((detail, idx) => (
-                      <p key={idx} className="text-gray-600 mb-2 leading-relaxed" dir={detail.startsWith('+') ? 'ltr' : 'rtl'}>{detail}</p>
-                    ))}
+                    <h5 className="text-xl font-bold text-gray-900 mb-3">{info.title}</h5>
+                    {info.details.map((detail, idx) => {
+                      const isPhone = info.title.includes('الهاتف');
+                      const isEmail = info.title.includes('البريد');
+                      const isWebsite = info.title.includes('الموقع');
+                      if (isPhone) {
+                        return (
+                          <a key={idx} href={`tel:0214896816`} dir="ltr" className="text-blue-600 hover:text-blue-700 mb-2 inline-block">
+                            {detail}
+                          </a>
+                        );
+                      }
+                      if (isEmail) {
+                        return (
+                          <a key={idx} href={`mailto:info@upa.gov.ly`} dir="ltr" className="text-blue-600 hover:text-blue-700 mb-2 inline-block">
+                            {detail}
+                          </a>
+                        );
+                      }
+                      if (isWebsite) {
+                        return (
+                          <a key={idx} href="https://upa.gov.ly" target="_blank" rel="noreferrer" dir="ltr" className="text-blue-600 hover:text-blue-700 mb-2 inline-block">
+                            {detail}
+                          </a>
+                        );
+                      }
+                      return (
+                        <p key={idx} className="text-gray-600 mb-2 leading-relaxed" dir="rtl">{detail}</p>
+                      );
+                    })}
                   </div>
                 </div>
               </div>

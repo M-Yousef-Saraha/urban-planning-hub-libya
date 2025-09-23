@@ -1,0 +1,173 @@
+{
+  "hero": {
+    "title": "Urban Planning Authority",
+    "description": "The Urban Planning Authority is a government entity concerned with organizing and developing cities and regions in Libya. The authority works on preparing and approving urban plans at various levels, and coordinating development projects to ensure a balance between urbanization and the needs of the population and services. Its goal is to draw a clear vision for an organized and sustainable urban future that serves the citizen and society.",
+    "breadcrumb": {
+      "home": "Home",
+      "planning": "Urban Planning"
+    },
+    "newsletter_text": "Sign up to our newsletter to stay informed.",
+    "signup_button": "Sign up"
+  },
+  "carousel": {
+    "slide1": {
+      "title": "Sustainable Urban Development",
+      "description": "Analysis tools and data supporting urban planning in Libyan cities."
+    },
+    "slide2": {
+      "title": "Infrastructure Insights",
+      "description": "Visualizing requests and approvals to accelerate decision-making and improve transparency."
+    },
+    "slide3": {
+      "title": "Transparent Urban Planning",
+      "description": "Providing access to urban documents and processes in an open and clear manner."
+    }
+  },
+  "about": {
+    "title": "Urban Planning Authority",
+    "subtitle": "Responsibilities",
+    "role_title": "Role of the Urban Planning Authority in Libya",
+    "description_p1": "The Urban Planning Authority is a government agency established by the General People's Committee Decision No. (18) of 1993, which created this authority and defined its tasks, entrusting it with implementing Libya's policy in the field of urban planning.",
+    "description_p2": "This authority was reorganized by the General People's Committee Decision No. (23) of 2003, which reconsidered some responsibilities and powers.",
+    "responsibilities": "This authority has been assigned the responsibility of preparing urban plans at all levels (long-term national natural plan, regional plans and sub-regional plans, and urban plans) and supervising the complementary stages of urban plans such as approving detailed studies, approving integrated facility plans, and approving urban design work, in addition to daily follow-up of plan implementation work such as granting some permits, approving architectural projects, granting usage permits, and others.",
+    "role_description": "The authority undertakes to contribute to drawing and implementing public policy in the field of urban planning and preparing urban development plans and programs in Libya, and coordinating between them and production and public service plans and programs to meet all required needs in accordance with the foundations set by Urban Planning Law No. \"3\" of 2001 and its executive regulations."
+  },
+  "services": {
+    "title": "Urban Planning Services",
+    "subtitle": "Our Services",
+    "description": "We provide a comprehensive range of government services in the field of urban planning and building regulation",
+    "cta_all": "Explore All Services",
+    "cta_contact": "Contact Us",
+    "service1": {
+      "title": "Urban Plan Inquiries",
+      "description": "Inquire about approved urban plans and projects under development"
+    },
+    "service2": {
+      "title": "Licenses and Permits",
+      "description": "Issuing building licenses and permits necessary for urban projects"
+    },
+    "service3": {
+      "title": "Maps and Surveying",
+      "description": "Preparing detailed and survey maps for projects and lands"
+    },
+    "service4": {
+      "title": "Urban Project Evaluation",
+      "description": "Evaluating and reviewing urban projects to ensure compliance with standards"
+    },
+    "service5": {
+      "title": "Supervision and Follow-up",
+      "description": "Supervising project implementation and monitoring compliance with approved standards"
+    },
+    "service6": {
+      "title": "Legal Consultations",
+      "description": "Providing legal consultations related to building and planning laws"
+    },
+    "cta_start": "Get Started"
+  },
+  "projects": {
+    "title": "Our Urban Projects",
+    "subtitle": "Projects",
+    "description": "We work on implementing pioneering urban projects aimed at developing Libyan cities and improving quality of life",
+    "empty_state": {
+      "title": "No Projects Available Currently",
+      "description": "No projects have been published yet. Follow us to get the latest urban projects from the National Authority for Urban Planning."
+    },
+    "details_button": "Project Details",
+    "start_date": "Start Date",
+    "beneficiaries": "Beneficiaries",
+    "status": "Status"
+  },
+  "news": {
+    "title": "Latest News",
+    "subtitle": "News",
+    "description": "Follow the latest updates and news from the National Authority for Urban Planning",
+    "search_placeholder": "Search in news...",
+    "categories": {
+      "all": "All News",
+      "announcements": "Official Announcements",
+      "projects": "Urban Projects",
+      "regulations": "Laws and Regulations",
+      "events": "Events",
+      "awards": "Awards and Achievements"
+    },
+    "sort": {
+      "latest": "Latest First",
+      "oldest": "Oldest First",
+      "popular": "Most Read"
+    },
+    "empty_state": {
+      "title": "No News Available Currently",
+      "description": "No news has been published yet. Follow us to get the latest updates and news from the National Authority for Urban Planning.",
+      "clear_search": "Clear Search",
+      "show_all": "Show All Categories"
+    },
+    "featured": "Featured News",
+    "all_news": "All News",
+    "read_more": "Read More",
+    "views": "views"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in Touch",
+    "description": "We are here to answer your questions about our services and provide assistance in the field of urban planning",
+    "form_title": "Send Us a Message",
+    "form": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "message": "Message or Inquiry",
+      "send": "Send Message"
+    },
+    "info": {
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email",
+      "website": "Website",
+      "hours": "Working Hours",
+      "hours_detail": "Sunday to Thursday from 8 AM to 2 PM"
+    }
+  },
+  "footer": {
+    "organization": {
+      "name": "National Authority for Urban Planning",
+      "tagline": "Advanced Urban Development",
+      "description": "We work to develop and organize Libyan cities according to the latest international standards in urban planning to serve citizens and achieve sustainable development."
+    },
+    "services": {
+      "title": "Our Services",
+      "urban_planning": "Urban Planning",
+      "maps_surveying": "Maps and Surveying",
+      "licenses": "Licenses",
+      "supervision": "Supervision and Follow-up"
+    },
+    "quick_links": "Quick Links",
+    "follow_us": "Follow Us",
+    "contact": {
+      "address": "Abu Salim - Tripoli",
+      "phone": "021-4896816",
+      "email": "info@upa.gov.ly",
+      "website": "upa.gov.ly",
+      "hours": "Sunday to Thursday",
+      "hours_detail": "from 8 AM to 2 PM"
+    },
+    "legal": {
+      "copyright": "All rights reserved",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Use"
+    }
+  },
+  "latest_project": {
+    "title": "Latest Projects",
+    "subtitle": "Short-Term Plan Project",
+    "description": "An ambitious project aimed at developing and organizing urban areas in Libya according to the latest international standards in urban planning. The project aims to improve citizens' quality of life and develop urban infrastructure.",
+    "features": [
+      "Residential Area Development",
+      "Infrastructure Improvement",
+      "Public Facilities Development",
+      "Sustainable Planning"
+    ],
+    "cta_button": "Find Out More",
+    "status": "In Progress",
+    "location": "Tripoli, Libya",
+    "start_date": "January 2024"
+  }
+}

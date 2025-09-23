@@ -1,8 +1,13 @@
 import React from 'react';
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, Building, Map, FileText, Settings } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, Building, Map, FileText, Settings, Clock, Globe } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/hooks/useLanguage';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { t } = useTranslation(['pages', 'navigation']);
+  const { isRTL } = useLanguage();
 
   const socialLinks = [
     { icon: Facebook, href: '#', label: 'Facebook' },
@@ -12,91 +17,99 @@ const Footer = () => {
   ];
 
   const quickLinks = [
-    { name: 'الرئيسية', href: '#home' },
-    { name: 'من نحن', href: '#about' },
-    { name: 'الخدمات البيئية', href: '#services' },
-    { name: 'المشاريع الخضراء', href: '#projects' },
-    { name: 'اتصل بنا', href: '#contact' }
+    { name: t('navigation:menu.home'), href: '/' },
+    { name: t('navigation:menu.library'), href: '/library' },
+    { name: t('navigation:menu.about'), href: '/about' },
+    { name: t('navigation:menu.services'), href: '/services' },
+    { name: t('navigation:menu.projects'), href: '/projects' },
+    { name: t('navigation:menu.news'), href: '/news' },
+    { name: t('navigation:menu.standards'), href: '/standards' },
+    { name: t('navigation:menu.branches'), href: '/branches' },
+    { name: t('navigation:menu.contact'), href: '/#contact' }
   ];
 
   const ecoInitiatives = [
-    { name: 'التخطيط العمراني', href: '#', icon: Building },
-    { name: 'الخرائط والمساحة', href: '#', icon: Map },
-    { name: 'التراخيص', href: '#', icon: FileText },
-    { name: 'الإشراف والمتابعة', href: '#', icon: Settings }
+    { name: t('footer.services.urban_planning'), href: '#', icon: Building },
+    { name: t('footer.services.maps_surveying'), href: '#', icon: Map },
+    { name: t('footer.services.licenses'), href: '#', icon: FileText },
+    { name: t('footer.services.supervision'), href: '#', icon: Settings }
   ];
 
   return (
-    <footer className="bg-gradient-to-b from-blue-800 to-blue-700 text-white relative overflow-hidden" dir="rtl">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 right-20 animate-float">
-          <Building className="w-20 h-20 text-blue-300" />
-        </div>
-        <div className="absolute bottom-20 left-32 animate-float" style={{ animationDelay: '1s' }}>
-          <Map className="w-16 h-16 text-blue-300" />
-        </div>
-      </div>
-
-      <div className="container mx-auto px-4 py-16 relative z-10">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Organization Info */}
+    <footer className="bg-gradient-to-br from-gray-50 to-white border-t border-gray-200" dir={isRTL ? 'rtl' : 'ltr'}>
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-12">
+          {/* Organization Info - Takes 2 columns */}
           <div className="lg:col-span-2">
-            <div className="flex items-center space-x-4 space-x-reverse mb-8">
+            <div className={`flex items-start ${isRTL ? 'space-x-4 space-x-reverse' : 'space-x-4'} mb-6`}>
               <img 
-                src="/lovable-uploads/926954d9-d0f5-4d6a-9a97-ec24b5fdf369.png" 
+                src="/updated-logo.png" 
                 alt="الهيئة الوطنية للتخطيط العمراني"
-                className="w-16 h-16 object-contain bg-white rounded-2xl p-2"
+                className="w-16 h-16 object-contain bg-white rounded-xl p-2 shadow-sm border border-gray-100"
               />
               <div>
-                <h3 className="text-2xl font-bold">الهيئة الوطنية للتخطيط العمراني</h3>
-                <p className="text-blue-200 font-medium">تطوير عمراني متقدم</p>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.organization.name')}</h3>
+                <p className="text-blue-600 font-medium text-lg" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.organization.tagline')}</p>
               </div>
             </div>
             
-            <p className="text-blue-100 mb-8 leading-relaxed text-lg">
-              نعمل على تطوير وتنظيم المدن الليبية وفقاً لأحدث المعايير العالمية في التخطيط العمراني 
-              لخدمة المواطنين وتحقيق التنمية المستدامة.
+            <p className="text-gray-600 mb-8 leading-relaxed text-base max-w-lg" dir={isRTL ? 'rtl' : 'ltr'}>
+              {t('footer.organization.description')}
             </p>
             
             {/* Contact Info */}
-            <div className="space-y-4">
-              <div className="flex items-center space-x-4 space-x-reverse text-blue-200">
-                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                  <Phone size={18} />
+            <div className="space-y-3">
+              <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-gray-600`}>
+                <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Phone size={16} className="text-blue-600" />
                 </div>
-                <span className="text-lg" dir="ltr">+218 21 123 4567</span>
+                <a href="tel:0214896816" className="text-gray-700 hover:text-blue-600 transition-colors font-medium" dir="ltr">{t('footer.contact.phone')}</a>
               </div>
-              <div className="flex items-center space-x-4 space-x-reverse text-blue-200">
-                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                  <Mail size={18} />
+              <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-gray-600`}>
+                <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Mail size={16} className="text-blue-600" />
                 </div>
-                <span className="text-lg">info@urbanplanning.ly</span>
+                <a href="mailto:info@upa.gov.ly" className="text-gray-700 hover:text-blue-600 transition-colors font-medium" dir="ltr">{t('footer.contact.email')}</a>
               </div>
-              <div className="flex items-center space-x-4 space-x-reverse text-blue-200">
-                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                  <MapPin size={18} />
+              <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-gray-600`}>
+                <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <MapPin size={16} className="text-blue-600" />
                 </div>
-                <span className="text-lg">شارع الجمهورية، طرابلس، ليبيا</span>
+                <span className="text-gray-700 font-medium" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.contact.address')}</span>
+              </div>
+              <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-gray-600`}>
+                <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Globe size={16} className="text-blue-600" />
+                </div>
+                <a href="https://upa.gov.ly" target="_blank" rel="noreferrer" className="text-gray-700 hover:text-blue-600 transition-colors font-medium" dir="ltr">{t('footer.contact.website')}</a>
+              </div>
+              <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-gray-600`}>
+                <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Clock size={16} className="text-blue-600" />
+                </div>
+                <div className="text-gray-700 font-medium" dir={isRTL ? 'rtl' : 'ltr'}>
+                  <div>{t('footer.contact.hours')}</div>
+                  <div className="text-sm text-gray-500 font-normal">{t('footer.contact.hours_detail')}</div>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Services */}
           <div>
-            <h4 className="text-xl font-bold mb-6 flex items-center space-x-2 space-x-reverse">
-              <Settings className="w-6 h-6 text-blue-400" />
-              <span>خدماتنا</span>
+            <h4 className={`text-xl font-bold mb-6 text-gray-900 flex items-center ${isRTL ? 'space-x-2 space-x-reverse' : 'space-x-2'}`}>
+              <Settings className="w-5 h-5 text-blue-600" />
+              <span dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.services.title')}</span>
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-4">
               {ecoInitiatives.map((service) => (
                 <li key={service.name}>
                   <a 
                     href={service.href}
-                    className="flex items-center space-x-3 space-x-reverse text-blue-200 hover:text-white transition-colors duration-200 group"
+                    className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-gray-600 hover:text-blue-600 transition-colors duration-200 group`}
                   >
-                    <service.icon size={16} className="group-hover:scale-110 transition-transform" />
-                    <span>{service.name}</span>
+                    <service.icon size={18} className="text-blue-500 group-hover:text-blue-600 transition-colors" />
+                    <span className="font-medium" dir={isRTL ? 'rtl' : 'ltr'}>{service.name}</span>
                   </a>
                 </li>
               ))}
@@ -105,30 +118,31 @@ const Footer = () => {
 
           {/* Quick Links & Social */}
           <div>
-            <h4 className="text-xl font-bold mb-6">روابط سريعة</h4>
+            <h4 className="text-xl font-bold mb-6 text-gray-900" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.quick_links')}</h4>
             <ul className="space-y-3 mb-8">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <a 
-                    href={link.href}
-                    className="text-sage-200 hover:text-white transition-colors duration-200 hover:translate-x-1 inline-block"
+                  <Link 
+                    to={link.href}
+                    className="text-gray-600 hover:text-blue-600 transition-colors duration-200 hover:translate-x-1 inline-block font-medium"
+                    dir={isRTL ? 'rtl' : 'ltr'}
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
 
-            <h5 className="text-lg font-bold mb-4">تابعنا</h5>
-            <div className="flex space-x-4 space-x-reverse">
+            <h5 className="text-lg font-bold mb-4 text-gray-900" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.follow_us')}</h5>
+            <div className={`flex ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'}`}>
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
-                  className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center hover:bg-blue-500 transition-all duration-300 group hover:scale-110"
+                  className="w-11 h-11 bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-700 transition-all duration-300 group hover:scale-105 shadow-sm"
                   aria-label={social.label}
                 >
-                  <social.icon size={20} className="group-hover:scale-110 transition-transform" />
+                  <social.icon size={18} className="text-white group-hover:scale-110 transition-transform" />
                 </a>
               ))}
             </div>
@@ -136,14 +150,13 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-blue-600 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-blue-200 text-sm mb-4 md:mb-0">
-            &copy; {currentYear} الهيئة الوطنية للتخطيط العمراني. جميع الحقوق محفوظة.
+        <div className="border-t border-gray-200 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-500 text-sm mb-4 md:mb-0" dir={isRTL ? 'rtl' : 'ltr'}>
+            &copy; {currentYear} {t('footer.organization.name')}. {t('footer.legal.copyright')}.
           </p>
-          <div className="flex space-x-6 space-x-reverse text-sm text-blue-200">
-            <a href="#" className="hover:text-white transition-colors">سياسة الخصوصية</a>
-            <a href="#" className="hover:text-white transition-colors">شروط الاستخدام</a>
-            <a href="#" className="hover:text-white transition-colors">خدمات المواطنين</a>
+          <div className={`flex ${isRTL ? 'space-x-6 space-x-reverse' : 'space-x-6'} text-sm text-gray-500`}>
+            <a href="#" className="hover:text-blue-600 transition-colors font-medium" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.legal.privacy')}</a>
+            <a href="#" className="hover:text-blue-600 transition-colors font-medium" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.legal.terms')}</a>
           </div>
         </div>
       </div>

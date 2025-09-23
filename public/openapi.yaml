@@ -1,0 +1,667 @@
+openapi: 3.1.0
+info:
+  title: Urban Planning Hub Libya API
+  version: 1.0.0
+  description: |
+    REST API consumed by the Urban Planning Hub Libya frontend. This spec reflects
+    the endpoints and payloads currently used by the SPA and is intended for a Laravel backend implementation.
+
+servers:
+  - url: / # use same-origin with Vite proxy in dev
+    description: Same-origin via Vite proxy
+  - url: http://localhost:8000
+    description: Local Laravel server (default `php artisan serve`)
+  - url: https://api.example.com
+    description: Production API base URL (replace as needed)
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    User:
+      type: object
+      required: [id, name, email, role, createdAt]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        email: { type: string, format: email }
+        phone: { type: string, nullable: true }
+        role: { type: string, enum: [USER, ADMIN] }
+        createdAt: { type: string, format: date-time }
+    Document:
+      type: object
+      required: [id, title, category, fileName, fileSize, mimeType, createdAt, updatedAt]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        description: { type: string, nullable: true }
+        category: { type: string }
+        fileName: { type: string, description: The stored filename to download }
+        fileSize: { type: integer }
+        mimeType: { type: string }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    DocumentRequest:
+      type: object
+      required: [id, userId, documentId, purpose, urgency, status, createdAt, updatedAt]
+      properties:
+        id: { type: string }
+        userId: { type: string }
+        documentId: { type: string }
+        purpose: { type: string }
+        urgency: { type: string, enum: [LOW, MEDIUM, HIGH, URGENT] }
+        notes: { type: string, nullable: true }
+        status: { type: string, enum: [PENDING, APPROVED, REJECTED, COMPLETED] }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+        user:
+          $ref: '#/components/schemas/User'
+        document:
+          $ref: '#/components/schemas/Document'
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email: { type: string, format: email }
+        password: { type: string }
+    RegisterRequest:
+      type: object
+      required: [name, email, password]
+      properties:
+        name: { type: string }
+        email: { type: string, format: email }
+        password: { type: string }
+        phone: { type: string, nullable: true }
+    CreateRequestData:
+      type: object
+      required: [documentId, purpose, urgency]
+      properties:
+        documentId: { type: string }
+        purpose: { type: string }
+        urgency: { type: string, enum: [LOW, MEDIUM, HIGH, URGENT] }
+        notes: { type: string, nullable: true }
+    Pagination:
+      type: object
+      properties:
+        page: { type: integer, minimum: 1 }
+        limit: { type: integer, minimum: 1 }
+        total: { type: integer, minimum: 0 }
+        pages: { type: integer, minimum: 0 }
+
+security:
+  - bearerAuth: []
+
+paths:
+  /health:
+    get:
+      summary: Health check
+      security: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string }
+                  message: { type: string }
+                  timestamp: { type: string, format: date-time }
+
+  /api/auth/login:
+    post:
+      summary: Login and receive JWT
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data:
+                    type: object
+                    properties:
+                      user: { $ref: '#/components/schemas/User' }
+                      token: { type: string }
+        '401': { description: Invalid credentials }
+
+  /api/auth/register:
+    post:
+      summary: Register and receive JWT
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '200':
+          description: Register success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data:
+                    type: object
+                    properties:
+                      user: { $ref: '#/components/schemas/User' }
+                      token: { type: string }
+
+  /api/auth/me:
+    get:
+      summary: Get current user profile
+      responses:
+        '200':
+          description: Current user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data: { $ref: '#/components/schemas/User' }
+        '401': { description: Unauthorized }
+
+  /api/auth/profile:
+    put:
+      summary: Update current user profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: { type: string }
+                email: { type: string, format: email }
+                phone: { type: string }
+      responses:
+        '200':
+          description: Updated user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data: { $ref: '#/components/schemas/User' }
+        '401': { description: Unauthorized }
+
+  /api/documents:
+    get:
+      summary: List documents
+      parameters:
+        - in: query
+          name: category
+          schema: { type: string }
+        - in: query
+          name: search
+          schema: { type: string }
+        - in: query
+          name: page
+          schema: { type: integer, minimum: 1 }
+        - in: query
+          name: limit
+          schema: { type: integer, minimum: 1 }
+      responses:
+        '200':
+          description: Documents
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/Document' }
+    post:
+      summary: Upload a document (Admin)
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file, title, category]
+              properties:
+                file:
+                  type: string
+                  format: binary
+                title:
+                  type: string
+                description:
+                  type: string
+                category:
+                  type: string
+                categoryId:
+                  type: string
+                locationId:
+                  type: string
+                tags:
+                  description: JSON string of tags array
+                  type: string
+                keywords:
+                  description: JSON string of keywords array
+                  type: string
+      responses:
+        '200':
+          description: Upload result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data: { $ref: '#/components/schemas/Document' }
+        '401': { description: Unauthorized }
+
+  /api/documents/{id}:
+    get:
+      summary: Get document by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Document
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data: { $ref: '#/components/schemas/Document' }
+        '404': { description: Not Found }
+
+  /api/categories/filter:
+    get:
+      summary: List document categories for filtering
+      responses:
+        '200':
+          description: Categories
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data:
+                    type: array
+                    items: { type: string }
+
+  /api/categories/tree:
+    get:
+      summary: Category tree
+      responses:
+        '200':
+          description: Tree
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data:
+                    type: array
+                    items: { type: object }
+
+  /api/locations/cities:
+    get:
+      summary: Cities list
+      responses:
+        '200':
+          description: Cities
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data:
+                    type: array
+                    items: { type: object }
+
+  /api/requests:
+    post:
+      summary: Create a document request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRequestData'
+      responses:
+        '200':
+          description: Request created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data: { type: object }
+    get:
+      summary: List current user's requests
+      responses:
+        '200':
+          description: My requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data:
+                    type: object
+                    properties:
+                      requests:
+                        type: array
+                        items: { $ref: '#/components/schemas/DocumentRequest' }
+
+  /api/requests/{id}:
+    get:
+      summary: Get request by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data: { $ref: '#/components/schemas/DocumentRequest' }
+    delete:
+      summary: Cancel request by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Cancelled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+
+  /api/admin/requests:
+    get:
+      summary: List all requests (Admin)
+      parameters:
+        - in: query
+          name: status
+          schema: { type: string }
+        - in: query
+          name: page
+          schema: { type: integer }
+        - in: query
+          name: limit
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/DocumentRequest' }
+
+  /api/admin/requests/{id}/status:
+    put:
+      summary: Update request status (Admin)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status: { type: string }
+                notes: { type: string }
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+
+  /api/admin/requests/{id}/approve:
+    put:
+      summary: Approve a request (Admin)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                adminNotes: { type: string }
+      responses:
+        '200': { description: Approved }
+
+  /api/admin/requests/{id}/reject:
+    put:
+      summary: Reject a request (Admin)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                adminNotes: { type: string }
+      responses:
+        '200': { description: Rejected }
+
+  /api/admin/requests/{id}/download-link:
+    post:
+      summary: Generate download link (Admin)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Link created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data:
+                    type: object
+                    properties:
+                      url: { type: string }
+
+  /api/admin/requests/bulk:
+    put:
+      summary: Bulk update requests (Admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                requestIds:
+                  type: array
+                  items: { type: string }
+                action: { type: string }
+                status: { type: string }
+                adminNotes: { type: string }
+      responses:
+        '200': { description: Bulk updated }
+
+  /api/admin/documents/bulk:
+    put:
+      summary: Bulk update documents (Admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                documentIds:
+                  type: array
+                  items: { type: string }
+                action: { type: string }
+                isActive: { type: boolean }
+                category: { type: string }
+      responses:
+        '200': { description: Bulk updated }
+
+  /api/admin/stats/requests:
+    get:
+      summary: Requests statistics (Admin)
+      responses:
+        '200': { description: Stats returned }
+
+  /api/admin/stats/documents:
+    get:
+      summary: Documents statistics (Admin)
+      responses:
+        '200': { description: Stats returned }
+
+  /api/admin/users:
+    get:
+      summary: List users (Admin)
+      parameters:
+        - in: query
+          name: page
+          schema: { type: integer }
+        - in: query
+          name: limit
+          schema: { type: integer }
+        - in: query
+          name: role
+          schema: { type: string }
+        - in: query
+          name: search
+          schema: { type: string }
+      responses:
+        '200':
+          description: Users
+
+  /api/admin/users/{id}/role:
+    put:
+      summary: Update user role (Admin)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                role: { type: string, enum: [USER, ADMIN] }
+      responses:
+        '200': { description: Updated }
+
+  /api/admin/users/{id}/toggle-status:
+    put:
+      summary: Toggle user status (Admin)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Toggled }
+
+  /api/admin/media:
+    get:
+      summary: List media files (Admin)
+      responses:
+        '200': { description: Media list }
+
+  /api/admin/media/{filename}:
+    delete:
+      summary: Delete media file (Admin)
+      parameters:
+        - in: path
+          name: filename
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Deleted }
+
+  /api/admin/analytics:
+    get:
+      summary: Analytics (Admin)
+      parameters:
+        - in: query
+          name: period
+          schema: { type: string, enum: [day, week, month, quarter, year] }
+      responses:
+        '200': { description: Analytics data }
+
+  /api/files/{fileName}:
+    get:
+      summary: Download a file by stored file name
+      parameters:
+        - in: path
+          name: fileName
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: File stream
+          content:
+            application/octet-stream: {}
+        '404': { description: Not Found }

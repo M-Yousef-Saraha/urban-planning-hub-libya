@@ -4,8 +4,14 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
+import About from './pages/About';
+import Services from './pages/Services';
+import Projects from './pages/Projects';
+import News from './pages/News';
 import LibrarySimple from "./pages/LibrarySimple";
+import Branches from './pages/Branches';
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -22,20 +28,28 @@ import SystemSettings from "./pages/admin/SystemSettings";
 import MediaManagement from "./pages/admin/MediaManagement";
 import AnalyticsDashboard from "./pages/admin/AnalyticsDashboard";
 import NotFound from "./pages/NotFound";
+import Standards from "./pages/Standards";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <TooltipProvider>
-        <ErrorBoundary>
+      <LanguageProvider>
+        <TooltipProvider>
+          <ErrorBoundary>
           <Toaster />
           <Sonner />
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/news" element={<News />} />
+              <Route path="/branches" element={<Branches />} />
               <Route path="/library" element={<LibrarySimple />} />
+              <Route path="/standards" element={<Standards />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/dashboard" element={<Dashboard />} />
@@ -54,8 +68,9 @@ const App = () => (
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
-        </ErrorBoundary>
-      </TooltipProvider>
+          </ErrorBoundary>
+        </TooltipProvider>
+      </LanguageProvider>
     </AuthProvider>
   </QueryClientProvider>
 );

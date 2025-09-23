@@ -1,0 +1,44 @@
+{
+  "buttons": {
+    "submit": "إرسال",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "view": "عرض",
+    "download": "تحميل",
+    "upload": "رفع",
+    "search": "بحث",
+    "filter": "تصفية",
+    "next": "التالي",
+    "previous": "السابق",
+    "close": "إغلاق",
+    "loading": "جاري التحميل...",
+    "refresh": "تحديث"
+  },
+  "status": {
+    "success": "تم بنجاح",
+    "error": "حدث خطأ",
+    "warning": "تحذير",
+    "info": "معلومات",
+    "pending": "قيد الانتظار",
+    "completed": "مكتمل",
+    "in_progress": "قيد التنفيذ",
+    "cancelled": "ملغي"
+  },
+  "time": {
+    "minutes": "دقائق",
+    "hours": "ساعات",
+    "days": "أيام",
+    "weeks": "أسابيع",
+    "months": "شهور",
+    "years": "سنوات"
+  },
+  "placeholders": {
+    "search": "ابحث هنا...",
+    "email": "أدخل بريدك الإلكتروني",
+    "name": "أدخل اسمك",
+    "phone": "أدخل رقم الهاتف",
+    "message": "اكتب رسالتك هنا..."
+  }
+}

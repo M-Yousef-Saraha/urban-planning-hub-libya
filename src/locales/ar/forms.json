@@ -1,0 +1,43 @@
+{
+  "validation": {
+    "required": "هذا الحقل مطلوب",
+    "email": "البريد الإلكتروني غير صحيح",
+    "phone": "رقم الهاتف غير صحيح",
+    "min_length": "يجب أن يحتوي على {{count}} أحرف على الأقل",
+    "max_length": "يجب ألا يزيد عن {{count}} حرف",
+    "invalid_format": "التنسيق غير صحيح"
+  },
+  "messages": {
+    "success": "تم إرسال الرسالة بنجاح",
+    "success_description": "سيتم الرد عليك في أقرب وقت ممكن",
+    "error": "فشل في إرسال الرسالة",
+    "error_description": "حدث خطأ، يرجى المحاولة مرة أخرى"
+  },
+  "document_request": {
+    "title": "طلب وثيقة",
+    "description": "يرجى ملء النموذج أدناه لطلب هذه الوثيقة",
+    "personal_info": "المعلومات الشخصية",
+    "request_details": "تفاصيل الطلب",
+    "fields": {
+      "name": "الاسم الكامل",
+      "email": "البريد الإلكتروني",
+      "phone": "رقم الهاتف",
+      "organization": "المؤسسة (اختياري)",
+      "purpose": "الغرض من الطلب",
+      "urgency": "مستوى الأولوية",
+      "notes": "ملاحظات إضافية"
+    },
+    "purpose_options": {
+      "research": "البحث الأكاديمي",
+      "business": "الأعمال التجارية",
+      "legal": "الأغراض القانونية",
+      "personal": "الاستخدام الشخصي",
+      "other": "أخرى"
+    },
+    "urgency_options": {
+      "low": "عادي",
+      "medium": "متوسط",
+      "high": "عاجل"
+    }
+  }
+}

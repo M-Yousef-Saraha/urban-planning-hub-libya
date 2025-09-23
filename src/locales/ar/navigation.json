@@ -1,0 +1,22 @@
+{
+  "menu": {
+    "home": "الرئيسية",
+    "library": "المكتبة الرقمية",
+    "about": "من نحن",
+    "services": "الخدمات",
+    "projects": "المشاريع",
+    "news": "الأخبار",
+    "standards": "معايير التخطيط العمراني",
+    "branches": "الفروع",
+    "contact": "الاتصال"
+  },
+  "language": {
+    "arabic": "العربية",
+    "english": "English",
+    "switch": "تغيير اللغة"
+  },
+  "breadcrumbs": {
+    "home": "الرئيسية",
+    "current": "الصفحة الحالية"
+  }
+}

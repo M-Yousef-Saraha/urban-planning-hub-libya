@@ -1,0 +1,44 @@
+{
+  "buttons": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "view": "View",
+    "download": "Download",
+    "upload": "Upload",
+    "search": "Search",
+    "filter": "Filter",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "loading": "Loading...",
+    "refresh": "Refresh"
+  },
+  "status": {
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Information",
+    "pending": "Pending",
+    "completed": "Completed",
+    "in_progress": "In Progress",
+    "cancelled": "Cancelled"
+  },
+  "time": {
+    "minutes": "minutes",
+    "hours": "hours",
+    "days": "days",
+    "weeks": "weeks",
+    "months": "months",
+    "years": "years"
+  },
+  "placeholders": {
+    "search": "Search here...",
+    "email": "Enter your email",
+    "name": "Enter your name",
+    "phone": "Enter phone number",
+    "message": "Write your message here..."
+  }
+}

@@ -27,3 +27,5 @@ dist-ssr
 # Local environment/tooling artifacts
 .local/
 urban-planning-hub-libya/
+Frontend/
+attached_assets/

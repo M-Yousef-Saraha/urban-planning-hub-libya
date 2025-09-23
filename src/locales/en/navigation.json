@@ -1,0 +1,22 @@
+{
+  "menu": {
+    "home": "Home",
+    "library": "Digital Library",
+    "about": "About Us",
+    "services": "Services",
+    "projects": "Projects",
+    "news": "News",
+    "standards": "Urban Planning Standards",
+    "branches": "Branches",
+    "contact": "Contact"
+  },
+  "language": {
+    "arabic": "العربية",
+    "english": "English",
+    "switch": "Switch Language"
+  },
+  "breadcrumbs": {
+    "home": "Home",
+    "current": "Current Page"
+  }
+}

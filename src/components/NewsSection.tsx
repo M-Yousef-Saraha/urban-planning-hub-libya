@@ -31,7 +31,7 @@ const NewsSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-blue-50 to-white" dir="rtl">
+    <section className="py-20 bg-white border-t border-gray-100" dir="rtl">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <div className="inline-flex items-center space-x-2 space-x-reverse bg-blue-100 rounded-full px-6 py-2 mb-6">
