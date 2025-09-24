@@ -63,10 +63,10 @@ const Header = () => {
                 <li key={item.name} className="flex-1 flex justify-center">
                   <Link
                     to={item.href}
-                    className="text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 relative group py-2 px-3 whitespace-nowrap hover:scale-105"
+                    className="text-gray-700 hover:text-green-600 font-medium transition-all duration-300 relative group py-2 px-3 whitespace-nowrap hover:scale-105"
                   >
                     {item.name}
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-3/4 rounded-full"></span>
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-green-500 transition-all duration-300 group-hover:w-3/4 rounded-full"></span>
                   </Link>
                 </li>
               ))}
@@ -77,7 +77,7 @@ const Header = () => {
           <div className="hidden lg:flex items-center flex-shrink-0 ps-4">
             <button 
               onClick={toggleLanguage}
-              className={`flex items-center ${isRTL ? 'space-x-2 space-x-reverse' : 'space-x-2'} px-5 py-2.5 border-2 border-blue-500 text-blue-600 rounded-full hover:bg-blue-500 hover:text-white transition-all duration-300 font-medium text-sm md:text-base shadow-sm hover:scale-105 btn-micro`}
+              className={`flex items-center ${isRTL ? 'space-x-2 space-x-reverse' : 'space-x-2'} px-5 py-2.5 border-2 border-green-500 text-green-600 rounded-full hover:bg-green-500 hover:text-white transition-all duration-300 font-medium text-sm md:text-base shadow-sm hover:scale-105 btn-micro`}
             >
               <Globe size={18} className="icon-spin" />
               <span>{language === 'ar' ? t('language.english') : t('language.arabic')}</span>
@@ -86,26 +86,26 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2.5 rounded-lg hover:bg-blue-50 transition-all duration-300 hover:scale-110"
+            className="lg:hidden p-2.5 rounded-lg hover:bg-green-50 transition-all duration-300 hover:scale-110"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? (
-              <X size={24} className="text-blue-600 icon-bounce" />
+              <X size={24} className="text-green-600 icon-bounce" />
             ) : (
-              <Menu size={24} className="text-blue-600 icon-bounce" />
+              <Menu size={24} className="text-green-600 icon-bounce" />
             )}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 z-[71] py-4 border-t border-blue-100 bg-white/95 backdrop-blur-md shadow-lg">
+          <div className="lg:hidden absolute top-full left-0 right-0 z-[71] py-4 border-t border-green-100 bg-white/95 backdrop-blur-md shadow-lg">
             <nav className="flex flex-col space-y-3 px-4">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="text-gray-700 hover:text-blue-600 font-medium py-3 px-2 rounded-lg hover:bg-blue-50 transition-all duration-200"
+                  className="text-gray-700 hover:text-green-600 font-medium py-3 px-2 rounded-lg hover:bg-green-50 transition-all duration-200"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
@@ -113,7 +113,7 @@ const Header = () => {
               ))}
               <button 
                 onClick={toggleLanguage}
-                className={`flex items-center justify-center ${isRTL ? 'space-x-2 space-x-reverse' : 'space-x-2'} px-4 py-3 border-2 border-blue-500 text-blue-600 rounded-full hover:bg-blue-500 hover:text-white transition-all duration-200 font-medium mt-4`}
+                className={`flex items-center justify-center ${isRTL ? 'space-x-2 space-x-reverse' : 'space-x-2'} px-4 py-3 border-2 border-green-500 text-green-600 rounded-full hover:bg-green-500 hover:text-white transition-all duration-200 font-medium mt-4`}
               >
                 <Globe size={16} />
                 <span>{language === 'ar' ? t('language.english') : t('language.arabic')}</span>
