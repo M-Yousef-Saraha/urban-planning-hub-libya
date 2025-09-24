@@ -9,20 +9,6 @@
     "newsletter_text": "Sign up to our newsletter to stay informed.",
     "signup_button": "Sign up"
   },
-  "carousel": {
-    "slide1": {
-      "title": "Sustainable Urban Development",
-      "description": "Analysis tools and data supporting urban planning in Libyan cities."
-    },
-    "slide2": {
-      "title": "Infrastructure Insights",
-      "description": "Visualizing requests and approvals to accelerate decision-making and improve transparency."
-    },
-    "slide3": {
-      "title": "Transparent Urban Planning",
-      "description": "Providing access to urban documents and processes in an open and clear manner."
-    }
-  },
   "about": {
     "title": "Urban Planning Authority",
     "subtitle": "Responsibilities",

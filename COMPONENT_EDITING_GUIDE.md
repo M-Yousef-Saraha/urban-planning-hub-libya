@@ -1,7 +1,7 @@
 # 🛠️ Component Editing Guide
 ## Urban Planning Hub Libya - Frontend Documentation
 
-This guide explains how to edit and customize the basic components of the Urban Planning Hub Libya website, including the carousel, header, footer, hero, news, projects, contact form, layouts, and styling.
+This guide explains how to edit and customize the basic components of the Urban Planning Hub Libya website, including the header, footer, hero, news, projects, contact form, layouts, and styling.
 
 ---
 
@@ -9,7 +9,7 @@ This guide explains how to edit and customize the basic components of the Urban 
 
 1. Project Structure Overview
 2. Component Architecture
-3. Carousel Component
+3. Hero Components
 4. Header Component
 5. Footer Component
 6. Hero Section
@@ -29,8 +29,8 @@ This guide explains how to edit and customize the basic components of the Urban 
 ```
 src/
 ├── components/           # Reusable UI components
-│   ├── ui/              # shadcn/ui primitives (e.g., carousel base)
-│   ├── home/            # Homepage-specific components (HeroCarousel)
+│   ├── ui/              # shadcn/ui primitives
+│   ├── home/            # Homepage-specific components
 │   ├── layout/          # Layout helpers (PageContainer)
 │   └── common/          # Shared components
 ├── pages/               # Page components (News, Projects, etc.)
@@ -66,66 +66,6 @@ const ComponentName: React.FC<ComponentNameProps> = ({}) => {
 
 export default ComponentName
 ```
-
----
-
-## 🎠 Carousel Component
-
-There are two relevant carousel implementations in the codebase:
-
-- Hero carousel used on the homepage: `src/components/home/HeroCarousel.tsx`
-- Generic embla-based carousel primitive: `src/components/ui/carousel.tsx`
-
-Most sites edits will target the Hero carousel.
-
-### Location
-- File: `src/components/home/HeroCarousel.tsx`
-- Used in: `src/pages/Index.tsx`
-
-### Slides data
-```tsx
-interface Slide {
-  id: number
-  title: string
-  description: string
-  image: string // path relative to /public
-}
-
-const slides: Slide[] = [
-  { id: 1, title: '...', description: '...', image: '/images/slide-1.png' },
-  { id: 2, title: '...', description: '...', image: '/images/slide-2.jpg' },
-  { id: 3, title: '...', description: '...', image: '/images/slide-3.jpg' }
-]
-```
-
-### How to update images
-1) Create the folder (if missing) and add files under `public/images/` (e.g., `slide-1.jpg`, `slide-2.jpg`, `slide-3.jpg`).
-2) Edit the `slides` array in `HeroCarousel.tsx` and point `image` to your files (e.g., `/images/your-image.jpg`).
-
-### Add/remove slides
-- Add/remove objects in the `slides` array.
-- Ensure each slide has a unique `id`.
-
-### Change autoplay speed
-```tsx
-const AUTO_INTERVAL = 5600 // milliseconds; increase/decrease as desired
-```
-
-### Adjust sizing and overlay
-```tsx
-// Slide height
-className="relative w-full flex-shrink-0 h-[300px] md:h-[460px]"
-
-// Light overlay
-<div className="absolute inset-0 bg-white/40 backdrop-blur-sm" />
-```
-
-### Tips
-- Optimize images (WebP or compressed JPG) and keep each < 500KB for performance.
-- Paths must be under `/public`, referenced as `/images/filename.ext`.
-
-### Generic UI carousel (optional)
-If you need a custom carousel elsewhere, use the primitive in `src/components/ui/carousel.tsx` and compose with `Carousel`, `CarouselContent`, `CarouselItem`, `CarouselPrevious`, `CarouselNext`.
 
 ---
 
@@ -376,7 +316,7 @@ export default YourComponent
 
 | Task | File | How |
 | ---- | ---- | --- |
-| Update carousel images | `src/components/home/HeroCarousel.tsx` | Edit `slides` array and `public/images/` |
+| Update hero images | `src/components/HeroImageSection.tsx` | Edit image path in component |
 | Change navigation | `src/components/Header.tsx` | Update `navItems` |
 | Update contact info | `src/components/Footer.tsx` | Edit contact blocks and links |
 | Add new page | `src/pages/` + `src/App.tsx` | Create page and route |
