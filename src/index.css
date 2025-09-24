@@ -9,47 +9,123 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Light neutral theme */
-    --background: 0 0% 100%; /* white */
-    --foreground: 222 47% 11%; /* slate-900-ish */
+    /* ========================================
+       CENTRALIZED COLOR SYSTEM
+       Change colors here to update entire site
+       ======================================== */
+    
+    /* Brand Colors - Primary Theme */
+    --brand-primary: 210 90% 56%;        /* Main brand blue */
+    --brand-primary-light: 210 90% 65%;  /* Lighter blue for hover states */
+    --brand-primary-dark: 210 90% 45%;   /* Darker blue for active states */
+    --brand-primary-foreground: 0 0% 100%; /* White text on primary */
+    
+    /* Brand Colors - Secondary Theme */
+    --brand-secondary: 210 40% 96%;     /* Light blue-gray */
+    --brand-secondary-foreground: 222 47% 20%; /* Dark text on secondary */
+    
+    /* Semantic Colors */
+    --success: 142 65% 35%;             /* Green for success states */
+    --success-light: 142 65% 45%;       /* Light green */
+    --success-foreground: 0 0% 100%;    /* White text on success */
+    
+    --warning: 45 93% 58%;              /* Yellow for warnings */
+    --warning-light: 45 93% 68%;       /* Light yellow */
+    --warning-foreground: 0 0% 0%;      /* Black text on warning */
+    
+    --destructive: 0 72% 46%;           /* Red for errors/destructive actions */
+    --destructive-light: 0 72% 56%;    /* Light red */
+    --destructive-foreground: 0 0% 100%; /* White text on destructive */
+    
+    --info: 210 90% 56%;                /* Blue for info (same as primary) */
+    --info-light: 210 90% 65%;          /* Light blue */
+    --info-foreground: 0 0% 100%;       /* White text on info */
+    
+    /* Neutral Colors */
+    --background: 0 0% 100%;            /* Pure white */
+    --foreground: 222 47% 11%;           /* Dark gray for text */
+    
+    --muted: 210 40% 96%;               /* Light gray for muted elements */
+    --muted-foreground: 215 16% 46%;     /* Medium gray for muted text */
+    
+    --border: 214 32% 91%;              /* Light gray for borders */
+    --input: 214 32% 91%;               /* Light gray for inputs */
+    --ring: 210 90% 56%;                /* Blue for focus rings */
+    
+    /* Card Colors */
+    --card: 0 0% 100%;                  /* White cards */
+    --card-foreground: 222 47% 11%;     /* Dark text on cards */
+    
+    --popover: 0 0% 100%;               /* White popovers */
+    --popover-foreground: 222 47% 11%;   /* Dark text on popovers */
+    
+    /* Accent Colors */
+    --accent: 210 40% 96%;              /* Light blue accent */
+    --accent-foreground: 222 47% 20%;    /* Dark text on accent */
+    
+    /* Sidebar Colors */
+    --sidebar-background: 210 40% 98%;  /* Very light blue */
+    --sidebar-foreground: 222 47% 11%;   /* Dark text */
+    --sidebar-primary: 210 90% 56%;     /* Brand blue */
+    --sidebar-primary-foreground: 0 0% 100%; /* White text */
+    --sidebar-accent: 210 40% 96%;      /* Light blue */
+    --sidebar-accent-foreground: 222 47% 20%; /* Dark text */
+    --sidebar-border: 214 32% 91%;      /* Light border */
+    --sidebar-ring: 210 90% 56%;        /* Blue focus ring */
+    
+    /* Extended Color Palette for Components */
+    --blue-50: 210 40% 98%;             /* Very light blue */
+    --blue-100: 210 40% 96%;            /* Light blue */
+    --blue-200: 210 40% 90%;            /* Lighter blue */
+    --blue-300: 210 40% 80%;            /* Light blue */
+    --blue-400: 210 40% 70%;            /* Medium light blue */
+    --blue-500: 210 90% 56%;            /* Brand blue */
+    --blue-600: 210 90% 50%;            /* Darker blue */
+    --blue-700: 210 90% 45%;            /* Dark blue */
+    --blue-800: 210 90% 40%;            /* Darker blue */
+    --blue-900: 210 90% 35%;            /* Darkest blue */
+    
+    --gray-50: 0 0% 98%;                /* Very light gray */
+    --gray-100: 0 0% 96%;               /* Light gray */
+    --gray-200: 0 0% 90%;               /* Lighter gray */
+    --gray-300: 0 0% 80%;               /* Light gray */
+    --gray-400: 0 0% 70%;               /* Medium light gray */
+    --gray-500: 0 0% 50%;               /* Medium gray */
+    --gray-600: 0 0% 40%;               /* Dark gray */
+    --gray-700: 0 0% 30%;               /* Darker gray */
+    --gray-800: 0 0% 20%;               /* Dark gray */
+    --gray-900: 0 0% 10%;               /* Darkest gray */
+    
+    --green-50: 142 65% 95%;            /* Very light green */
+    --green-100: 142 65% 90%;           /* Light green */
+    --green-500: 142 65% 35%;           /* Brand green */
+    --green-600: 142 65% 30%;           /* Dark green */
+    --green-700: 142 65% 25%;           /* Darker green */
+    --green-800: 142 65% 20%;           /* Darkest green */
+    
+    --yellow-50: 45 93% 95%;            /* Very light yellow */
+    --yellow-100: 45 93% 90%;           /* Light yellow */
+    --yellow-500: 45 93% 58%;           /* Brand yellow */
+    --yellow-600: 45 93% 50%;           /* Dark yellow */
+    --yellow-700: 45 93% 45%;           /* Darker yellow */
+    --yellow-800: 45 93% 40%;           /* Darkest yellow */
+    
+    --red-50: 0 72% 95%;                /* Very light red */
+    --red-100: 0 72% 90%;               /* Light red */
+    --red-500: 0 72% 46%;               /* Brand red */
+    --red-600: 0 72% 40%;               /* Dark red */
+    --red-700: 0 72% 35%;               /* Darker red */
+    --red-800: 0 72% 30%;               /* Darkest red */
+    
+    --indigo-50: 238 100% 95%;          /* Very light indigo */
+    --indigo-100: 238 100% 90%;         /* Light indigo */
+    --indigo-500: 238 100% 50%;         /* Brand indigo */
+    --indigo-600: 238 100% 45%;         /* Dark indigo */
+    --indigo-700: 238 100% 40%;         /* Darker indigo */
+    --indigo-800: 238 100% 35%;         /* Darkest indigo */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-
-    --primary: 210 90% 56%; /* brand blue */
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 47% 20%;
-
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 46%;
-
-    --accent: 210 40% 96%;
-    --accent-foreground: 222 47% 20%;
-
-    --destructive: 0 72% 46%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 210 90% 56%;
-
+    /* Layout System */
     --radius: 0.5rem;
-
-    --sidebar-background: 210 40% 98%;
-    --sidebar-foreground: 222 47% 11%;
-    --sidebar-primary: 210 90% 56%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 40% 96%;
-    --sidebar-accent-foreground: 222 47% 20%;
-    --sidebar-border: 214 32% 91%;
-    --sidebar-ring: 210 90% 56%;
-
-    /* Dynamic Header Height System */
     --header-height: 64px;
     --header-spacing: calc(var(--header-height) + 2rem);
   }
@@ -204,17 +280,29 @@ html {
   animation: bounce 1s infinite;
 }
 
-/* Professional blue gradient backgrounds */
-.gradient-blue {
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
+/* Professional gradient backgrounds using CSS variables */
+.gradient-primary {
+  background: linear-gradient(135deg, hsl(var(--brand-primary)) 0%, hsl(var(--brand-primary-dark)) 50%, hsl(var(--brand-primary-dark)) 100%);
 }
 
-.gradient-blue-light {
-  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+.gradient-primary-light {
+  background: linear-gradient(135deg, hsl(var(--blue-50)) 0%, hsl(var(--blue-100)) 100%);
 }
 
-.gradient-blue-dark {
-  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+.gradient-primary-dark {
+  background: linear-gradient(135deg, hsl(var(--brand-primary-dark)) 0%, hsl(var(--blue-800)) 100%);
+}
+
+.gradient-success {
+  background: linear-gradient(135deg, hsl(var(--success)) 0%, hsl(var(--green-600)) 100%);
+}
+
+.gradient-warning {
+  background: linear-gradient(135deg, hsl(var(--warning)) 0%, hsl(var(--yellow-600)) 100%);
+}
+
+.gradient-destructive {
+  background: linear-gradient(135deg, hsl(var(--destructive)) 0%, hsl(var(--red-600)) 100%);
 }
 
 /* Glassmorphism Effects */
@@ -320,10 +408,10 @@ html {
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+    box-shadow: 0 0 0 0 hsl(var(--brand-primary) / 0.7);
   }
   50% {
-    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+    box-shadow: 0 0 0 10px hsl(var(--brand-primary) / 0);
   }
 }
 
@@ -414,7 +502,7 @@ html {
 
 .input-micro:focus {
   transform: scale(1.02);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 3px hsl(var(--brand-primary) / 0.1);
 }
 
 .input-micro::after {
@@ -424,7 +512,7 @@ html {
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+  background: linear-gradient(90deg, hsl(var(--brand-primary)), hsl(var(--brand-primary-dark)));
   transition: width 0.3s ease;
 }
 
@@ -480,9 +568,9 @@ html {
   50% { transform: translateY(-10px); }
 }
 
-/* Gradient Animation */
+/* Gradient Animation using CSS variables */
 .gradient-animate {
-  background: linear-gradient(-45deg, #3b82f6, #1d4ed8, #1e40af, #1e3a8a);
+  background: linear-gradient(-45deg, hsl(var(--brand-primary)), hsl(var(--brand-primary-dark)), hsl(var(--blue-700)), hsl(var(--blue-800)));
   background-size: 400% 400%;
   animation: gradient-shift 4s ease infinite;
 }
@@ -498,9 +586,9 @@ html {
   @apply bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300;
 }
 
-/* Enhanced typography */
+/* Enhanced typography using CSS variables */
 .text-gradient {
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  background: linear-gradient(135deg, hsl(var(--brand-primary)) 0%, hsl(var(--brand-primary-dark)) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

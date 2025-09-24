@@ -41,18 +41,18 @@ const Projects = () => {
     switch (status) {
       case 'in_progress':
       case 'قيد التنفيذ':
-        return 'bg-green-100 text-green-800';
+        return 'bg-green-50 text-green-800';
       case 'planning':
       case 'مرحلة التصميم':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-blue-50 text-blue-800';
       case 'on_hold':
       case 'مرحلة الدراسة':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-yellow-50 text-yellow-800';
       case 'completed':
       case 'مكتمل':
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-gray-50 text-gray-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-gray-50 text-gray-800';
     }
   };
 

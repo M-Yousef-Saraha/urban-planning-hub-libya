@@ -13,42 +13,42 @@ const ServicesSection = () => {
       title: t('services.service1.title'),
       description: t('services.service1.description'),
       color: 'bg-blue-500',
-      accentColor: 'bg-blue-100'
+      accentColor: 'bg-blue-50'
     },
     {
       icon: FileText,
       title: t('services.service2.title'),
       description: t('services.service2.description'),
       color: 'bg-blue-600',
-      accentColor: 'bg-blue-100'
+      accentColor: 'bg-blue-50'
     },
     {
       icon: Map,
       title: t('services.service3.title'),
       description: t('services.service3.description'),
       color: 'bg-blue-700',
-      accentColor: 'bg-blue-100'
+      accentColor: 'bg-blue-50'
     },
     {
       icon: Building,
       title: t('services.service4.title'),
       description: t('services.service4.description'),
       color: 'bg-blue-800',
-      accentColor: 'bg-blue-100'
+      accentColor: 'bg-blue-50'
     },
     {
       icon: ClipboardCheck,
       title: t('services.service5.title'),
       description: t('services.service5.description'),
       color: 'bg-indigo-600',
-      accentColor: 'bg-indigo-100'
+      accentColor: 'bg-indigo-50'
     },
     {
       icon: Scale,
       title: t('services.service6.title'),
       description: t('services.service6.description'),
       color: 'bg-gray-600',
-      accentColor: 'bg-gray-100'
+      accentColor: 'bg-gray-50'
     }
   ];
 

@@ -60,13 +60,13 @@ class EmailService {
     
     const body = `
       <div dir="rtl" style="font-family: 'Cairo', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="background: linear-gradient(135deg, #16a085 0%, #138a70 100%); color: white; padding: 30px; border-radius: 10px; text-align: center; margin-bottom: 30px;">
+        <div style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; padding: 30px; border-radius: 10px; text-align: center; margin-bottom: 30px;">
           <h1 style="margin: 0; font-size: 24px;">الهيئة الوطنية للتخطيط العمراني</h1>
           <p style="margin: 10px 0 0 0; opacity: 0.9;">طلب وثيقة من المكتبة الرقمية</p>
         </div>
 
         <div style="background: #f8f9fa; padding: 25px; border-radius: 10px; margin-bottom: 25px;">
-          <h2 style="color: #16a085; margin-top: 0;">تفاصيل الطلب</h2>
+          <h2 style="color: #3b82f6; margin-top: 0;">تفاصيل الطلب</h2>
           <table style="width: 100%; border-collapse: collapse;">
             <tr>
               <td style="padding: 10px 0; border-bottom: 1px solid #e9ecef; font-weight: bold; color: #495057;">الوثيقة المطلوبة:</td>
