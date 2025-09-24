@@ -1,13 +1,20 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLanguage } from '@/hooks/useLanguage';
+import { motion } from 'framer-motion';
 
 const HeroImageSection = () => {
   const { t } = useTranslation('pages');
   const { isRTL } = useLanguage();
 
   return (
-    <section className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden" dir={isRTL ? 'rtl' : 'ltr'}>
+    <motion.section 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden" 
+      dir={isRTL ? 'rtl' : 'ltr'}
+    >
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
@@ -28,18 +35,30 @@ const HeroImageSection = () => {
         <div className="container mx-auto px-4">
           <div className={`max-w-2xl ${isRTL ? 'ml-auto' : 'mr-auto'}`}>
             {/* Main Title */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight" dir={isRTL ? 'rtl' : 'ltr'}>
+            <motion.h1 
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight" 
+              dir={isRTL ? 'rtl' : 'ltr'}
+            >
               {t('hero.title')}
-            </h1>
+            </motion.h1>
 
             {/* Description */}
-            <p className="text-lg md:text-xl text-white/90 leading-relaxed max-w-xl" dir={isRTL ? 'rtl' : 'ltr'}>
+            <motion.p 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="text-lg md:text-xl text-white/90 leading-relaxed max-w-xl" 
+              dir={isRTL ? 'rtl' : 'ltr'}
+            >
               {t('hero.description')}
-            </p>
+            </motion.p>
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLanguage } from '@/hooks/useLanguage';
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 
 interface Slide {
   id: number;
@@ -89,7 +90,11 @@ export const HeroCarousel: React.FC = () => {
   };
 
   return (
-    <section
+    <motion.section
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       aria-label={isRTL ? "العرض الرئيسي" : "Main Carousel"}
       className="relative w-full overflow-hidden rounded-3xl border border-sage-100 bg-gradient-to-br from-white to-slate-50 shadow-sm"
       dir={isRTL ? 'rtl' : 'ltr'}
@@ -110,31 +115,51 @@ export const HeroCarousel: React.FC = () => {
               style={{ backgroundImage: `url(${slide.image})` }}
             />
             <div className="relative h-full flex flex-col items-start justify-end p-6 md:p-10 lg:p-14 text-gray-800">
-              <h2 className="text-2xl md:text-4xl font-bold tracking-tight mb-4" dir={isRTL ? 'rtl' : 'ltr'}>
+              <motion.h2 
+                initial={{ opacity: 0, x: isRTL ? 50 : -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-2xl md:text-4xl font-bold tracking-tight mb-4" 
+                dir={isRTL ? 'rtl' : 'ltr'}
+              >
                 {slide.title}
-              </h2>
-              <p className="text-sm md:text-lg max-w-2xl leading-relaxed font-medium text-gray-700" dir={isRTL ? 'rtl' : 'ltr'}>
+              </motion.h2>
+              <motion.p 
+                initial={{ opacity: 0, x: isRTL ? 50 : -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="text-sm md:text-lg max-w-2xl leading-relaxed font-medium text-gray-700" 
+                dir={isRTL ? 'rtl' : 'ltr'}
+              >
                 {slide.description}
-              </p>
+              </motion.p>
             </div>
           </div>
         ))}
       </div>
 
       {/* Pagination dots */}
-      <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-3" dir="ltr">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+        className="absolute bottom-4 left-0 right-0 flex justify-center gap-3" 
+        dir="ltr"
+      >
         {slides.map((s, i) => (
-          <button
+          <motion.button
             key={s.id}
             onClick={() => setIndex(i)}
             aria-label={`اذهب إلى الشريحة ${i + 1}`}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
             className={clsx(
               'h-2.5 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-500/40',
               i === index ? 'w-8 bg-blue-500 shadow-sm' : 'w-2.5 bg-blue-300/50 hover:bg-blue-400/70'
             )}
           />
         ))}
-      </div>
+      </motion.div>
 
       {/* Progress indicator (optional) */}
       <div className="absolute top-0 inset-x-0 h-1 bg-blue-100">
@@ -145,7 +170,7 @@ export const HeroCarousel: React.FC = () => {
         />
       </div>
       <style>{`@keyframes grow { from { transform:scaleX(0); } to { transform:scaleX(1); } }`}</style>
-    </section>
+    </motion.section>
   );
 };
 

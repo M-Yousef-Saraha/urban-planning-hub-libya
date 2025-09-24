@@ -2,25 +2,45 @@ import React from 'react';
 import { MapPin, Calendar, Building, ArrowRight, CheckCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useLanguage } from '@/hooks/useLanguage';
+import { motion } from 'framer-motion';
 
 const LatestProjectSection = () => {
   const { t } = useTranslation('pages');
   const { isRTL } = useLanguage();
 
   return (
-    <section className="py-16 bg-white" dir={isRTL ? 'rtl' : 'ltr'}>
+    <motion.section 
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.8 }}
+      className="py-16 bg-white" 
+      dir={isRTL ? 'rtl' : 'ltr'}
+    >
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-12">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
             <div className={`inline-flex items-center ${isRTL ? 'space-x-2 space-x-reverse' : 'space-x-2'} bg-blue-100 rounded-full px-6 py-2 mb-6`}>
               <Building className="w-5 h-5 text-blue-600" />
               <span className="text-blue-700 font-medium" dir={isRTL ? 'rtl' : 'ltr'}>{t('latest_project.title')}</span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Project Card */}
-          <div className="bg-gradient-to-br from-gray-50 to-white rounded-3xl border border-gray-200 shadow-lg overflow-hidden">
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="bg-gradient-to-br from-gray-50 to-white rounded-3xl border border-gray-200 shadow-lg overflow-hidden"
+          >
             <div className={`grid lg:grid-cols-2 gap-0 ${isRTL ? 'lg:grid-flow-col-dense' : ''}`}>
               {/* Content Side */}
               <div className={`p-8 lg:p-12 ${isRTL ? 'lg:col-start-2' : ''}`}>
@@ -108,10 +128,10 @@ const LatestProjectSection = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

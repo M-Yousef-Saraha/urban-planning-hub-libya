@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Calendar, ArrowLeft, Building, FileText, Map } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const NewsSection = () => {
   const news = [
@@ -31,9 +32,22 @@ const NewsSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-white border-t border-gray-100" dir="rtl">
+    <motion.section 
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.8 }}
+      className="py-20 bg-white border-t border-gray-100" 
+      dir="rtl"
+    >
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           <div className="inline-flex items-center space-x-2 space-x-reverse bg-blue-100 rounded-full px-6 py-2 mb-6">
             <Building className="w-5 h-5 text-blue-600" />
             <span className="text-blue-700 font-medium">أحدث المستجدات</span>
@@ -42,14 +56,18 @@ const NewsSection = () => {
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             تابع آخر المستجدات والأخبار من الهيئة الوطنية للتخطيط العمراني
           </p>
-        </div>
+        </motion.div>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {news.map((item, index) => (
-            <div 
+            <motion.div 
               key={item.id} 
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              whileHover={{ y: -5 }}
               className="modern-card group cursor-pointer overflow-hidden hover-lift"
-              style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="p-8">
                 <div className="flex items-center justify-between mb-6">
@@ -75,17 +93,27 @@ const NewsSection = () => {
                   <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
         
-        <div className="text-center mt-16">
-          <button className="bg-blue-600 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-blue-700 transition-all duration-300 hover:transform hover:scale-105 shadow-lg">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-center mt-16"
+        >
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-blue-600 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-blue-700 transition-all duration-300 shadow-lg"
+          >
             عرض جميع الأخبار
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
