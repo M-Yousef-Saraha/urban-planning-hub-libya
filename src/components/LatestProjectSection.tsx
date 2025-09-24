@@ -39,7 +39,7 @@ const LatestProjectSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="glass-card rounded-3xl overflow-hidden"
+            className="glass-card rounded-3xl overflow-hidden card-micro"
           >
             <div className={`grid lg:grid-cols-2 gap-0 ${isRTL ? 'lg:grid-flow-col-dense' : ''}`}>
               {/* Content Side */}
@@ -105,9 +105,9 @@ const LatestProjectSection = () => {
                 </div>
 
                 {/* CTA Button */}
-                <button className={`group bg-blue-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-700 transition-all duration-300 hover:transform hover:scale-105 shadow-lg flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'}`}>
+                <button className={`group bg-blue-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-700 transition-all duration-300 hover:transform hover:scale-105 shadow-lg flex items-center btn-micro ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'}`}>
                   <span>{t('latest_project.cta_button')}</span>
-                  <ArrowRight size={20} className={`group-hover:translate-x-1 transition-transform ${isRTL ? 'rotate-180' : ''}`} />
+                  <ArrowRight size={20} className={`group-hover:translate-x-1 transition-transform icon-bounce ${isRTL ? 'rotate-180' : ''}`} />
                 </button>
               </div>
 

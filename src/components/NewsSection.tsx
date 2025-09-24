@@ -67,7 +67,7 @@ const NewsSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ y: -5 }}
-              className="glass-card group cursor-pointer overflow-hidden hover-lift rounded-2xl"
+              className="glass-card group cursor-pointer overflow-hidden hover-lift rounded-2xl card-micro"
             >
               <div className="p-8">
                 <div className="flex items-center justify-between mb-6">
@@ -75,7 +75,7 @@ const NewsSection = () => {
                     <Calendar size={16} className="ml-2" />
                     <span dir="ltr">{new Date(item.date).toLocaleDateString('en-GB')}</span>
                   </div>
-                  <div className={`p-3 ${item.color} rounded-full group-hover:scale-110 transition-transform duration-300`}>
+                  <div className={`p-3 ${item.color} rounded-full group-hover:scale-110 transition-transform duration-300 icon-bounce`}>
                     <item.icon size={20} className="text-white" />
                   </div>
                 </div>
@@ -90,7 +90,7 @@ const NewsSection = () => {
                 
                 <div className="flex items-center text-blue-600 font-medium group-hover:text-blue-700 transition-colors">
                   <span className="ml-2">اقرأ المزيد</span>
-                  <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+                  <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform icon-bounce" />
                 </div>
               </div>
             </motion.div>
@@ -107,7 +107,7 @@ const NewsSection = () => {
           <motion.button 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-blue-600 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-blue-700 transition-all duration-300 shadow-lg"
+            className="bg-blue-600 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-blue-700 transition-all duration-300 shadow-lg btn-micro gradient-animate"
           >
             عرض جميع الأخبار
           </motion.button>
