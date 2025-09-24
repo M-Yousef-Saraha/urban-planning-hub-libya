@@ -37,7 +37,7 @@ const NewsSection = () => {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8 }}
-      className="py-20 bg-white border-t border-gray-100" 
+      className="py-20 bg-gradient-to-br from-blue-50 via-white to-blue-50 border-t border-gray-100" 
       dir="rtl"
     >
       <div className="container mx-auto px-4">
@@ -67,7 +67,7 @@ const NewsSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ y: -5 }}
-              className="modern-card group cursor-pointer overflow-hidden hover-lift"
+              className="glass-card group cursor-pointer overflow-hidden hover-lift rounded-2xl"
             >
               <div className="p-8">
                 <div className="flex items-center justify-between mb-6">

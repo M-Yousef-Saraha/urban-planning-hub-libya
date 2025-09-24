@@ -38,8 +38,8 @@ const Header = () => {
       ref={headerRef}
       className={`fixed top-0 w-full z-[70] transition-all duration-300 ${
         isScrolled 
-          ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-sage-100' 
-          : 'bg-white/90 backdrop-blur-sm'
+          ? 'glass-nav shadow-lg' 
+          : 'glass-nav'
       }`} 
       dir={isRTL ? 'rtl' : 'ltr'}
     >

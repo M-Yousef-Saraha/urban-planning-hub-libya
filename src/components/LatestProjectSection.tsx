@@ -14,7 +14,7 @@ const LatestProjectSection = () => {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8 }}
-      className="py-16 bg-white" 
+      className="py-16 bg-gradient-to-br from-gray-50 via-white to-blue-50" 
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       <div className="container mx-auto px-4">
@@ -39,7 +39,7 @@ const LatestProjectSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="bg-gradient-to-br from-gray-50 to-white rounded-3xl border border-gray-200 shadow-lg overflow-hidden"
+            className="glass-card rounded-3xl overflow-hidden"
           >
             <div className={`grid lg:grid-cols-2 gap-0 ${isRTL ? 'lg:grid-flow-col-dense' : ''}`}>
               {/* Content Side */}
