@@ -58,7 +58,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
           </div>
         </div>
         <div className="p-6">
-          <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+          <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
             <div className="flex items-center gap-1">
               <Calendar className="w-4 h-4" />
               {formatDate(article.publishDate)}
@@ -73,11 +73,11 @@ const NewsCard: React.FC<NewsCardProps> = ({
             </div>
           </div>
           
-          <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+          <h3 className="text-xl font-bold text-foreground mb-3 line-clamp-2">
             {article.title}
           </h3>
           
-          <p className="text-gray-600 mb-4 line-clamp-3">
+          <p className="text-muted-foreground mb-4 line-clamp-3">
             {article.summary}
           </p>
           
@@ -85,7 +85,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
             {article.tags.map((tag, index) => (
               <span
                 key={index}
-                className="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium"
+                className="px-3 py-1 bg-[hsla(var(--primary)/0.12)] text-primary rounded-full text-xs font-medium"
               >
                 {tag}
               </span>
@@ -94,8 +94,8 @@ const NewsCard: React.FC<NewsCardProps> = ({
           
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <User className="w-4 h-4 text-gray-400" />
-              <span className="text-sm text-gray-600">{article.author}</span>
+              <User className="w-4 h-4 text-muted-foreground" />
+              <span className="text-sm text-muted-foreground">{article.author}</span>
             </div>
             <button 
               onClick={() => onReadMore?.(article.id)}
@@ -118,12 +118,12 @@ const NewsCard: React.FC<NewsCardProps> = ({
           alt={article.title}
           className="w-full h-48 object-cover"
         />
-        <div className="absolute top-4 right-4 bg-white/90 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
+  <div className="absolute top-4 right-4 bg-[hsla(var(--card)/0.9)] text-muted-foreground px-3 py-1 rounded-full text-sm font-medium">
           {getCategoryName(article.category)}
         </div>
       </div>
       <div className="p-6">
-        <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
+  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
           <div className="flex items-center gap-1">
             <Calendar className="w-4 h-4" />
             {formatDate(article.publishDate)}
@@ -134,18 +134,18 @@ const NewsCard: React.FC<NewsCardProps> = ({
           </div>
         </div>
         
-        <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2">
+  <h3 className="text-lg font-bold text-foreground mb-3 line-clamp-2">
           {article.title}
         </h3>
         
-        <p className="text-gray-600 mb-4 line-clamp-2">
+  <p className="text-muted-foreground mb-4 line-clamp-2">
           {article.summary}
         </p>
         
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <User className="w-4 h-4 text-gray-400" />
-            <span className="text-sm text-gray-600">{article.author}</span>
+            <User className="w-4 h-4 text-muted-foreground" />
+            <span className="text-sm text-muted-foreground">{article.author}</span>
           </div>
           <button 
             onClick={() => onReadMore?.(article.id)}

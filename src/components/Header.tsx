@@ -63,7 +63,7 @@ const Header = () => {
                 <li key={item.name} className="flex-1 flex justify-center">
                   <Link
                     to={item.href}
-                    className="text-gray-700 hover:text-primary font-medium transition-all duration-300 relative group py-2 px-3 whitespace-nowrap hover:scale-105"
+                    className="text-muted-foreground hover:text-primary font-medium transition-all duration-300 relative group py-2 px-3 whitespace-nowrap hover:scale-105"
                   >
                     {item.name}
                     <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-3/4 rounded-full"></span>
@@ -86,7 +86,7 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2.5 rounded-lg hover:bg-primary/10 transition-all duration-300 hover:scale-110"
+            className="lg:hidden p-2.5 rounded-lg hover:bg-[hsla(var(--primary)/0.12)] transition-all duration-300 hover:scale-110"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? (
@@ -99,13 +99,13 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 z-[71] py-4 border-t border-primary/20 bg-white/95 backdrop-blur-md shadow-lg">
+          <div className="lg:hidden absolute top-full left-0 right-0 z-[71] py-4 border-t border-[hsla(var(--primary)/0.2)] bg-[hsla(var(--card)/0.95)] backdrop-blur-md shadow-lg">
             <nav className="flex flex-col space-y-3 px-4">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="text-gray-700 hover:text-primary font-medium py-3 px-2 rounded-lg hover:bg-primary/10 transition-all duration-200"
+                  className="text-muted-foreground hover:text-primary font-medium py-3 px-2 rounded-lg hover:bg-[hsla(var(--primary)/0.12)] transition-all duration-200"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}

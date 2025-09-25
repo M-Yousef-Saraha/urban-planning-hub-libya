@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { MapPin, Phone, Mail, Building2, Map as MapIcon } from 'lucide-react';
+import { Building2, Map as MapIcon } from 'lucide-react';
 
 // Data model for a branch office (فرع) and its subordinate planning offices (مكاتب التخطيط)
 interface PlanningOffice {
@@ -93,17 +93,17 @@ const otherBranches = [
 
 const Branches: React.FC = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-white" dir="rtl">
+  <div className="min-h-screen flex flex-col bg-background" dir="rtl">
       <Header />
       <main className="flex-1 pt-32 md:pt-40 pb-24">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <div className="inline-flex items-center space-x-2 space-x-reverse bg-primary/10 rounded-full px-6 py-2 mb-6 ring-1 ring-primary/20">
+            <div className="inline-flex items-center space-x-2 space-x-reverse bg-[hsla(var(--primary)/0.12)] rounded-full px-6 py-2 mb-6 ring-1 ring-[hsla(var(--primary)/0.18)]">
               <Building2 className="w-5 h-5 text-primary" />
               <span className="text-primary font-medium">فروعنا</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">مكاتب و فروع الهيئة</h1>
-            <p className="text-lg text-gray-600 leading-relaxed">
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">مكاتب و فروع الهيئة</h1>
+            <p className="text-lg text-muted-foreground leading-relaxed">
               اكتشف مواقع فروع الهيئة الوطنية للتخطيط العمراني في مختلف المدن الليبية والتواصل مع أقرب مكتب إليك.
             </p>
           </div>
@@ -113,34 +113,34 @@ const Branches: React.FC = () => {
             {tripoliBranch.map(section => (
               <div key={section.branchName} className="space-y-8">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-2xl bg-[hsla(var(--primary)/0.12)] border border-[hsla(var(--primary)/0.2)] flex items-center justify-center">
                     <Building2 className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900">{section.branchName}</h2>
+                    <h2 className="text-2xl font-bold text-foreground">{section.branchName}</h2>
                     <p className="text-sm text-primary font-medium mt-1 flex items-center gap-2">
                       <MapIcon className="w-4 h-4" /> نطاق العمل: {section.jurisdiction}
                     </p>
                   </div>
                 </div>
-                <div className="overflow-hidden border border-gray-200 rounded-2xl shadow-sm">
+                <div className="overflow-hidden border border-border rounded-2xl shadow-sm">
                   <table className="w-full text-sm">
-                    <thead className="bg-gray-50 text-gray-700">
+                    <thead className="bg-muted/60 text-muted-foreground">
                       <tr className="text-right">
                         <th className="p-4 font-semibold w-1/3">مكتب التخطيط</th>
                         <th className="p-4 font-semibold">نطاق عمل المكتب</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100">
+                    <tbody className="divide-y divide-border/60">
                       {section.offices.map(office => (
-                        <tr key={office.name} className="align-top hover:bg-gray-50/80">
-                          <td className="p-4 font-medium text-gray-900 text-sm w-1/3">
+                        <tr key={office.name} className="align-top transition-colors hover:bg-muted/60">
+                          <td className="p-4 font-medium text-foreground text-sm w-1/3">
                             {office.name}
                           </td>
                           <td className="p-4">
                             <div className="flex flex-wrap gap-2">
                               {office.coverage.map(area => (
-                                <span key={area} className="px-3 py-1 rounded-full bg-gray-100 border border-gray-200 text-gray-700 text-xs">
+                                <span key={area} className="px-3 py-1 rounded-full bg-muted border border-border text-muted-foreground text-xs">
                                   {area}
                                 </span>
                               ))}
@@ -157,10 +157,10 @@ const Branches: React.FC = () => {
 
           {/* Other Branches Placeholder */}
           <div className="mt-24">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">الفروع الأخرى</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">الفروع الأخرى</h2>
             <div className="flex flex-wrap gap-3">
               {otherBranches.map(b => (
-                <span key={b} className="px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm text-gray-700 text-sm hover:border-primary/30 hover:shadow transition-colors">
+                <span key={b} className="px-4 py-2 rounded-full bg-card border border-border shadow-sm text-muted-foreground text-sm hover:border-[hsla(var(--primary)/0.35)] hover:shadow transition-colors">
                   {b}
                 </span>
               ))}
@@ -168,7 +168,7 @@ const Branches: React.FC = () => {
           </div>
 
           <div className="mt-20 max-w-3xl mx-auto text-center">
-            <p className="text-gray-500 leading-relaxed text-sm">
+            <p className="text-muted-foreground leading-relaxed text-sm">
               سيتم تحديث الصفحة تباعاً بإضافة تفاصيل الفروع الأخرى حال توفر البيانات الرسمية.
             </p>
           </div>

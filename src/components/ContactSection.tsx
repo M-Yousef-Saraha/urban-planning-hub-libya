@@ -36,39 +36,39 @@ const ContactSection = () => {
       icon: MapPin,
       title: 'العنوان',
       details: ['أبوسليم - طرابلس'],
-      color: 'bg-primary'
+      color: 'bg-primary text-primary-foreground'
     },
     {
       icon: Phone,
       title: 'الهاتف',
       details: ['021-4896816'],
-      color: 'bg-primary'
+      color: 'bg-primary text-primary-foreground'
     },
     {
       icon: Mail,
       title: 'البريد الإلكتروني',
       details: ['info@upa.gov.ly'],
-      color: 'bg-primary'
+      color: 'bg-primary text-primary-foreground'
     },
     {
       icon: Globe,
       title: 'الموقع الإلكتروني',
       details: ['upa.gov.ly'],
-      color: 'bg-primary'
+      color: 'bg-primary text-primary-foreground'
     },
     {
       icon: Clock,
       title: 'ساعات العمل',
       details: ['الأحد إلى الخميس', 'من 8 صباحًا إلى 2 ظهرًا'],
-      color: 'bg-primary'
+      color: 'bg-primary text-primary-foreground'
     }
   ];
 
   return (
-  <section id="contact" className="py-24 bg-white relative overflow-hidden border-t border-gray-100" dir="rtl">
+  <section id="contact" className="py-24 bg-background relative overflow-hidden border-t border-border" dir="rtl">
       {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(59,130,246,0.06),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,hsl(var(--primary)/0.06),transparent_70%)]" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -77,25 +77,25 @@ const ContactSection = () => {
             <Building className="w-5 h-5 text-primary" />
             <span className="text-primary font-medium">تواصل معنا</span>
           </div>
-          <h3 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">اتصل بنا</h3>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <h3 className="text-4xl md:text-5xl font-bold text-foreground mb-6">اتصل بنا</h3>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             نحن هنا للإجابة على استفساراتكم حول خدماتنا وتقديم المساعدة في مجال التخطيط العمراني
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-10">
+          <div className="bg-card rounded-2xl shadow-sm border border-border p-10">
             <div className="flex items-center space-x-3 space-x-reverse mb-8">
               <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center ring-1 ring-primary/20">
                 <Send className="w-6 h-6 text-primary" />
               </div>
-              <h4 className="text-2xl font-bold text-gray-900">أرسل لنا رسالة</h4>
+              <h4 className="text-2xl font-bold text-foreground">أرسل لنا رسالة</h4>
             </div>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-bold text-gray-700 mb-3">
+                <label htmlFor="name" className="block text-sm font-bold text-foreground mb-3">
                   الاسم الكامل
                 </label>
                 <input
@@ -105,13 +105,13 @@ const ContactSection = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-white"
+                  className="w-full px-4 py-4 border-2 border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-background"
                   placeholder="أدخل اسمك الكامل"
                 />
               </div>
               
               <div>
-                <label htmlFor="email" className="block text-sm font-bold text-gray-700 mb-3">
+                <label htmlFor="email" className="block text-sm font-bold text-foreground mb-3">
                   البريد الإلكتروني
                 </label>
                 <input
@@ -121,13 +121,13 @@ const ContactSection = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-white"
+                  className="w-full px-4 py-4 border-2 border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-background"
                   placeholder="أدخل بريدك الإلكتروني"
                 />
               </div>
               
               <div>
-                <label htmlFor="message" className="block text-sm font-bold text-gray-700 mb-3">
+                <label htmlFor="message" className="block text-sm font-bold text-foreground mb-3">
                   الرسالة أو الاستفسار
                 </label>
                 <textarea
@@ -137,7 +137,7 @@ const ContactSection = () => {
                   onChange={handleChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 resize-none bg-white"
+                  className="w-full px-4 py-4 border-2 border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 resize-none bg-background"
                   placeholder="اكتب رسالتك هنا..."
                 />
               </div>
@@ -162,10 +162,10 @@ const ContactSection = () => {
               >
                 <div className="flex items-start space-x-4 space-x-reverse">
                   <div className={`inline-flex items-center justify-center w-14 h-14 ${info.color} rounded-2xl flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
-                    <info.icon size={24} className="text-white" />
+                    <info.icon size={24} className="text-current" />
                   </div>
                   <div className="flex-1">
-                    <h5 className="text-xl font-bold text-gray-900 mb-3">{info.title}</h5>
+                    <h5 className="text-xl font-bold text-foreground mb-3">{info.title}</h5>
                     {info.details.map((detail, idx) => {
                       const isPhone = info.title.includes('الهاتف');
                       const isEmail = info.title.includes('البريد');
@@ -192,7 +192,7 @@ const ContactSection = () => {
                         );
                       }
                       return (
-                        <p key={idx} className="text-gray-600 mb-2 leading-relaxed" dir="rtl">{detail}</p>
+                        <p key={idx} className="text-muted-foreground mb-2 leading-relaxed" dir="rtl">{detail}</p>
                       );
                     })}
                   </div>

@@ -98,33 +98,45 @@ All colors MUST be HSL.
     --gray-800: 0 0% 20%;               /* Dark gray */
     --gray-900: 0 0% 10%;               /* Darkest gray */
     
-    --green-50: 142 65% 95%;            /* Very light green */
-    --green-100: 142 65% 90%;           /* Light green */
-    --green-500: 142 65% 35%;           /* Brand green */
+  --green-50: 142 65% 95%;            /* Very light green */
+  --green-100: 142 65% 90%;           /* Light green */
+  --green-200: 142 65% 80%;           /* Softer green for borders */
+  --green-500: 142 65% 35%;           /* Brand green */
     --green-600: 142 65% 30%;           /* Dark green */
     --green-700: 142 65% 25%;           /* Darker green */
     --green-800: 142 65% 20%;           /* Darkest green */
     
-    --yellow-50: 45 93% 95%;            /* Very light yellow */
-    --yellow-100: 45 93% 90%;           /* Light yellow */
-    --yellow-500: 45 93% 58%;           /* Brand yellow */
+  --yellow-50: 45 93% 95%;            /* Very light yellow */
+  --yellow-100: 45 93% 90%;           /* Light yellow */
+  --yellow-200: 45 93% 82%;           /* Softer yellow for borders */
+  --yellow-500: 45 93% 58%;           /* Brand yellow */
     --yellow-600: 45 93% 50%;           /* Dark yellow */
     --yellow-700: 45 93% 45%;           /* Darker yellow */
     --yellow-800: 45 93% 40%;           /* Darkest yellow */
     
-    --red-50: 0 72% 95%;                /* Very light red */
-    --red-100: 0 72% 90%;               /* Light red */
-    --red-500: 0 72% 46%;               /* Brand red */
+  --red-50: 0 72% 95%;                /* Very light red */
+  --red-100: 0 72% 90%;               /* Light red */
+  --red-200: 0 72% 82%;               /* Softer red for borders */
+  --red-500: 0 72% 46%;               /* Brand red */
     --red-600: 0 72% 40%;               /* Dark red */
     --red-700: 0 72% 35%;               /* Darker red */
     --red-800: 0 72% 30%;               /* Darkest red */
     
-    --indigo-50: 238 100% 95%;          /* Very light indigo */
-    --indigo-100: 238 100% 90%;         /* Light indigo */
-    --indigo-500: 238 100% 50%;         /* Brand indigo */
+  --indigo-50: 238 100% 95%;          /* Very light indigo */
+  --indigo-100: 238 100% 90%;         /* Light indigo */
+  --indigo-200: 238 100% 82%;         /* Softer indigo for borders */
+  --indigo-500: 238 100% 50%;         /* Brand indigo */
     --indigo-600: 238 100% 45%;         /* Dark indigo */
     --indigo-700: 238 100% 40%;         /* Darker indigo */
-    --indigo-800: 238 100% 35%;         /* Darkest indigo */
+  --indigo-800: 238 100% 35%;         /* Darkest indigo */
+
+  --orange-50: 25 95% 95%;            /* Very light orange */
+  --orange-100: 25 95% 90%;           /* Light orange */
+  --orange-200: 25 95% 82%;           /* Softer orange for borders */
+  --orange-500: 25 95% 53%;           /* Brand orange */
+  --orange-600: 25 95% 45%;           /* Dark orange */
+  --orange-700: 25 95% 38%;           /* Darker orange */
+  --orange-800: 25 95% 32%;           /* Darkest orange */
 
     /* Layout System */
     --radius: 0.5rem;

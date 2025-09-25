@@ -9,31 +9,31 @@ const Hero = () => {
   const { isRTL } = useLanguage();
 
   return (
-  <section id="home" className="min-h-screen bg-white text-gray-900 py-24 relative overflow-hidden flex items-center border-b border-gray-100" dir={isRTL ? 'rtl' : 'ltr'}>
+  <section id="home" className="min-h-screen bg-background text-foreground py-24 relative overflow-hidden flex items-center border-b border-border" dir={isRTL ? 'rtl' : 'ltr'}>
       {/* Animated Background Elements */}
   <div className="absolute inset-0 opacity-10 pointer-events-none">
         <div className="absolute top-20 right-20 animate-float">
-          <Building className="w-16 h-16 text-white" />
+          <Building className="w-16 h-16 text-primary-foreground/80" />
         </div>
         <div className="absolute top-40 left-32 animate-float" style={{ animationDelay: '1s' }}>
-          <Map className="w-12 h-12 text-white" />
+          <Map className="w-12 h-12 text-primary-foreground/80" />
         </div>
         <div className="absolute bottom-32 right-40 animate-float" style={{ animationDelay: '2s' }}>
-          <FileText className="w-14 h-14 text-white" />
+          <FileText className="w-14 h-14 text-primary-foreground/80" />
         </div>
-        <div className="absolute top-32 left-20 w-32 h-32 border-2 border-white/30 rounded-full animate-pulse"></div>
-        <div className="absolute bottom-40 right-20 w-24 h-24 border-2 border-white/30 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-32 left-20 w-32 h-32 border-2 border-primary-foreground/20 rounded-full animate-pulse"></div>
+        <div className="absolute bottom-40 right-20 w-24 h-24 border-2 border-primary-foreground/20 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
       </div>
 
       {/* Pattern overlay */}
-  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(30,64,175,0.05),transparent_70%)]"></div>
+  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsla(var(--primary)/0.08),transparent_70%)]"></div>
       
       <div className="container mx-auto px-4 text-center relative z-10">
         <div className="max-w-5xl mx-auto">
 
           <h2 className="text-5xl md:text-7xl font-bold mb-10 leading-tight animate-fade-in-up" dir={isRTL ? 'rtl' : 'ltr'}>
             <span className="mb-2 block text-primary">{t('hero.title_part1')}</span>
-            <span className="bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[hsla(var(--primary)/0.7)] via-[hsla(var(--primary)/0.85)] to-[hsla(var(--primary)/1)] bg-clip-text text-transparent">
               {t('hero.title_part2')}
             </span>
           </h2>

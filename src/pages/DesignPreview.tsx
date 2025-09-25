@@ -30,7 +30,7 @@ export default function DesignPreview() {
                   aria-label="بحث"
                 />
               </div>
-              <button type="submit" className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 transition-colors font-semibold shadow">
+              <button type="submit" className="px-6 py-3 rounded-xl bg-primary hover:bg-primary/90 transition-colors font-semibold shadow">
                 بحث
               </button>
             </form>

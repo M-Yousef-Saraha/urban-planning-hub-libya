@@ -56,9 +56,9 @@ const NewsDetail: React.FC<NewsDetailProps> = ({ article, onBack }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50" dir="rtl">
+    <div className="min-h-screen bg-muted" dir="rtl">
       {/* Back Button */}
-      <div className="bg-white border-b border-gray-200 py-4">
+      <div className="bg-card border-b border-border py-4">
         <div className="container mx-auto px-4">
           <button
             onClick={onBack}
@@ -89,7 +89,7 @@ const NewsDetail: React.FC<NewsDetailProps> = ({ article, onBack }) => {
             
             <div className="p-8">
               {/* Meta Information */}
-              <div className="flex flex-wrap items-center gap-6 text-sm text-gray-500 mb-6">
+              <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground mb-6">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
                   {formatDate(article.publishDate)}
@@ -110,13 +110,13 @@ const NewsDetail: React.FC<NewsDetailProps> = ({ article, onBack }) => {
 
               {/* Category */}
               <div className="mb-6">
-                <span className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium">
+                <span className="inline-block bg-[hsla(var(--primary)/0.12)] text-primary px-4 py-2 rounded-full text-sm font-medium">
                   {getCategoryName(article.category)}
                 </span>
               </div>
 
               {/* Title */}
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+              <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-6 leading-tight">
                 {article.title}
               </h1>
 
@@ -124,12 +124,12 @@ const NewsDetail: React.FC<NewsDetailProps> = ({ article, onBack }) => {
               <div className="flex items-center gap-4 mb-8">
                 <button
                   onClick={handleShare}
-                  className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 bg-muted text-muted-foreground rounded-lg hover:bg-muted/80 transition-colors"
                 >
                   <Share2 className="w-4 h-4" />
                   مشاركة
                 </button>
-                <button className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                <button className="flex items-center gap-2 px-4 py-2 bg-muted text-muted-foreground rounded-lg hover:bg-muted/80 transition-colors">
                   <Bookmark className="w-4 h-4" />
                   حفظ
                 </button>
@@ -140,7 +140,7 @@ const NewsDetail: React.FC<NewsDetailProps> = ({ article, onBack }) => {
                 {article.tags.map((tag, index) => (
                   <span
                     key={index}
-                    className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium"
+                    className="px-3 py-1 bg-[hsla(var(--primary)/0.12)] text-primary rounded-full text-sm font-medium"
                   >
                     <Tag className="w-3 h-3 inline ml-1" />
                     {tag}
@@ -153,7 +153,7 @@ const NewsDetail: React.FC<NewsDetailProps> = ({ article, onBack }) => {
           {/* Article Content */}
           <div className="modern-card p-8 mb-8">
             <div className="prose prose-lg max-w-none">
-              <div className="text-gray-700 leading-relaxed text-lg">
+              <div className="text-muted-foreground leading-relaxed text-lg">
                 {article.content.split('\n').map((paragraph, index) => (
                   <p key={index} className="mb-6">
                     {paragraph}
@@ -165,16 +165,16 @@ const NewsDetail: React.FC<NewsDetailProps> = ({ article, onBack }) => {
 
           {/* Related Articles */}
           <div className="modern-card p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">مقالات ذات صلة</h3>
+            <h3 className="text-2xl font-bold text-foreground mb-6">مقالات ذات صلة</h3>
             <div className="grid md:grid-cols-2 gap-6">
               {/* This would be populated with related articles */}
-              <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-                <h4 className="font-semibold text-gray-900 mb-2">مقال ذو صلة 1</h4>
-                <p className="text-gray-600 text-sm">وصف مختصر للمقال ذو الصلة...</p>
+              <div className="border border-border rounded-lg p-4 hover:shadow-md transition-shadow">
+                <h4 className="font-semibold text-foreground mb-2">مقال ذو صلة 1</h4>
+                <p className="text-muted-foreground text-sm">وصف مختصر للمقال ذو الصلة...</p>
               </div>
-              <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-                <h4 className="font-semibold text-gray-900 mb-2">مقال ذو صلة 2</h4>
-                <p className="text-gray-600 text-sm">وصف مختصر للمقال ذو الصلة...</p>
+              <div className="border border-border rounded-lg p-4 hover:shadow-md transition-shadow">
+                <h4 className="font-semibold text-foreground mb-2">مقال ذو صلة 2</h4>
+                <p className="text-muted-foreground text-sm">وصف مختصر للمقال ذو الصلة...</p>
               </div>
             </div>
           </div>

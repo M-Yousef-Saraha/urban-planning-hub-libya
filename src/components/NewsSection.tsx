@@ -37,7 +37,7 @@ const NewsSection = () => {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8 }}
-      className="py-20 bg-gradient-to-br from-blue-50 via-white to-blue-50 border-t border-gray-100" 
+      className="py-20 bg-gradient-to-br from-[hsla(var(--primary)/0.05)] via-background to-[hsla(var(--primary)/0.05)] border-t border-border" 
       dir="rtl"
     >
       <div className="container mx-auto px-4">
@@ -53,7 +53,7 @@ const NewsSection = () => {
             <span className="text-primary font-medium">أحدث المستجدات</span>
           </div>
           <h3 className="text-4xl md:text-5xl font-bold text-primary mb-6">أحدث الأخبار</h3>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             تابع آخر المستجدات والأخبار من الهيئة الوطنية للتخطيط العمراني
           </p>
         </motion.div>
@@ -76,15 +76,15 @@ const NewsSection = () => {
                     <span dir="ltr">{new Date(item.date).toLocaleDateString('en-GB')}</span>
                   </div>
                   <div className={`p-3 ${item.color} rounded-full group-hover:scale-110 transition-transform duration-300 icon-bounce`}>
-                    <item.icon size={20} className="text-white" />
+                    <item.icon size={20} className="text-primary-foreground" />
                   </div>
                 </div>
                 
-                <h4 className="font-bold text-xl mb-5 text-gray-800 group-hover:text-primary transition-colors leading-normal">
+                <h4 className="font-bold text-xl mb-5 text-foreground group-hover:text-primary transition-colors leading-normal">
                   {item.title}
                 </h4>
                 
-                <p className="text-gray-600 leading-relaxed mb-6 line-clamp-3">
+                <p className="text-muted-foreground leading-relaxed mb-6 line-clamp-3">
                   {item.summary}
                 </p>
                 

@@ -1,46 +1,36 @@
 # Copilot Instructions — Urban Planning Hub Libya
 
-This repo is now frontend-only: a React (Vite + TS) SPA at the root. The backend will be a separate Laravel API. Use these conventions and entry points to be productive fast.
+Frontend-only repo: React 18 + TypeScript SPA served by Vite. Laravel API lives elsewhere; this app speaks to it through relative `/api/*` calls.
 
-## Big picture
-- Frontend (SPA): `src/` with React 18 + TypeScript, Tailwind, shadcn/ui, React Router, TanStack Query.
-  - App entry: `src/main.tsx`; Root app and routing: `src/App.tsx`.
-  - Path alias: `@` -> `./src` (see `vite.config.ts`). Prefer absolute imports like `@/components/...`.
-  - Notifications: `@/components/ui/toaster` and `@/components/ui/sonner` mounted in `App.tsx`.
-  - Routing: `BrowserRouter` with nested admin routes under `/admin` using `pages/admin/*` and `AdminLayout`.
-- Backend API: external Laravel app (developed in a separate repo). Expose matching REST endpoints under `/api/*` and enable CORS for `http://localhost:5000` during dev.
+## Architecture snapshot
+- Entrypoint `src/main.tsx` mounts `<App />`; routing lives in `src/App.tsx` with `BrowserRouter` and `/admin` nested routes inside `pages/admin/*` via `AdminLayout`.
+- Global providers: `QueryClientProvider` (TanStack Query), `AuthProvider`, `LanguageProvider`, `TooltipProvider`, and an `ErrorBoundary`. Even though TanStack Query is available, most current pages still fetch manually with the axios helpers.
+- Auth flows live in `src/contexts/AuthContext.tsx`, storing tokens in cookies and rehydrating on load. `src/lib/api.ts` centralizes the axios instance, attaches the Bearer token, and force-redirects to `/login` on 401.
 
-## How components talk
-- Dev proxy: the SPA proxies `/api` to the API (Vite server on 5000 -> Laravel on 8000 by default). See `vite.config.ts`.
-  - In the frontend, call relative paths like `/api/documents` or `/api/requests` (don’t hardcode hosts).
-  - Data fetching uses TanStack Query via the `QueryClientProvider` in `App.tsx`.
+## Running & tooling
+- Use `npm run dev` for Vite on http://localhost:5000 (see `vite.config.ts`); this server proxies `/api` and `/health` to the Laravel target (`VITE_API_BASE_URL` or `http://localhost:8000`).
+- Ship builds with `npm run build`; lint via `npm run lint`. The lint task now includes guardrails that warn if you introduce raw hex/RGB values or Tailwind classes like `bg-blue-500`—stick to the semantic tokens exposed in `src/index.css`, `tailwind.config.ts`, and `src/lib/colorTokens.ts`.
+- No automated tests are configured.
 
-## Run it locally (pwsh)
-- Frontend (root): `npm run dev` (Vite on http://localhost:5000; proxy active).
-- Backend: run Laravel separately (e.g., `php artisan serve` on http://localhost:8000). Configure `VITE_API_BASE_URL` if not using default.
+## Working with the API layer
+- Call the axios helpers in `src/lib/api.ts` (`authAPI`, `documentsAPI`, `requestsAPI`, `adminAPI`, etc.). They already expect Laravel endpoints like `/api/auth/login` and return `response.data`; update backend responses accordingly.
+- Normalize backend variability with `src/lib/normalize.ts` before rendering—document pages rely on `normalizeDocuments` and `normalizeCategories` to tolerate different payload shapes.
+- When creating new fetch logic, prefer sticking to the shared axios instance (so interceptors fire) and, if you do adopt TanStack Query, wrap results in `useQuery` but reuse the same helper functions.
 
-## Environment variables (Backend)
-- Managed in the separate Laravel project (.env). Typical keys: `APP_URL`, `APP_KEY`, `DB_*`, `SANCTUM_STATEFUL_DOMAINS`, `SESSION_DOMAIN`, `MAIL_*`.
+## UI & state conventions
+- UI primitives come from `src/components/ui/*` (shadcn/radix wrappers). Compose pages with layout helpers like `components/layout/PageContainer` and keep new RTL-aware styles in Tailwind (see `tailwind.config.ts` and `src/index.css`).
+- Forms rely on React Hook Form (`DocumentRequestModal`, Auth forms) plus shadcn `<FormField>` wrappers; success/error toasts use `sonner` via `toast.*`. Stick to that pattern for new dialogs.
+- Document request flow: `DocumentRequestModal` calls `requestsAPI.create` and expects `{ success: boolean }` before closing and emitting `onSuccess`. `DocumentDetailModal` triggers the same modal rather than duplicating logic.
 
-## Common extension tasks
-- Add a frontend page/route:
-  1) Create `src/pages/MyPage.tsx`.
-  2) Register in `src/App.tsx` within `<Routes>`; for admin, nest under `<Route path="/admin" element={<AdminLayout />}>`.
-- Add a backend API endpoint (in Laravel repo):
-  1) Create a controller and route in the Laravel API to match `/api/...` from this SPA.
-  2) Ensure CORS allows `http://localhost:5000` during development.
-  3) If uploading files, use Laravel's storage and serve via a route or storage symlink.
+## Internationalization & RTL
+- `LanguageProvider` (from `src/contexts/LanguageContext.tsx`) mirrors i18next state, flips `dir` and `lang` attributes, and stores the choice in `localStorage` (`preferred-language`). Use `useLanguage()` or `useTranslation()` instead of ad-hoc locale state, and drop new copy into `src/locales/{ar,en}/*`.
+- Keep layouts RTL-first; check existing components for class patterns like `dir="rtl"` wrappers and mirrored flex orders.
 
-## Patterns and conventions
-- Frontend
-  - Use `@` alias imports. Keep API calls relative to `/api` to leverage the proxy.
-  - Use TanStack Query for server state; keep toast notifications consistent with existing Toaster/Sonner usage.
-  - Tailwind tokens are extended in `tailwind.config.ts`; content globs include `./src/**/*.{ts,tsx}`.
-- Backend
-  - Laravel app maintained separately. Ensure endpoints mirror the frontend expectations and that CORS is configured for dev.
+## Admin surface
+- Admin dashboards sit under `src/pages/admin/` (e.g., `RequestsManagement`, `DocumentsAdmin`, `AnalyticsDashboard`). Each screen expects axios helpers from `adminAPI` and shares global providers, so add new management views inside the `/admin` route tree.
 
-## Key references
-- Frontend: `src/App.tsx`, `vite.config.ts`, `tailwind.config.ts`, `src/components/*`, `src/pages/*`.
-- Backend: separate Laravel project repo.
+## Reference points
+- Start with `src/App.tsx`, `src/contexts`, `src/lib/api.ts`, `src/pages/LibrarySimple.tsx`, and `src/components/DocumentRequestModal.tsx` to understand core flows.
+- Tailwind tokens and typography live in `tailwind.config.ts` and `src/index.css`; assets are in `public/`.
 
-If anything above is unclear or you need extra conventions documented (e.g., auth guards on admin routes or API validation patterns), ask to expand this file and I’ll refine it.
+Ping if any workflow above is ambiguous so we can document it better.

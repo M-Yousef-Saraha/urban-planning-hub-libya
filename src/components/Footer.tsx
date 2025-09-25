@@ -36,7 +36,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-br from-gray-50 to-white border-t border-gray-200" dir={isRTL ? 'rtl' : 'ltr'}>
+    <footer className="bg-gradient-to-br from-[hsla(var(--primary)/0.04)] to-background border-t border-border" dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="container mx-auto px-4 py-16">
         <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-12">
           {/* Organization Info - Takes 2 columns */}
@@ -45,51 +45,51 @@ const Footer = () => {
               <img 
                 src="/updated-logo.png" 
                 alt="الهيئة الوطنية للتخطيط العمراني"
-                className="w-16 h-16 object-contain bg-white rounded-xl p-2 shadow-sm border border-gray-100"
+                className="w-16 h-16 object-contain bg-card rounded-xl p-2 shadow-sm border border-border/70"
               />
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.organization.name')}</h3>
+                <h3 className="text-2xl font-bold text-foreground mb-2" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.organization.name')}</h3>
                 <p className="text-primary font-medium text-lg" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.organization.tagline')}</p>
               </div>
             </div>
             
-            <p className="text-gray-600 mb-8 leading-relaxed text-base max-w-lg" dir={isRTL ? 'rtl' : 'ltr'}>
+            <p className="text-muted-foreground mb-8 leading-relaxed text-base max-w-lg" dir={isRTL ? 'rtl' : 'ltr'}>
               {t('footer.organization.description')}
             </p>
             
             {/* Contact Info */}
             <div className="space-y-3">
-              <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-gray-600`}>
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-muted-foreground`}>
+                <div className="w-10 h-10 bg-[hsla(var(--primary)/0.12)] rounded-lg flex items-center justify-center flex-shrink-0">
                   <Phone size={16} className="text-primary" />
                 </div>
-                <a href="tel:0214896816" className="text-gray-700 hover:text-primary transition-colors font-medium" dir="ltr">{t('footer.contact.phone')}</a>
+                <a href="tel:0214896816" className="text-foreground hover:text-primary transition-colors font-medium" dir="ltr">{t('footer.contact.phone')}</a>
               </div>
-              <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-gray-600`}>
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-muted-foreground`}>
+                <div className="w-10 h-10 bg-[hsla(var(--primary)/0.12)] rounded-lg flex items-center justify-center flex-shrink-0">
                   <Mail size={16} className="text-primary" />
                 </div>
-                <a href="mailto:info@upa.gov.ly" className="text-gray-700 hover:text-primary transition-colors font-medium" dir="ltr">{t('footer.contact.email')}</a>
+                <a href="mailto:info@upa.gov.ly" className="text-foreground hover:text-primary transition-colors font-medium" dir="ltr">{t('footer.contact.email')}</a>
               </div>
-              <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-gray-600`}>
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-muted-foreground`}>
+                <div className="w-10 h-10 bg-[hsla(var(--primary)/0.12)] rounded-lg flex items-center justify-center flex-shrink-0">
                   <MapPin size={16} className="text-primary" />
                 </div>
-                <span className="text-gray-700 font-medium" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.contact.address')}</span>
+                <span className="text-foreground font-medium" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.contact.address')}</span>
               </div>
-              <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-gray-600`}>
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-muted-foreground`}>
+                <div className="w-10 h-10 bg-[hsla(var(--primary)/0.12)] rounded-lg flex items-center justify-center flex-shrink-0">
                   <Globe size={16} className="text-primary" />
                 </div>
-                <a href="https://upa.gov.ly" target="_blank" rel="noreferrer" className="text-gray-700 hover:text-primary transition-colors font-medium" dir="ltr">{t('footer.contact.website')}</a>
+                <a href="https://upa.gov.ly" target="_blank" rel="noreferrer" className="text-foreground hover:text-primary transition-colors font-medium" dir="ltr">{t('footer.contact.website')}</a>
               </div>
-              <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-gray-600`}>
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-muted-foreground`}>
+                <div className="w-10 h-10 bg-[hsla(var(--primary)/0.12)] rounded-lg flex items-center justify-center flex-shrink-0">
                   <Clock size={16} className="text-primary" />
                 </div>
-                <div className="text-gray-700 font-medium" dir={isRTL ? 'rtl' : 'ltr'}>
+                <div className="text-foreground font-medium" dir={isRTL ? 'rtl' : 'ltr'}>
                   <div>{t('footer.contact.hours')}</div>
-                  <div className="text-sm text-gray-500 font-normal">{t('footer.contact.hours_detail')}</div>
+                  <div className="text-sm text-muted-foreground font-normal">{t('footer.contact.hours_detail')}</div>
                 </div>
               </div>
             </div>
@@ -97,7 +97,7 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h4 className={`text-xl font-bold mb-6 text-gray-900 flex items-center ${isRTL ? 'space-x-2 space-x-reverse' : 'space-x-2'}`}>
+            <h4 className={`text-xl font-bold mb-6 text-foreground flex items-center ${isRTL ? 'space-x-2 space-x-reverse' : 'space-x-2'}`}>
               <Settings className="w-5 h-5 text-primary" />
               <span dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.services.title')}</span>
             </h4>
@@ -106,7 +106,7 @@ const Footer = () => {
                 <li key={service.name}>
                   <a 
                     href={service.href}
-                    className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-gray-600 hover:text-primary transition-colors duration-200 group`}
+                    className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-muted-foreground hover:text-primary transition-colors duration-200 group`}
                   >
                     <service.icon size={18} className="text-primary/70 group-hover:text-primary transition-colors" />
                     <span className="font-medium" dir={isRTL ? 'rtl' : 'ltr'}>{service.name}</span>
@@ -118,13 +118,13 @@ const Footer = () => {
 
           {/* Quick Links & Social */}
           <div>
-            <h4 className="text-xl font-bold mb-6 text-gray-900" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.quick_links')}</h4>
+            <h4 className="text-xl font-bold mb-6 text-foreground" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.quick_links')}</h4>
             <ul className="space-y-3 mb-8">
               {quickLinks.map((link) => (
                 <li key={link.name}>
                   <Link 
                     to={link.href}
-                    className="text-gray-600 hover:text-primary transition-colors duration-200 hover:translate-x-1 inline-block font-medium"
+                    className="text-muted-foreground hover:text-primary transition-colors duration-200 hover:translate-x-1 inline-block font-medium"
                     dir={isRTL ? 'rtl' : 'ltr'}
                   >
                     {link.name}
@@ -133,7 +133,7 @@ const Footer = () => {
               ))}
             </ul>
 
-            <h5 className="text-lg font-bold mb-4 text-gray-900" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.follow_us')}</h5>
+            <h5 className="text-lg font-bold mb-4 text-foreground" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.follow_us')}</h5>
             <div className={`flex ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'}`}>
               {socialLinks.map((social) => (
                 <a
@@ -142,7 +142,7 @@ const Footer = () => {
                   className="w-11 h-11 bg-primary rounded-lg flex items-center justify-center hover:bg-primary/90 transition-all duration-300 group hover:scale-105 shadow-sm"
                   aria-label={social.label}
                 >
-                  <social.icon size={18} className="text-white group-hover:scale-110 transition-transform" />
+                  <social.icon size={18} className="text-primary-foreground group-hover:scale-110 transition-transform" />
                 </a>
               ))}
             </div>
@@ -150,11 +150,11 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-200 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-500 text-sm mb-4 md:mb-0" dir={isRTL ? 'rtl' : 'ltr'}>
+        <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-muted-foreground text-sm mb-4 md:mb-0" dir={isRTL ? 'rtl' : 'ltr'}>
             &copy; {currentYear} {t('footer.organization.name')}. {t('footer.legal.copyright')}.
           </p>
-          <div className={`flex ${isRTL ? 'space-x-6 space-x-reverse' : 'space-x-6'} text-sm text-gray-500`}>
+          <div className={`flex ${isRTL ? 'space-x-6 space-x-reverse' : 'space-x-6'} text-sm text-muted-foreground`}>
             <a href="#" className="hover:text-primary transition-colors font-medium" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.legal.privacy')}</a>
             <a href="#" className="hover:text-primary transition-colors font-medium" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.legal.terms')}</a>
           </div>
