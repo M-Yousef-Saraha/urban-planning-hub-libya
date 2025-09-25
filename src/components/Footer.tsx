@@ -49,7 +49,7 @@ const Footer = () => {
               />
               <div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-2" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.organization.name')}</h3>
-                <p className="text-blue-600 font-medium text-lg" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.organization.tagline')}</p>
+                <p className="text-primary font-medium text-lg" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.organization.tagline')}</p>
               </div>
             </div>
             
@@ -60,32 +60,32 @@ const Footer = () => {
             {/* Contact Info */}
             <div className="space-y-3">
               <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-gray-600`}>
-                <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Phone size={16} className="text-blue-600" />
+                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Phone size={16} className="text-primary" />
                 </div>
-                <a href="tel:0214896816" className="text-gray-700 hover:text-blue-600 transition-colors font-medium" dir="ltr">{t('footer.contact.phone')}</a>
+                <a href="tel:0214896816" className="text-gray-700 hover:text-primary transition-colors font-medium" dir="ltr">{t('footer.contact.phone')}</a>
               </div>
               <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-gray-600`}>
-                <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Mail size={16} className="text-blue-600" />
+                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Mail size={16} className="text-primary" />
                 </div>
-                <a href="mailto:info@upa.gov.ly" className="text-gray-700 hover:text-blue-600 transition-colors font-medium" dir="ltr">{t('footer.contact.email')}</a>
+                <a href="mailto:info@upa.gov.ly" className="text-gray-700 hover:text-primary transition-colors font-medium" dir="ltr">{t('footer.contact.email')}</a>
               </div>
               <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-gray-600`}>
-                <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <MapPin size={16} className="text-blue-600" />
+                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <MapPin size={16} className="text-primary" />
                 </div>
                 <span className="text-gray-700 font-medium" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.contact.address')}</span>
               </div>
               <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-gray-600`}>
-                <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Globe size={16} className="text-blue-600" />
+                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Globe size={16} className="text-primary" />
                 </div>
-                <a href="https://upa.gov.ly" target="_blank" rel="noreferrer" className="text-gray-700 hover:text-blue-600 transition-colors font-medium" dir="ltr">{t('footer.contact.website')}</a>
+                <a href="https://upa.gov.ly" target="_blank" rel="noreferrer" className="text-gray-700 hover:text-primary transition-colors font-medium" dir="ltr">{t('footer.contact.website')}</a>
               </div>
               <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-gray-600`}>
-                <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Clock size={16} className="text-blue-600" />
+                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Clock size={16} className="text-primary" />
                 </div>
                 <div className="text-gray-700 font-medium" dir={isRTL ? 'rtl' : 'ltr'}>
                   <div>{t('footer.contact.hours')}</div>
@@ -98,7 +98,7 @@ const Footer = () => {
           {/* Services */}
           <div>
             <h4 className={`text-xl font-bold mb-6 text-gray-900 flex items-center ${isRTL ? 'space-x-2 space-x-reverse' : 'space-x-2'}`}>
-              <Settings className="w-5 h-5 text-blue-600" />
+              <Settings className="w-5 h-5 text-primary" />
               <span dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.services.title')}</span>
             </h4>
             <ul className="space-y-4">
@@ -106,9 +106,9 @@ const Footer = () => {
                 <li key={service.name}>
                   <a 
                     href={service.href}
-                    className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-gray-600 hover:text-blue-600 transition-colors duration-200 group`}
+                    className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'} text-gray-600 hover:text-primary transition-colors duration-200 group`}
                   >
-                    <service.icon size={18} className="text-blue-500 group-hover:text-blue-600 transition-colors" />
+                    <service.icon size={18} className="text-primary/70 group-hover:text-primary transition-colors" />
                     <span className="font-medium" dir={isRTL ? 'rtl' : 'ltr'}>{service.name}</span>
                   </a>
                 </li>
@@ -124,7 +124,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link 
                     to={link.href}
-                    className="text-gray-600 hover:text-blue-600 transition-colors duration-200 hover:translate-x-1 inline-block font-medium"
+                    className="text-gray-600 hover:text-primary transition-colors duration-200 hover:translate-x-1 inline-block font-medium"
                     dir={isRTL ? 'rtl' : 'ltr'}
                   >
                     {link.name}
@@ -139,7 +139,7 @@ const Footer = () => {
                 <a
                   key={social.label}
                   href={social.href}
-                  className="w-11 h-11 bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-700 transition-all duration-300 group hover:scale-105 shadow-sm"
+                  className="w-11 h-11 bg-primary rounded-lg flex items-center justify-center hover:bg-primary/90 transition-all duration-300 group hover:scale-105 shadow-sm"
                   aria-label={social.label}
                 >
                   <social.icon size={18} className="text-white group-hover:scale-110 transition-transform" />
@@ -155,8 +155,8 @@ const Footer = () => {
             &copy; {currentYear} {t('footer.organization.name')}. {t('footer.legal.copyright')}.
           </p>
           <div className={`flex ${isRTL ? 'space-x-6 space-x-reverse' : 'space-x-6'} text-sm text-gray-500`}>
-            <a href="#" className="hover:text-blue-600 transition-colors font-medium" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.legal.privacy')}</a>
-            <a href="#" className="hover:text-blue-600 transition-colors font-medium" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.legal.terms')}</a>
+            <a href="#" className="hover:text-primary transition-colors font-medium" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.legal.privacy')}</a>
+            <a href="#" className="hover:text-primary transition-colors font-medium" dir={isRTL ? 'rtl' : 'ltr'}>{t('footer.legal.terms')}</a>
           </div>
         </div>
       </div>

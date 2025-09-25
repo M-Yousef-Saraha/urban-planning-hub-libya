@@ -12,29 +12,29 @@ const ServicesSection = () => {
       icon: Search,
       title: t('services.service1.title'),
       description: t('services.service1.description'),
-      color: 'bg-blue-500',
-      accentColor: 'bg-blue-50'
+      color: 'bg-primary',
+      accentColor: 'bg-primary/10'
     },
     {
       icon: FileText,
       title: t('services.service2.title'),
       description: t('services.service2.description'),
-      color: 'bg-blue-600',
-      accentColor: 'bg-blue-50'
+      color: 'bg-primary/80',
+      accentColor: 'bg-primary/10'
     },
     {
       icon: Map,
       title: t('services.service3.title'),
       description: t('services.service3.description'),
-      color: 'bg-blue-700',
-      accentColor: 'bg-blue-50'
+      color: 'bg-primary/60',
+      accentColor: 'bg-primary/10'
     },
     {
       icon: Building,
       title: t('services.service4.title'),
       description: t('services.service4.description'),
-      color: 'bg-blue-800',
-      accentColor: 'bg-blue-50'
+      color: 'bg-primary/40',
+      accentColor: 'bg-primary/10'
     },
     {
       icon: ClipboardCheck,
@@ -56,11 +56,11 @@ const ServicesSection = () => {
     <section id="services" className="py-20 bg-gradient-to-b from-white to-blue-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <div className={`inline-flex items-center ${isRTL ? 'space-x-2 space-x-reverse' : 'space-x-2'} bg-blue-100 rounded-full px-6 py-2 mb-6`}>
-            <Settings className="w-5 h-5 text-blue-600" />
-            <span className="text-blue-700 font-medium" dir={isRTL ? 'rtl' : 'ltr'}>{t('services.subtitle')}</span>
+          <div className={`inline-flex items-center ${isRTL ? 'space-x-2 space-x-reverse' : 'space-x-2'} bg-primary/10 rounded-full px-6 py-2 mb-6`}>
+            <Settings className="w-5 h-5 text-primary" />
+            <span className="text-primary font-medium" dir={isRTL ? 'rtl' : 'ltr'}>{t('services.subtitle')}</span>
           </div>
-          <h3 className="text-4xl md:text-5xl font-bold text-blue-800 mb-6" dir={isRTL ? 'rtl' : 'ltr'}>{t('services.title')}</h3>
+          <h3 className="text-4xl md:text-5xl font-bold text-primary mb-6" dir={isRTL ? 'rtl' : 'ltr'}>{t('services.title')}</h3>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed" dir={isRTL ? 'rtl' : 'ltr'}>
             {t('services.description')}
           </p>
@@ -80,7 +80,7 @@ const ServicesSection = () => {
                 <div className={`w-3 h-3 ${service.color} rounded-full animate-pulse`}></div>
               </div>
               
-              <h4 className="text-xl font-bold text-gray-800 mb-4 group-hover:text-green-700 transition-colors" dir={isRTL ? 'rtl' : 'ltr'}>
+              <h4 className="text-xl font-bold text-gray-800 mb-4 group-hover:text-primary transition-colors" dir={isRTL ? 'rtl' : 'ltr'}>
                 {service.title}
               </h4>
               
@@ -89,11 +89,11 @@ const ServicesSection = () => {
               </p>
               
                   <div className="flex items-center justify-between">
-                    <span className="text-blue-600 font-bold group-hover:text-blue-700 transition-colors" dir={isRTL ? 'rtl' : 'ltr'}>
+                    <span className="text-primary font-bold group-hover:text-primary/80 transition-colors" dir={isRTL ? 'rtl' : 'ltr'}>
                       {t('services.cta_start')}
                     </span>
                     <div className={`p-2 ${service.accentColor} rounded-lg group-hover:scale-110 transition-transform`}>
-                      <ArrowLeft size={16} className={`text-blue-600 transition-transform ${isRTL ? 'group-hover:translate-x-1' : 'group-hover:-translate-x-1'}`} />
+                      <ArrowLeft size={16} className={`text-primary transition-transform ${isRTL ? 'group-hover:translate-x-1' : 'group-hover:-translate-x-1'}`} />
                     </div>
                   </div>
             </div>
@@ -102,10 +102,10 @@ const ServicesSection = () => {
 
         <div className="text-center mt-16">
           <div className={`inline-flex items-center ${isRTL ? 'space-x-4 space-x-reverse' : 'space-x-4'}`}>
-            <button className="bg-blue-600 text-white px-8 py-4 rounded-full font-bold hover:bg-blue-700 transition-all duration-300 hover:transform hover:scale-105 shadow-lg">
+            <button className="bg-primary text-primary-foreground px-8 py-4 rounded-full font-bold hover:bg-primary/90 transition-all duration-300 hover:transform hover:scale-105 shadow-lg">
               {t('services.cta_all')}
             </button>
-            <button className="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-full font-bold hover:bg-blue-600 hover:text-white transition-all duration-300">
+            <button className="border-2 border-primary text-primary px-8 py-4 rounded-full font-bold hover:bg-primary hover:text-primary-foreground transition-all duration-300">
               {t('services.cta_contact')}
             </button>
           </div>

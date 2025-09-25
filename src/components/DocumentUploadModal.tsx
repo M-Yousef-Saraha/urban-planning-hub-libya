@@ -182,7 +182,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModalProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-white/20">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
               <Upload className="w-6 h-6 text-white" />
             </div>
             <div>
@@ -208,7 +208,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModalProps> = ({
               </label>
               <div
                 className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
-                  isDragOver ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-gray-400'
+                  isDragOver ? 'border-primary bg-primary/10' : 'border-gray-300 hover:border-gray-400'
                 }`}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
@@ -216,7 +216,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModalProps> = ({
               >
                 {file ? (
                   <div className="flex items-center justify-center gap-3">
-                    <FileText className="w-8 h-8 text-blue-600" />
+                    <FileText className="w-8 h-8 text-primary" />
                     <div className="text-right">
                       <p className="font-medium text-gray-900">{file.name}</p>
                       <p className="text-sm text-gray-600">{formatFileSize(file.size)}</p>
@@ -248,7 +248,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModalProps> = ({
                 />
                 <label
                   htmlFor="file-upload"
-                  className="mt-3 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg cursor-pointer hover:bg-blue-700 transition-colors"
+                  className="mt-3 inline-block bg-primary text-primary-foreground px-4 py-2 rounded-lg cursor-pointer hover:bg-primary/90 transition-colors"
                 >
                   اختيار ملف
                 </label>
@@ -266,7 +266,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModalProps> = ({
                   name="title"
                   value={formData.title}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-right"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-right"
                   placeholder="أدخل عنوان الوثيقة"
                   required
                 />
@@ -281,7 +281,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModalProps> = ({
                   value={formData.description}
                   onChange={handleInputChange}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-right"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-right"
                   placeholder="وصف مختصر للوثيقة"
                 />
               </div>
@@ -297,7 +297,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModalProps> = ({
                   name="categoryId"
                   value={formData.categoryId}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-right"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-right"
                   required
                 >
                   <option value="">اختر التصنيف</option>
@@ -324,7 +324,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModalProps> = ({
                   name="locationId"
                   value={formData.locationId}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-right"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-right"
                 >
                   <option value="">اختر الموقع</option>
                   {locations.map((location) => (
@@ -345,7 +345,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModalProps> = ({
                 name="category"
                 value={formData.category}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-right"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-right"
               >
                 <option value="">اختر التصنيف التقليدي</option>
                 <option value="GUIDES">أدلة</option>
@@ -368,7 +368,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModalProps> = ({
                   name="tags"
                   value={formData.tags}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-right"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-right"
                   placeholder="مثال: تخطيط، عمراني، تطوير"
                 />
               </div>
@@ -382,7 +382,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModalProps> = ({
                   name="keywords"
                   value={formData.keywords}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-right"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-right"
                   placeholder="مثال: ليبيا، طرابلس، مخطط"
                 />
               </div>
@@ -414,7 +414,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModalProps> = ({
             <button
               type="submit"
               disabled={isLoading}
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+              className="px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
             >
               {isLoading ? (
                 <>

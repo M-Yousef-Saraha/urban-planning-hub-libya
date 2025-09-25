@@ -15,6 +15,8 @@ All colors MUST be HSL.
        ======================================== */
     
     /* Brand Colors - Primary Theme */
+    --primary: 210 90% 56%;              /* Main brand color (used by Tailwind) */
+    --primary-foreground: 0 0% 100%;      /* White text on primary */
     --brand-primary: 210 90% 56%;        /* Main brand blue */
     --brand-primary-light: 210 90% 65%;  /* Lighter blue for hover states */
     --brand-primary-dark: 210 90% 45%;   /* Darker blue for active states */

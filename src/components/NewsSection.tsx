@@ -11,7 +11,7 @@ const NewsSection = () => {
       summary: 'الهيئة تعلن عن إطلاق المخطط العمراني المحدث لمدينة طرابلس والذي يشمل تطوير البنية التحتية والمرافق العامة...',
       date: '2025-01-15',
       icon: Building,
-      color: 'bg-blue-500'
+      color: 'bg-primary'
     },
     {
       id: 2,
@@ -19,7 +19,7 @@ const NewsSection = () => {
       summary: 'تم اعتماد قوانين البناء المحدثة والتي تشمل معايير جديدة للسلامة والجودة في المشاريع العمرانية...',
       date: '2025-01-12',
       icon: FileText,
-      color: 'bg-blue-600'
+      color: 'bg-primary/80'
     },
     {
       id: 3,
@@ -27,7 +27,7 @@ const NewsSection = () => {
       summary: 'نظمت الهيئة ورشة عمل متخصصة حول أحدث تقنيات التخطيط العمراني والتطوير الحضري...',
       date: '2025-01-10',
       icon: Map,
-      color: 'bg-blue-700'
+      color: 'bg-primary/60'
     }
   ];
 
@@ -48,11 +48,11 @@ const NewsSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center space-x-2 space-x-reverse bg-blue-100 rounded-full px-6 py-2 mb-6">
-            <Building className="w-5 h-5 text-blue-600" />
-            <span className="text-blue-700 font-medium">أحدث المستجدات</span>
+          <div className="inline-flex items-center space-x-2 space-x-reverse bg-primary/10 rounded-full px-6 py-2 mb-6">
+            <Building className="w-5 h-5 text-primary" />
+            <span className="text-primary font-medium">أحدث المستجدات</span>
           </div>
-          <h3 className="text-4xl md:text-5xl font-bold text-blue-800 mb-6">أحدث الأخبار</h3>
+          <h3 className="text-4xl md:text-5xl font-bold text-primary mb-6">أحدث الأخبار</h3>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             تابع آخر المستجدات والأخبار من الهيئة الوطنية للتخطيط العمراني
           </p>
@@ -71,7 +71,7 @@ const NewsSection = () => {
             >
               <div className="p-8">
                 <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center text-blue-600 text-sm font-medium">
+                  <div className="flex items-center text-primary text-sm font-medium">
                     <Calendar size={16} className="ml-2" />
                     <span dir="ltr">{new Date(item.date).toLocaleDateString('en-GB')}</span>
                   </div>
@@ -80,7 +80,7 @@ const NewsSection = () => {
                   </div>
                 </div>
                 
-                <h4 className="font-bold text-xl mb-5 text-gray-800 group-hover:text-blue-700 transition-colors leading-normal">
+                <h4 className="font-bold text-xl mb-5 text-gray-800 group-hover:text-primary transition-colors leading-normal">
                   {item.title}
                 </h4>
                 
@@ -88,7 +88,7 @@ const NewsSection = () => {
                   {item.summary}
                 </p>
                 
-                <div className="flex items-center text-blue-600 font-medium group-hover:text-blue-700 transition-colors">
+                <div className="flex items-center text-primary font-medium group-hover:text-primary/80 transition-colors">
                   <span className="ml-2">اقرأ المزيد</span>
                   <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform icon-bounce" />
                 </div>
@@ -107,7 +107,7 @@ const NewsSection = () => {
           <motion.button 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-blue-600 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-blue-700 transition-all duration-300 shadow-lg btn-micro gradient-animate"
+            className="bg-primary text-primary-foreground px-10 py-4 rounded-full font-bold text-lg hover:bg-primary/90 transition-all duration-300 shadow-lg btn-micro gradient-animate"
           >
             عرض جميع الأخبار
           </motion.button>

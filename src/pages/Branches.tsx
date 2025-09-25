@@ -98,9 +98,9 @@ const Branches: React.FC = () => {
       <main className="flex-1 pt-32 md:pt-40 pb-24">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <div className="inline-flex items-center space-x-2 space-x-reverse bg-blue-50 rounded-full px-6 py-2 mb-6 ring-1 ring-blue-200">
-              <Building2 className="w-5 h-5 text-blue-600" />
-              <span className="text-blue-700 font-medium">فروعنا</span>
+            <div className="inline-flex items-center space-x-2 space-x-reverse bg-primary/10 rounded-full px-6 py-2 mb-6 ring-1 ring-primary/20">
+              <Building2 className="w-5 h-5 text-primary" />
+              <span className="text-primary font-medium">فروعنا</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">مكاتب و فروع الهيئة</h1>
             <p className="text-lg text-gray-600 leading-relaxed">
@@ -113,12 +113,12 @@ const Branches: React.FC = () => {
             {tripoliBranch.map(section => (
               <div key={section.branchName} className="space-y-8">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center">
-                    <Building2 className="w-6 h-6 text-blue-600" />
+                  <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                    <Building2 className="w-6 h-6 text-primary" />
                   </div>
                   <div>
                     <h2 className="text-2xl font-bold text-gray-900">{section.branchName}</h2>
-                    <p className="text-sm text-blue-700 font-medium mt-1 flex items-center gap-2">
+                    <p className="text-sm text-primary font-medium mt-1 flex items-center gap-2">
                       <MapIcon className="w-4 h-4" /> نطاق العمل: {section.jurisdiction}
                     </p>
                   </div>
@@ -160,7 +160,7 @@ const Branches: React.FC = () => {
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">الفروع الأخرى</h2>
             <div className="flex flex-wrap gap-3">
               {otherBranches.map(b => (
-                <span key={b} className="px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm text-gray-700 text-sm hover:border-blue-300 hover:shadow transition-colors">
+                <span key={b} className="px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm text-gray-700 text-sm hover:border-primary/30 hover:shadow transition-colors">
                   {b}
                 </span>
               ))}

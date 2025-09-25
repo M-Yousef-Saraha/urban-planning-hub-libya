@@ -63,9 +63,9 @@ const News = () => {
       {/* Hero Section */}
       <section className="bg-white py-12 md:py-16 border-b border-gray-100">
         <PageContainer className="max-w-4xl text-center">
-          <div className="inline-flex items-center space-x-2 space-x-reverse bg-blue-100 rounded-full px-6 py-2 mb-8">
-            <div className="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></div>
-            <span className="text-blue-700 font-semibold" dir={isRTL ? 'rtl' : 'ltr'}>{t('news.subtitle')}</span>
+          <div className="inline-flex items-center space-x-2 space-x-reverse bg-primary/10 rounded-full px-6 py-2 mb-8">
+            <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+            <span className="text-primary font-semibold" dir={isRTL ? 'rtl' : 'ltr'}>{t('news.subtitle')}</span>
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6" dir={isRTL ? 'rtl' : 'ltr'}>{t('news.title')}</h1>
           <p className="text-xl text-gray-600 mb-8" dir={isRTL ? 'rtl' : 'ltr'}>
@@ -81,7 +81,7 @@ const News = () => {
                 placeholder={t('news.search_placeholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-12 py-4 border-2 border-gray-200 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-12 py-4 border-2 border-gray-200 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
               />
             </div>
           </div>
@@ -100,7 +100,7 @@ const News = () => {
                   onClick={() => setSelectedCategory(category.id)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                     selectedCategory === category.id
-                      ? 'bg-blue-600 text-white'
+                      ? 'bg-primary text-primary-foreground'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
@@ -128,7 +128,7 @@ const News = () => {
                       <button
                         onClick={() => { setSortBy('latest'); setIsFilterOpen(false); }}
                         className={`w-full text-right px-3 py-2 rounded hover:bg-gray-50 ${
-                          sortBy === 'latest' ? 'bg-blue-50 text-blue-600' : ''
+                          sortBy === 'latest' ? 'bg-primary/10 text-primary' : ''
                         }`}
                       >
                         الأحدث أولاً
@@ -136,7 +136,7 @@ const News = () => {
                       <button
                         onClick={() => { setSortBy('oldest'); setIsFilterOpen(false); }}
                         className={`w-full text-right px-3 py-2 rounded hover:bg-gray-50 ${
-                          sortBy === 'oldest' ? 'bg-blue-50 text-blue-600' : ''
+                          sortBy === 'oldest' ? 'bg-primary/10 text-primary' : ''
                         }`}
                       >
                         الأقدم أولاً
@@ -144,7 +144,7 @@ const News = () => {
                       <button
                         onClick={() => { setSortBy('popular'); setIsFilterOpen(false); }}
                         className={`w-full text-right px-3 py-2 rounded hover:bg-gray-50 ${
-                          sortBy === 'popular' ? 'bg-blue-50 text-blue-600' : ''
+                          sortBy === 'popular' ? 'bg-primary/10 text-primary' : ''
                         }`}
                       >
                         الأكثر قراءة
@@ -211,7 +211,7 @@ const News = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button 
                 onClick={() => setSearchQuery('')}
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
               >
                 مسح البحث
               </button>

@@ -53,7 +53,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
             alt={article.title}
             className="w-full h-64 object-cover"
           />
-          <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+          <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
             مميز
           </div>
         </div>
@@ -85,7 +85,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
             {article.tags.map((tag, index) => (
               <span
                 key={index}
-                className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-medium"
+                className="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium"
               >
                 {tag}
               </span>
@@ -99,7 +99,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
             </div>
             <button 
               onClick={() => onReadMore?.(article.id)}
-              className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
+              className="flex items-center gap-2 text-primary hover:text-primary/80 font-medium"
             >
               اقرأ المزيد
               <ArrowRight className="w-4 h-4" />
@@ -149,7 +149,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
           </div>
           <button 
             onClick={() => onReadMore?.(article.id)}
-            className="text-blue-600 hover:text-blue-700 font-medium text-sm"
+            className="text-primary hover:text-primary/80 font-medium text-sm"
           >
             اقرأ المزيد
           </button>

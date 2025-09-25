@@ -62,7 +62,7 @@ const NewsDetail: React.FC<NewsDetailProps> = ({ article, onBack }) => {
         <div className="container mx-auto px-4">
           <button
             onClick={onBack}
-            className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
+            className="flex items-center gap-2 text-primary hover:text-primary/80 font-medium"
           >
             <ArrowLeft className="w-5 h-5" />
             العودة للأخبار
@@ -81,7 +81,7 @@ const NewsDetail: React.FC<NewsDetailProps> = ({ article, onBack }) => {
                 className="w-full h-96 object-cover"
               />
               {article.featured && (
-                <div className="absolute top-6 right-6 bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium">
+                <div className="absolute top-6 right-6 bg-primary text-primary-foreground px-4 py-2 rounded-full text-sm font-medium">
                   مقال مميز
                 </div>
               )}
@@ -110,7 +110,7 @@ const NewsDetail: React.FC<NewsDetailProps> = ({ article, onBack }) => {
 
               {/* Category */}
               <div className="mb-6">
-                <span className="inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium">
+                <span className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium">
                   {getCategoryName(article.category)}
                 </span>
               </div>
@@ -140,7 +140,7 @@ const NewsDetail: React.FC<NewsDetailProps> = ({ article, onBack }) => {
                 {article.tags.map((tag, index) => (
                   <span
                     key={index}
-                    className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm font-medium"
+                    className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium"
                   >
                     <Tag className="w-3 h-3 inline ml-1" />
                     {tag}

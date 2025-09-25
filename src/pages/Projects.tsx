@@ -44,7 +44,7 @@ const Projects = () => {
         return 'bg-green-50 text-green-800';
       case 'planning':
       case 'مرحلة التصميم':
-        return 'bg-blue-50 text-blue-800';
+        return 'bg-primary/10 text-primary';
       case 'on_hold':
       case 'مرحلة الدراسة':
         return 'bg-yellow-50 text-yellow-800';
@@ -78,9 +78,9 @@ const Projects = () => {
       {/* Hero Section */}
       <section className="bg-white py-12 md:py-16 border-b border-gray-100">
         <PageContainer className="max-w-4xl text-center">
-          <div className={`inline-flex items-center ${isRTL ? 'space-x-2 space-x-reverse' : 'space-x-2'} bg-blue-100 rounded-full px-6 py-2 mb-8`}>
-            <div className="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></div>
-            <span className="text-blue-700 font-semibold" dir={isRTL ? 'rtl' : 'ltr'}>{t('projects.subtitle')}</span>
+          <div className={`inline-flex items-center ${isRTL ? 'space-x-2 space-x-reverse' : 'space-x-2'} bg-primary/10 rounded-full px-6 py-2 mb-8`}>
+            <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+            <span className="text-primary font-semibold" dir={isRTL ? 'rtl' : 'ltr'}>{t('projects.subtitle')}</span>
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6" dir={isRTL ? 'rtl' : 'ltr'}>{t('projects.title')}</h1>
           <p className="text-xl text-gray-600 mb-8" dir={isRTL ? 'rtl' : 'ltr'}>
@@ -95,7 +95,7 @@ const Projects = () => {
           {isLoading ? (
             <div className="flex items-center justify-center py-20">
               <div className="text-center">
-                <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                 <p className="text-gray-600">جاري تحميل المشاريع...</p>
               </div>
             </div>
@@ -108,7 +108,7 @@ const Projects = () => {
               <p className="text-lg text-gray-600 mb-8">{error}</p>
               <button 
                 onClick={() => window.location.reload()}
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
               >
                 إعادة المحاولة
               </button>
@@ -135,7 +135,7 @@ const Projects = () => {
                   </div>
                   
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-700 transition-colors">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">
                       {project.title}
                     </h3>
                     
@@ -151,7 +151,7 @@ const Projects = () => {
                     <div className="grid grid-cols-2 gap-4 mb-6">
                       <div className="bg-gray-50 p-3 rounded-lg">
                         <div className="flex items-center space-x-2 space-x-reverse mb-1">
-                          <Calendar size={14} className="text-blue-600" />
+                          <Calendar size={14} className="text-primary" />
                           <span className="text-xs font-medium text-gray-700">تاريخ البدء</span>
                         </div>
                         <p className="text-sm font-semibold text-gray-800" dir="ltr">
@@ -161,14 +161,14 @@ const Projects = () => {
                       
                       <div className="bg-gray-50 p-3 rounded-lg">
                         <div className="flex items-center space-x-2 space-x-reverse mb-1">
-                          <Users size={14} className="text-blue-600" />
+                          <Users size={14} className="text-primary" />
                           <span className="text-xs font-medium text-gray-700">المستفيدون</span>
                         </div>
                         <p className="text-sm font-semibold text-gray-800" dir="ltr">{project.beneficiaries?.toLocaleString()}</p>
                       </div>
                     </div>
                     
-                    <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2 space-x-reverse group">
+                    <button className="w-full bg-primary text-primary-foreground px-4 py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors flex items-center justify-center space-x-2 space-x-reverse group">
                       <span>تفاصيل المشروع</span>
                       <Building size={16} className="group-hover:translate-x-1 transition-transform" />
                     </button>
@@ -188,7 +188,7 @@ const Projects = () => {
               </p>
               <button 
                 onClick={() => window.location.reload()}
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
               >
                 {t('common:buttons.refresh')}
               </button>

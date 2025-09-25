@@ -36,31 +36,31 @@ const ContactSection = () => {
       icon: MapPin,
       title: 'العنوان',
       details: ['أبوسليم - طرابلس'],
-      color: 'bg-blue-600'
+      color: 'bg-primary'
     },
     {
       icon: Phone,
       title: 'الهاتف',
       details: ['021-4896816'],
-      color: 'bg-blue-600'
+      color: 'bg-primary'
     },
     {
       icon: Mail,
       title: 'البريد الإلكتروني',
       details: ['info@upa.gov.ly'],
-      color: 'bg-blue-600'
+      color: 'bg-primary'
     },
     {
       icon: Globe,
       title: 'الموقع الإلكتروني',
       details: ['upa.gov.ly'],
-      color: 'bg-blue-600'
+      color: 'bg-primary'
     },
     {
       icon: Clock,
       title: 'ساعات العمل',
       details: ['الأحد إلى الخميس', 'من 8 صباحًا إلى 2 ظهرًا'],
-      color: 'bg-blue-600'
+      color: 'bg-primary'
     }
   ];
 
@@ -73,9 +73,9 @@ const ContactSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center space-x-2 space-x-reverse bg-blue-50 rounded-full px-6 py-2 mb-6 ring-1 ring-blue-200">
-            <Building className="w-5 h-5 text-blue-600" />
-            <span className="text-blue-700 font-medium">تواصل معنا</span>
+          <div className="inline-flex items-center space-x-2 space-x-reverse bg-primary/10 rounded-full px-6 py-2 mb-6 ring-1 ring-primary/20">
+            <Building className="w-5 h-5 text-primary" />
+            <span className="text-primary font-medium">تواصل معنا</span>
           </div>
           <h3 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">اتصل بنا</h3>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -87,8 +87,8 @@ const ContactSection = () => {
           {/* Contact Form */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-10">
             <div className="flex items-center space-x-3 space-x-reverse mb-8">
-              <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center ring-1 ring-blue-200">
-                <Send className="w-6 h-6 text-blue-600" />
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center ring-1 ring-primary/20">
+                <Send className="w-6 h-6 text-primary" />
               </div>
               <h4 className="text-2xl font-bold text-gray-900">أرسل لنا رسالة</h4>
             </div>
@@ -105,7 +105,7 @@ const ContactSection = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white"
+                  className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-white"
                   placeholder="أدخل اسمك الكامل"
                 />
               </div>
@@ -121,7 +121,7 @@ const ContactSection = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white"
+                  className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-white"
                   placeholder="أدخل بريدك الإلكتروني"
                 />
               </div>
@@ -137,14 +137,14 @@ const ContactSection = () => {
                   onChange={handleChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 resize-none bg-white"
+                  className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 resize-none bg-white"
                   placeholder="اكتب رسالتك هنا..."
                 />
               </div>
               
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white px-6 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-all duration-300 flex items-center justify-center space-x-3 space-x-reverse group shadow-lg hover:shadow-xl"
+                className="w-full bg-primary text-primary-foreground px-6 py-4 rounded-xl font-bold text-lg hover:bg-primary/90 transition-all duration-300 flex items-center justify-center space-x-3 space-x-reverse group shadow-lg hover:shadow-xl"
               >
                 <Send size={20} className="group-hover:translate-x-1 transition-transform" />
                 <span>إرسال الرسالة</span>
@@ -172,21 +172,21 @@ const ContactSection = () => {
                       const isWebsite = info.title.includes('الموقع');
                       if (isPhone) {
                         return (
-                          <a key={idx} href={`tel:0214896816`} dir="ltr" className="text-blue-600 hover:text-blue-700 mb-2 inline-block">
+                          <a key={idx} href={`tel:0214896816`} dir="ltr" className="text-primary hover:text-primary/80 mb-2 inline-block">
                             {detail}
                           </a>
                         );
                       }
                       if (isEmail) {
                         return (
-                          <a key={idx} href={`mailto:info@upa.gov.ly`} dir="ltr" className="text-blue-600 hover:text-blue-700 mb-2 inline-block">
+                          <a key={idx} href={`mailto:info@upa.gov.ly`} dir="ltr" className="text-primary hover:text-primary/80 mb-2 inline-block">
                             {detail}
                           </a>
                         );
                       }
                       if (isWebsite) {
                         return (
-                          <a key={idx} href="https://upa.gov.ly" target="_blank" rel="noreferrer" dir="ltr" className="text-blue-600 hover:text-blue-700 mb-2 inline-block">
+                          <a key={idx} href="https://upa.gov.ly" target="_blank" rel="noreferrer" dir="ltr" className="text-primary hover:text-primary/80 mb-2 inline-block">
                             {detail}
                           </a>
                         );

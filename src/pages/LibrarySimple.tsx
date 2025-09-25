@@ -316,7 +316,7 @@ const LibrarySimple = () => {
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleRequestDocument(document)}
-                      className="flex-1 bg-blue-600 text-white px-4 py-2.5 rounded-md hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 font-medium"
+                      className="flex-1 bg-primary text-primary-foreground px-4 py-2.5 rounded-md hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 font-medium"
                     >
                       <Download className="w-4 h-4" />
                       طلب الوثيقة

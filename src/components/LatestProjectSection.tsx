@@ -27,9 +27,9 @@ const LatestProjectSection = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <div className={`inline-flex items-center ${isRTL ? 'space-x-2 space-x-reverse' : 'space-x-2'} bg-blue-100 rounded-full px-6 py-2 mb-6`}>
-              <Building className="w-5 h-5 text-blue-600" />
-              <span className="text-blue-700 font-medium" dir={isRTL ? 'rtl' : 'ltr'}>{t('latest_project.title')}</span>
+            <div className={`inline-flex items-center ${isRTL ? 'space-x-2 space-x-reverse' : 'space-x-2'} bg-primary/10 rounded-full px-6 py-2 mb-6`}>
+              <Building className="w-5 h-5 text-primary" />
+              <span className="text-primary font-medium" dir={isRTL ? 'rtl' : 'ltr'}>{t('latest_project.title')}</span>
             </div>
           </motion.div>
 
@@ -76,8 +76,8 @@ const LatestProjectSection = () => {
                 {/* Project Details */}
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'}`}>
-                    <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <MapPin size={18} className="text-blue-600" />
+                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <MapPin size={18} className="text-primary" />
                     </div>
                     <div>
                       <p className="text-sm text-gray-500 font-medium" dir={isRTL ? 'rtl' : 'ltr'}>
@@ -90,8 +90,8 @@ const LatestProjectSection = () => {
                   </div>
 
                   <div className={`flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'}`}>
-                    <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Calendar size={18} className="text-blue-600" />
+                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Calendar size={18} className="text-primary" />
                     </div>
                     <div>
                       <p className="text-sm text-gray-500 font-medium" dir={isRTL ? 'rtl' : 'ltr'}>
@@ -105,7 +105,7 @@ const LatestProjectSection = () => {
                 </div>
 
                 {/* CTA Button */}
-                <button className={`group bg-blue-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-700 transition-all duration-300 hover:transform hover:scale-105 shadow-lg flex items-center btn-micro ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'}`}>
+                <button className={`group bg-primary text-primary-foreground px-8 py-4 rounded-full font-bold text-lg hover:bg-primary/90 transition-all duration-300 hover:transform hover:scale-105 shadow-lg flex items-center btn-micro ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'}`}>
                   <span>{t('latest_project.cta_button')}</span>
                   <ArrowRight size={20} className={`group-hover:translate-x-1 transition-transform icon-bounce ${isRTL ? 'rotate-180' : ''}`} />
                 </button>

@@ -32,7 +32,7 @@ const Hero = () => {
         <div className="max-w-5xl mx-auto">
 
           <h2 className="text-5xl md:text-7xl font-bold mb-10 leading-tight animate-fade-in-up" dir={isRTL ? 'rtl' : 'ltr'}>
-            <span className="mb-2 block text-blue-700">{t('hero.title_part1')}</span>
+            <span className="mb-2 block text-primary">{t('hero.title_part1')}</span>
             <span className="bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 bg-clip-text text-transparent">
               {t('hero.title_part2')}
             </span>
@@ -40,11 +40,11 @@ const Hero = () => {
           
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-            <button className={`group bg-blue-600 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-blue-700 transition-all duration-300 hover:transform hover:scale-105 shadow-md flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'}`}>
+            <button className={`group bg-primary text-primary-foreground px-10 py-4 rounded-full font-bold text-lg hover:bg-primary/90 transition-all duration-300 hover:transform hover:scale-105 shadow-md flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'}`}>
               <Building className="w-5 h-5 group-hover:scale-110 transition-transform" />
               <span>{t('hero.cta_services')}</span>
             </button>
-            <button className={`group border-2 border-blue-600 text-blue-700 px-10 py-4 rounded-full font-bold text-lg hover:bg-blue-50 transition-all duration-300 flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'}`}>
+            <button className={`group border-2 border-primary text-primary px-10 py-4 rounded-full font-bold text-lg hover:bg-primary/10 transition-all duration-300 flex items-center ${isRTL ? 'space-x-3 space-x-reverse' : 'space-x-3'}`}>
               <Map className="w-5 h-5 group-hover:scale-110 transition-transform" />
               <span>{t('hero.cta_projects')}</span>
             </button>
